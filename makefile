@@ -4,7 +4,7 @@ export TEXINPUTS:=.//:
 
 
 all:
-	$(MAKE) {html,pdf,script,md}
+	time $(MAKE) {html,pdf,script,md}
 
 html:
 	jupyter nbconvert --to html $(NAME).ipynb
