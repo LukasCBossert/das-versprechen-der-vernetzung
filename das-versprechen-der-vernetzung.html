@@ -14259,8 +14259,19 @@ a.anchor-link {
 
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Netzwerkvisualisierung">Netzwerkvisualisierung<a class="anchor-link" href="#Netzwerkvisualisierung">&#182;</a></h1><p>Im folgenden wird ein Netzwerk der NFDI-Konsortien erstellt, welche sich für die zweite Antragsrunde 2020 beworben haben.
-Die Datengrundlage bilden die Letter of Intents, in denen die antragsstellende Konsortien ihre Kooperationskonsortien nennen.</p>
+<h1 id="Netzwerkvisualisierung">Netzwerkvisualisierung<a class="anchor-link" href="#Netzwerkvisualisierung">&#182;</a></h1><p>In diesem JupyterNotebook zeigen wir euch, wie man ein Netzwerk visualisiert und analysiert. Wir machen dies am Beispiel der Konsortien, die sich bei der Nationalen Forschungsdateninfrastrukturinitiative (NFDI) beteiligen bzw. beworben haben.</p>
+<p>Als Datengrundlage nehmen wir die <em>Letter of Intent</em> der jeweiligen Konsortien, in denen Kooperationspartner genannt werden. Diese Nennungen sind Ausgangspunkt unseres Netzwerkes.<sup class="footnote-ref" id="fnref-1"><a href="#fn-1">1</a></sup></p>
+<p>Die Visualisierung machen wir in einem JupyterNotebook bzw. RNoteBook<sup class="footnote-ref" id="fnref-2"><a href="#fn-2">2</a></sup>, sodass keine lokale Installation von R notwendig ist. 
+JupyterNotebooks sind so aufgebaut, dass man verschiedene Zellen hat, in die man Code schreibt (in unserem Fall <code>R</code>-Code).
+Um die Zelle mit dem Code auszuführen, können wir im Menü auf "<em>Cell</em>" und "<em>Run Cells</em>" klicken.
+Oder mit dem Cursor in die Zelle klicken und anschließend gleichzeitig <em>SHIFT</em>" und "<em>ENTER</em>" drücken.
+Ihr seht dann das Ergebnis des Codes direkt unter der Zelle angezeigt.</p>
+<div class="footnotes">
+<hr>
+<ol><li id="fn-1"><p>Siehe dazu auch das Repositorium von Dorothea Strecker (<a href="https://github.com/dorothearrr/NFDI_Netzwerk">https://github.com/dorothearrr/NFDI_Netzwerk</a>), in dem sie bereits eine ähnliche Visualisierung und Analyse vorgenommen hat.<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p><a href="https://rnotebook.io">https://rnotebook.io</a><a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+</ol>
+</div>
 
 </div>
 </div>
@@ -14269,33 +14280,34 @@ Die Datengrundlage bilden die Letter of Intents, in denen die antragsstellende K
 <p>Bevor wir loslegen, möchten wir noch ein paar Begriffe klären.
 Ein Netzwerk besteht aus drei Komponenten:</p>
 <ul>
-<li>Kanten</li>
-<li>Knoten</li>
-<li>Kreuzungen</li>
+<li>Knoten (Kreis)</li>
+<li>Kanten (Balken)</li>
+<li>Kreuzungen (Schnittpunkte)</li>
 </ul>
-<p>Knoten (<em>nodes</em> oder <em>vertices</em>) repräsentieren Konsortien, Kanten (<em>edges</em>) zeigen eine Verbindung zwischen zwei Knoten an. 
-Kreuzungen (<em>crossing</em>) sind Schnittpunkte zweier Kanten.</p>
-<p><img src="img/Einheitskreis_Gestalt.png" alt="Einheitskreis"></p>
+<p>Knoten (<em>nodes</em> oder <em>vertices</em>) werden als Kreise dargestellt und repräsentieren Konsortien. Kanten (<em>edges</em>) werden als mehr oder minder gebogene Balken dargestellt und gehen von den Knoten aus. Sie zeigen eine Verbindung zwischen zwei Knoten an. Kreuzungen (<em>crossings</em>) sind Schnittpunkte zweier oder mehrerer Kanten.</p>
+<p><img src="img/Einheitskreis_Gestalt.png" alt="Komponenten eines Netzwerks. Erstellt von ÉD."></p>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>R ist so aufgebaut, dass verschiedene Bibliotheken für unterschiedliche Funktionen geladen werden müssen.
-Für die Netzwerkanalyse werden wir auf das Paket <code>igraph</code> zurückgreifen.
+Für die Netzwerkanalyse werden wir auf das Paket <code>igraph</code><sup class="footnote-ref" id="fnref-2"><a href="#fn-2">1</a></sup> zurückgreifen.
 Mit <code>library('igraph')</code> können wir das Paket laden.</p>
-<p>Um die Zelle mit dem Code auszuführen können wir im Menü auf "<em>Cell</em>" und "<em>Run Cells</em>" klicken.
-Oder mit dem Cursor in die Zelle klicken und gleichzeitig "<em>SHIFT</em>" und "<em>ENTER</em>" drücken.</p>
+<div class="footnotes">
+<hr>
+<ol><li id="fn-2"><p><a href="https://igraph.org/r/">https://igraph.org/r/</a><a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+</ol>
+</div>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="c1"># Loading Package</span>
-<span class="nf">library</span><span class="p">(</span><span class="s">&#39;igraph&#39;</span><span class="p">)</span> <span class="c1"># Further information and its documentation at https://igraph.org/r/</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="s">&#39;igraph&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14303,43 +14315,11 @@ Oder mit dem Cursor in die Zelle klicken und gleichzeitig "<em>SHIFT</em>" und "
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>
-Attaching package: ‘igraph’
-
-The following objects are masked from ‘package:stats’:
-
-    decompose, spectrum
-
-The following object is masked from ‘package:base’:
-
-    union
-
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Die Datengrundlage steht bereits in Form einer Auflistung zur Verfügung.
-Unter <a href="https://gist.github.com/LukasCBossert/27fafa33e9b16c33e1107914e928c472">https://gist.github.com/LukasCBossert/27fafa33e9b16c33e1107914e928c472</a> können wir 
-die Daten kopieren und in die nächste Zelle einfügen.</p>
+<p>Die Datengrundlage steht bereits in Form einer Auflistung zur Verfügung,<sup class="footnote-ref" id="fnref-1b"><a href="#fn-1b">1</a></sup>, sodass wir 
+die Daten kopieren und in die nächste Zelle einfügen können.</p>
 <p>Fangen wir bei der Funktion <code>read.table</code> an.
 Wir geben an, dass es sich um einen Datensatz handelt, bei dem es</p>
 <ul>
@@ -14349,26 +14329,20 @@ Wir geben an, dass es sich um einen Datensatz handelt, bei dem es</p>
 <code>text=""</code> stehen.</li>
 </ul>
 <p>Diese Werte übergeben wir der selbstgewählten Variable <code>NFDI_edges</code> , was mit dem nach links weisenden Pfeilsymbol erfolgt.</p>
-<p>Damit wir aus diesem Datensatz ein Netzwerk erstellen können,
-müssen wir es aufbereiten und ein <code>igraph graph</code> erstellen.<a href="https://igraph.org/r/doc/graph_from_data_frame.html">1</a>
-Das geschieht mit der Funktion <code>graph_from_data_frame</code>, der wir unseren Datensatz übergeben.</p>
-<p>Zudem geben wir an, dass unser Datensatz bzw. das Netzwerk ungerichtet ist 
-(<code>directed=FALSE</code>), das heißt, dass die Richtung, wie sie bei <code>from,to</code> im Datensatz
-angegeben ist, egal ist.
-Es geht uns jetzt nur darum, dass zwei Konsortien verknüpft sind.</p>
+<div class="footnotes">
+<hr>
+<ol><li id="fn-1b"><p><a href="https://gist.github.com/LukasCBossert/27fafa33e9b16c33e1107914e928c472">https://gist.github.com/LukasCBossert/27fafa33e9b16c33e1107914e928c472</a><a href="#fnref-1b" class="footnote">&#8617;</a></p></li>
+</ol>
+</div>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="c1"># Loading Data (Letter of Intention)</span>
-<span class="c1"># This Code-Snippet is also on GitHub-Gist:</span>
-<span class="c1"># https://gist.github.com/LukasCBossert/27fafa33e9b16c33e1107914e928c472</span>
-
-<span class="n">NFDI_edges</span> <span class="o">&lt;-</span> <span class="nf">read.table</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">NFDI_edges</span> <span class="o">&lt;-</span> <span class="nf">read.table</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span>
                          <span class="n">sep</span><span class="o">=</span><span class="s">&quot;,&quot;</span><span class="p">,</span>
                          <span class="n">text</span><span class="o">=</span><span class="s">&quot;</span>
 <span class="s">from,to</span>
@@ -14498,10 +14472,38 @@ Es geht uns jetzt nur darum, dass zwei Konsortien verknüpft sind.</p>
 <span class="s">Text+,NFDI4Memory</span>
 <span class="s">Text+,NFDI4Objects</span>
 <span class="s">&quot;</span><span class="p">)</span>
+</pre></div>
 
-<span class="c1"># Making Data accessible</span>
-<span class="n">NFDI_network</span> <span class="o">&lt;-</span> <span class="nf">graph_from_data_frame</span><span class="p">(</span><span class="n">NFDI_edges</span><span class="p">,</span>
-                                      <span class="n">directed</span><span class="o">=</span><span class="kc">FALSE</span> <span class="c1"># Direction between nodes is omitted</span>
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Damit wir aus diesem Datensatz ein Netzwerk erstellen können,
+müssen wir es aufbereiten und ein <code>igraph graph</code> erstellen.<sup class="footnote-ref" id="fnref-3"><a href="#fn-3">1</a></sup>
+Das geschieht mit der Funktion <code>graph_from_data_frame</code>, der wir unseren Datensatz übergeben.</p>
+<p>Zudem geben wir an, dass unser Datensatz bzw. das Netzwerk ungerichtet ist 
+(<code>directed=FALSE</code>), das heißt, dass die Richtung, wie sie bei <code>from,to</code> im Datensatz
+angegeben ist, egal ist.
+Es geht uns jetzt nur darum, dass zwei Konsortien verknüpft sind.</p>
+<div class="footnotes">
+<hr>
+<ol><li id="fn-3"><p><a href="https://igraph.org/r/doc/graph_from_data_frame.html">https://igraph.org/r/doc/graph_from_data_frame.html</a><a href="#fnref-3" class="footnote">&#8617;</a></p></li>
+</ol>
+</div>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="n">NFDI_network</span> <span class="o">&lt;-</span> <span class="nf">graph_from_data_frame</span><span class="p">(</span><span class="n">NFDI_edges</span><span class="p">,</span>
+                                      <span class="n">directed</span><span class="o">=</span><span class="kc">FALSE</span>
                                      <span class="p">)</span>
 </pre></div>
 
@@ -14518,8 +14520,8 @@ Es geht uns jetzt nur darum, dass zwei Konsortien verknüpft sind.</p>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Zunächst werden wir einen Parameter festlegen, damit unser Netzwerk bei gleicher Datengrundlage immer gleich aussieht. Dieser Parameter ist <code>seed</code>[2].
-Wir wählen eine beliebige Zahl, die nicht zu kurz ist.</p>
+<p>Zunächst werden wir einen Parameter festlegen, damit unser Netzwerk bei gleicher Datengrundlage immer gleich aussieht. Dieser Parameter ist <code>seed</code>.
+Wir wählen eine beliebige Zahl, die nicht allzu klein ist.</p>
 <p>Anschließend kommen wir zum eigentlichen Plot.
 Dafür rufen wir die Funktion <code>plot</code> auf und übergeben ihr die Variable unseres Netzwerkgraphen <code>NFDI_network</code>.
 Für einen Titel können wir noch den Parameter <code>main</code> bestimmen und ebenso können wir angeben, ob wir mit <code>frame=TRUE</code> einen Rahmen um das Netzwerk haben wollen.</p>
@@ -14528,15 +14530,11 @@ Für einen Titel können wir noch den Parameter <code>main</code> bestimmen und 
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="c1">#02 First Plot</span>
-<span class="c1"># We first show the network with default values</span>
-<span class="c1"># Making Plots more constant</span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
 
-<span class="c1"># Plotting data</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">NFDI_network</span><span class="p">,</span>                    <span class="c1"># loading data frame</span>
      <span class="n">main</span>  <span class="o">=</span> <span class="s">&quot;NFDI-Netzwerk&quot;</span><span class="p">,</span>         <span class="c1"># adding a title</span>
      <span class="n">frame</span> <span class="o">=</span> <span class="kc">TRUE</span>                     <span class="c1"># FALSE -&gt; making a frame </span>
@@ -17786,31 +17784,31 @@ gCD+A2xQt6LeFiWJAAAAAElFTkSuQmCC"
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Layout-Einstellungen-(graphopt)">Layout-Einstellungen (graphopt)<a class="anchor-link" href="#Layout-Einstellungen-(graphopt)">&#182;</a></h2><p>Als nächsten Schritt möchten wir das Layout des Netzwerks optimieren.
+<h2 id="Layout-Einstellungen">Layout-Einstellungen<a class="anchor-link" href="#Layout-Einstellungen">&#182;</a></h2><p>Als nächsten Schritt möchten wir das Layout des Netzwerks optimieren.
 Anstatt den Code für den Plot nochmals abzutippen, werden wir den Inhalt der letzten Zelle markieren, kopieren und in die nächste Zelle einfügen.</p>
 <p>Wir erweitern auf diese Weise den Code und arbeiten Schritt für Schritt am Netzwerk.</p>
 <p>Für das Layout von Netzwerken gibt es verschiedene Algorithmen.
 Je nach Datensatz kann mal das eine, mal ein anderes besser geeignet sein.
-Meiner Meinung nach erzielen wir ein gutes Ergebnis mit dem Layout <code>graphopt</code><a href="https://igraph.org/r/doc/layout_with_graphopt.html">3</a>.</p>
+Meiner Meinung nach erzielen wir ein gutes Ergebnis mit dem Layout <code>graphopt</code><sup class="footnote-ref" id="fnref-4"><a href="#fn-4">1</a></sup>.</p>
 <p>Dieses Layout übergeben wir dem Parameter <code>layout</code> mit dem Wert <code>layout.graphopt</code>.</p>
+<div class="footnotes">
+<hr>
+<ol><li id="fn-4"><p><a href="https://igraph.org/r/doc/layout_with_graphopt.html">https://igraph.org/r/doc/layout_with_graphopt.html</a><a href="#fnref-4" class="footnote">&#8617;</a></p></li>
+</ol>
+</div>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="c1">#02b First Plot</span>
-<span class="c1"># We first show the network with default values</span>
-<span class="c1"># Making Plots more constant</span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
 
-<span class="c1"># Plotting data</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">NFDI_network</span><span class="p">,</span>                     <span class="c1"># loading data frame</span>
      <span class="n">main</span>   <span class="o">=</span> <span class="s">&quot;NFDI-Netzwerk&quot;</span><span class="p">,</span>         <span class="c1"># adding a title</span>
      <span class="n">frame</span>  <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>                    <span class="c1"># FALSE -&gt; making a frame</span>
-     <span class="c1">###################################</span>
      <span class="n">layout</span> <span class="o">=</span> <span class="n">layout.graphopt</span><span class="p">,</span>         <span class="c1">#* better layout options</span>
      <span class="p">)</span>
 </pre></div>
@@ -21420,7 +21418,7 @@ EHYAAEEIOwCAIIQdAEAQwg4AIAhhBwAQhLADAAhC2AEABCHsAACCEHYAAEEIOwCAIIQdAEAQ
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Das Netzwerk ist jetzt schon besser strukturiert und die Abstände der Knoten ist harmonischer.</p>
-<p>Wer möchte, der kann mal verschiedene Layouts ausprobieren:</p>
+<p>Wer möchte, der kann weitere Layout-Einstellungen ausprobieren:</p>
 <ul>
 <li><code>layout.auto</code>: Choose an appropriate graph layout algorithm automatically</li>
 <li><code>layout.davidson.harel</code>: The Davidson-Harel layout algorithm</li>
@@ -21442,7 +21440,7 @@ EHYAAEEIOwCAIIQdAEAQwg4AIAhhBwAQhLADAAhC2AEABCHsAACCEHYAAEEIOwCAIIQdAEAQ
 <h2 id="Farbe,-Gr&#246;&#223;e,-Kurve-(Knoten-und-Kanten)">Farbe, Gr&#246;&#223;e, Kurve (Knoten und Kanten)<a class="anchor-link" href="#Farbe,-Gr&#246;&#223;e,-Kurve-(Knoten-und-Kanten)">&#182;</a></h2><p>Nachdem wir die Anordnung der Knoten optimiert haben, wollen wir im nächsten Schritt die Darstellung der Knoten und Kanten selbst angehen.</p>
 <p>Es lassen sich verschiedene Werte nach eigenen Wünschen anpassen.</p>
 <p>Zunächst möchten wir die Farbe der Knoten angehen.
-Der Parameter lautet <code>vertex.color</code> und wir können einen HTML-Farbwert angeben (bspw. <code>#ffcc66</code>).<a href="https://www.w3schools.com/colors/colors_picker.asp">4</a>
+Der Parameter lautet <code>vertex.color</code> und wir können einen HTML-Farbwert angeben (bspw. <code>#ffcc66</code>).<sup class="footnote-ref" id="fnref-5"><a href="#fn-5">1</a></sup>
 Für die Umrandung der Knoten wählen wir den gleichen Farbcode. Der Parameter lautet <code>vertex.frame.color</code>.</p>
 <p>Die Beschriftung der Knoten lässt sich ebenfalls modifizieren. 
 Die Änderung der Schriftgröße erfolgt über den Parameter <code>vertex.label.cex</code>, an den wir den Wert <code>0.5</code> übergeben.
@@ -21453,28 +21451,26 @@ Ganz analog heißt der Parameter <code>vertex.label.color</code>, an den wir den
 <p>Ein Netzwerk besteht neben den Knoten auch aus Kanten, die Verbindungslinien, die wir ebenfalls modifizieren können.
 Für die Farbänderung brauchen wir den Parameter <code>edge.color</code>, an den wir bspw. <code>"#808080"</code> übergeben.
 Neben der Farbe können wir auch den Grad der "Kurvigkeit" bestimmen, die mit <code>edge.curved</code> und dem Wert <code>0.1</code> eingestellt wird. Wichtig ist auch hier wieder, dass <em>keine</em> Anführungszeichen gesetzt werden.</p>
+<div class="footnotes">
+<hr>
+<ol><li id="fn-5"><p><a href="https://www.w3schools.com/colors/colors_picker.asp">https://www.w3schools.com/colors/colors_picker.asp</a><a href="#fnref-5" class="footnote">&#8617;</a></p></li>
+</ol>
+</div>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="c1">#03 Modifying Plot Layout</span>
-<span class="c1"># With small changes in the plot layout we can modify and adjust</span>
-<span class="c1"># the outcome of the networks design.</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
 
-<span class="c1"># Making Plots more constant</span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
 
-<span class="c1"># Plotting data</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">NFDI_network</span><span class="p">,</span>                     <span class="c1"># loading data frame</span>
      <span class="n">main</span>   <span class="o">=</span> <span class="s">&quot;NFDI-Netzwerk&quot;</span><span class="p">,</span>         <span class="c1"># adding a title</span>
      <span class="n">frame</span>  <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>                    <span class="c1"># FALSE -&gt; making a frame </span>
      <span class="n">layout</span> <span class="o">=</span> <span class="n">layout.graphopt</span><span class="p">,</span>         <span class="c1"># better layout options</span>
-     <span class="c1">##########################################################</span>
-                                       <span class="c1">#* color: https://www.w3schools.com/colors/colors_picker.asp </span>
      <span class="n">vertex.color</span>       <span class="o">=</span> <span class="s">&quot;#ffcc66&quot;</span><span class="p">,</span>   <span class="c1">#* color of nodes</span>
      <span class="n">vertex.frame.color</span> <span class="o">=</span> <span class="s">&quot;#ffcc66&quot;</span><span class="p">,</span>   <span class="c1">#* color of the frame of nodes</span>
      <span class="n">vertex.label.cex</span>   <span class="o">=</span> <span class="m">0.5</span><span class="p">,</span>         <span class="c1">#* size of the description of the labels</span>
@@ -24458,30 +24454,30 @@ SUVORK5CYII="
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Knotengr&#246;&#223;e-in-Abh&#228;ngigkeit-der-Kanten">Knotengr&#246;&#223;e in Abh&#228;ngigkeit der Kanten<a class="anchor-link" href="#Knotengr&#246;&#223;e-in-Abh&#228;ngigkeit-der-Kanten">&#182;</a></h2><p>In den bisherigen Netzwerkdarstellungen sind alle Knoten gleich groß.</p>
 <p>Jetzt möchten wir eine weitere Informationsebene einbauen und die Knotengröße entsprechend der Anzahl ihrer Kanten ausgeben.</p>
-<p>Die Anzahl der Kanten pro Knoten können wir mit der Funktion <code>degree</code><a href="https://igraph.org/r/doc/degree.html">1</a> ermitteln.
+<p>Die Anzahl der Kanten pro Knoten können wir mit der Funktion <code>degree</code><sup class="footnote-ref" id="fnref-6"><a href="#fn-6">1</a></sup> ermitteln.
 Wenn wir dieser Funktion den Datensatz des Netzwerkes übergeben (<code>degree(NFDI_network)</code>),
 dann erhalten wir die Anzahl der Kanten pro Knoten.
 Diese Werte nehmen wir als Größeangabe für die Kanten.</p>
 <p>Wir erweitern somit den bisherigen Code um eine Zeile.
 Die Knotengröße verbirgt sich hinter dem Parameter <code>vertex.size</code> und als Wert übergeben wir die Funktion 
 <code>degree(NFDI_network)</code>.</p>
+<div class="footnotes">
+<hr>
+<ol><li id="fn-6"><p><a href="https://igraph.org/r/doc/degree.html">https://igraph.org/r/doc/degree.html</a><a href="#fnref-6" class="footnote">&#8617;</a></p></li>
+</ol>
+</div>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="c1">#04 Size of nodes</span>
-<span class="c1"># Size of nodes depends on amount of edges</span>
-
-<span class="c1"># Making Plots more constant</span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
 
 <span class="nf">degree</span><span class="p">(</span><span class="n">NFDI_network</span><span class="p">)</span>                   <span class="c1">#* calculate number of edges</span>
 
-<span class="c1"># Plotting data</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">NFDI_network</span><span class="p">,</span>                     <span class="c1"># loading data frame</span>
      <span class="n">main</span>   <span class="o">=</span> <span class="s">&quot;NFDI-Netzwerk&quot;</span><span class="p">,</span>         <span class="c1"># adding a title</span>
      <span class="n">frame</span>  <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>                    <span class="c1"># FALSE -&gt; making a frame </span>
@@ -24493,7 +24489,6 @@ Die Knotengröße verbirgt sich hinter dem Parameter <code>vertex.size</code> un
                                        <span class="c1"># color: https://www.w3schools.com/colors/colors_picker.asp </span>
      <span class="n">edge.color</span>         <span class="o">=</span> <span class="s">&quot;#808080&quot;</span><span class="p">,</span>   <span class="c1"># color of edges</span>
      <span class="n">edge.curved</span>        <span class="o">=</span> <span class="m">0.1</span><span class="p">,</span>         <span class="c1"># factor of &quot;curvity&quot;</span>
-     <span class="c1">##########################################################</span>
      <span class="n">vertex.size</span>        <span class="o">=</span> <span class="nf">degree</span><span class="p">(</span><span class="n">NFDI_network</span><span class="p">),</span> <span class="c1">#* size of nodes depends on amount of edges</span>
      <span class="p">)</span>
 </pre></div>
@@ -27593,13 +27588,38 @@ YII="
 <p>Im nächsten Schritt möchten wir eine weitere Komponente einführen. 
 Bislang war es unerheblich ob ein Konsortium im Datensatz an erster oder zweiter Stelle genannt wurde, das heißt, es war unerheblich ob der aktive oder der passive Kooperationspartner ist.</p>
 <p>Jetzt möchten wir die Unterscheidung im Netzwerk berücksichtigen. 
-Dafür muss unser Graph (Netzwerk) "gerichtet" werden<a href="https://de.wikipedia.org/wiki/Gerichteter_Graph">1</a>.</p>
+Dafür muss unser Graph (Netzwerk) "gerichtet" werden<sup class="footnote-ref" id="fnref-7"><a href="#fn-7">1</a></sup>.</p>
 <p>Wir führen eine neue Variable (<code>NFDI_network_directed</code>) ein, die den Datensatz als gerichteten Graph enthält, 
 was wir mit <code>directed = TRUE</code> einstellen.</p>
+<div class="footnotes">
+<hr>
+<ol><li id="fn-7"><p><a href="https://de.wikipedia.org/wiki/Gerichteter_Graph">https://de.wikipedia.org/wiki/Gerichteter_Graph</a><a href="#fnref-7" class="footnote">&#8617;</a></p></li>
+</ol>
+</div>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="n">NFDI_network_directed</span> <span class="o">&lt;-</span> <span class="nf">graph_from_data_frame</span><span class="p">(</span><span class="n">NFDI_edges</span><span class="p">,</span>
+                                          <span class="n">directed</span> <span class="o">=</span> <span class="kc">TRUE</span>
+                                         <span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Die restlichen Plotangaben übertragen wir aus der vorherigen Zelle.
 Entscheidend ist nun, dass wir der Plot-Funktion die neue Variable mit dem gerichteten Graphen übergeben.
 Zudem übergeben wir auch der Funktion <code>degree</code> die neue Variable.</p>
-<p>(Zelle ausführen)</p>
 <p>Im gerichteten Netzwerk erschwert die Kurvigkeit der Kanten die Lesbarkeit.
 Daher wäheln wir für <code>edge.curved</code> den Wert <code>0</code>.</p>
 <p>Ebenso sollen die Pfeilspitzen kleiner werden, was mit <code>edge.arrow.size</code> und dem relativen Wert <code>0.5</code> möglich ist.</p>
@@ -27608,22 +27628,11 @@ Daher wäheln wir für <code>edge.curved</code> den Wert <code>0</code>.</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="c1">#05 Direction of edges</span>
-<span class="c1"># Size of nodes depends on amount of edges</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
 
-<span class="c1">#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; Loading data which considers the direction of edges</span>
-<span class="n">NFDI_network_directed</span> <span class="o">&lt;-</span> <span class="nf">graph_from_data_frame</span><span class="p">(</span><span class="n">NFDI_edges</span><span class="p">,</span>
-                                          <span class="n">directed</span> <span class="o">=</span> <span class="kc">TRUE</span> <span class="c1"># Direction between nodes is important</span>
-                                         <span class="p">)</span>
-
-<span class="c1"># Making Plots more constant</span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
-
-
-<span class="c1"># Plotting data</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">NFDI_network_directed</span><span class="p">,</span>            <span class="c1">#&lt;&lt;&lt;&lt;&lt;&lt;&lt; loading data frame</span>
      <span class="n">main</span>   <span class="o">=</span> <span class="s">&quot;NFDI-Netzwerk&quot;</span><span class="p">,</span>         <span class="c1"># adding a title</span>
      <span class="n">frame</span>  <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>                    <span class="c1"># FALSE -&gt; making a frame </span>
@@ -27636,7 +27645,6 @@ Daher wäheln wir für <code>edge.curved</code> den Wert <code>0</code>.</p>
      <span class="n">edge.color</span>         <span class="o">=</span> <span class="s">&quot;#808080&quot;</span><span class="p">,</span>   <span class="c1"># color of edges</span>
      <span class="n">edge.curved</span>        <span class="o">=</span> <span class="m">0</span><span class="p">,</span>           <span class="c1">#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; factor of &quot;curvity&quot;</span>
      <span class="n">vertex.size</span>        <span class="o">=</span> <span class="nf">degree</span><span class="p">(</span><span class="n">NFDI_network_directed</span><span class="p">),</span> <span class="c1">#&lt;&lt;&lt;&lt;&lt;&lt; size of nodes depends on amount of edges</span>
-     <span class="c1">##########################################################</span>
      <span class="n">edge.arrow.size</span>    <span class="o">=</span> <span class="n">.</span><span class="m">5</span><span class="p">,</span>          <span class="c1">#* arrow size,  defaults to 1</span>
     <span class="p">)</span>
 </pre></div>
@@ -30651,13 +30659,17 @@ gCIIOwAAAEUQdgAAAIog7AAAABRB2AEAACiCsAMAAFAEYQcAAKAIwg4AAEAR/w/FRr3bJR+A
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Wunderbar, das Netzwerk nimmt Gestalt an.</p>
 <p>Im nächsten Schritt möchten wir die Knotengröße entsprechend der <em>ein</em>gehenden Kanten skalieren.
 Je öfter ein Konsortium als Kooperationspartner genannt wird, desto größer wird dessen Knoten.</p>
-<p>Wir können dafür die Funktion <code>degree</code> modifizieren, indem wir <code>mode = "in"</code> ergänzen<a href="https://igraph.org/r/doc/degree.html">1</a>.</p>
+<p>Wir können dafür die Funktion <code>degree</code> modifizieren, indem wir <code>mode = "in"</code> ergänzen<sup class="footnote-ref" id="fnref-8"><a href="#fn-8">1</a></sup>.</p>
 
 <pre><code>degree(NFDI_network_directed,
        mode = "in")</code></pre>
+<div class="footnotes">
+<hr>
+<ol><li id="fn-8"><p><a href="https://igraph.org/r/doc/degree.html">https://igraph.org/r/doc/degree.html</a><a href="#fnref-8" class="footnote">&#8617;</a></p></li>
+</ol>
+</div>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -30666,15 +30678,12 @@ Je öfter ein Konsortium als Kooperationspartner genannt wird, desto größer wi
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="c1">#06 Size of nodes depending on direction of edges (&quot;in&quot;)</span>
-
-<span class="c1"># Making Plots more constant</span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
 
 <span class="nf">degree</span><span class="p">(</span><span class="n">NFDI_network_directed</span><span class="p">,</span>
        <span class="n">mode</span> <span class="o">=</span> <span class="s">&quot;in&quot;</span><span class="p">)</span>
 
-<span class="c1"># Plotting data</span>
+
 <span class="nf">plot</span><span class="p">(</span><span class="n">NFDI_network_directed</span><span class="p">,</span>            <span class="c1"># loading data frame</span>
      <span class="n">main</span>   <span class="o">=</span> <span class="s">&quot;NFDI-Netzwerk (&lt;in&gt;)&quot;</span><span class="p">,</span>  <span class="c1">#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; adding a title</span>
      <span class="n">frame</span>  <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>                    <span class="c1"># FALSE -&gt; making a frame </span>
@@ -33949,21 +33958,14 @@ uK/AAAAAAElFTkSuQmCC"
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="c1">#07 Size of nodes depending on direction of edges (&quot;out&quot;)</span>
-
-
-<span class="c1"># Making Plots more constant</span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
 
 <span class="nf">degree</span><span class="p">(</span><span class="n">NFDI_network_directed</span><span class="p">,</span>
        <span class="n">mode</span> <span class="o">=</span> <span class="s">&quot;out&quot;</span><span class="p">)</span>
 
-
-
-<span class="c1"># Plotting data</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">NFDI_network_directed</span><span class="p">,</span>            <span class="c1"># loading data frame</span>
      <span class="n">main</span>   <span class="o">=</span> <span class="s">&quot;NFDI-Netzwerk (&lt;out&gt;)&quot;</span><span class="p">,</span>  <span class="c1">#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; adding a title</span>
      <span class="n">frame</span>  <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>                    <span class="c1"># FALSE -&gt; making a frame </span>
@@ -37224,27 +37226,17 @@ die wir weiter nutzen können.</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="c1">#07 Size of nodes depending on direction of edges (&quot;out&quot;)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
 
-
-<span class="c1"># Making Plots more constant</span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
-
-<span class="c1">#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; Filter / Deleting certain nodes/vertices from the network</span>
-<span class="c1"># all nodes which have no outgoing edges</span>
 <span class="n">NFDI_network_directed_filter</span> <span class="o">&lt;-</span> <span class="nf">delete_vertices</span><span class="p">(</span><span class="n">NFDI_network_directed</span><span class="p">,</span> 
             <span class="nf">V</span><span class="p">(</span><span class="n">NFDI_network_directed</span><span class="p">)[</span> <span class="nf">degree</span><span class="p">(</span><span class="n">NFDI_network_directed</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s">&quot;out&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="m">0</span> <span class="p">])</span>
 
-<span class="c1">#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; show the table of the filtered network</span>
 <span class="nf">degree</span><span class="p">(</span><span class="n">NFDI_network_directed_filter</span><span class="p">,</span>
        <span class="n">mode</span> <span class="o">=</span> <span class="s">&quot;total&quot;</span><span class="p">)</span>
 
-
-
-<span class="c1"># Plotting data</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">NFDI_network_directed_filter</span><span class="p">,</span>           <span class="c1">#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; loading data frame</span>
      <span class="n">main</span>   <span class="o">=</span> <span class="s">&quot;NFDI-Netzwerk (&lt;filtered&gt;)&quot;</span><span class="p">,</span>  <span class="c1">#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; adding a title</span>
      <span class="n">frame</span>  <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>                    <span class="c1"># FALSE -&gt; making a frame </span>
@@ -38957,27 +38949,26 @@ Für die Vorträge wurden fünf Panels aufgemacht:</p>
 <li>Chemie/Physik</li>
 </ol>
 <p>Die antragsstellenden Konsortien wurden auf diese fünf Gruppen eingeteilt.</p>
-<p>Der Unterschied der DFG-<em>Fach</em>systematik zur NFDI-<em>Konferenz</em>systematik ist in diesem Sankey-Plot verdeutlicht: <a href="http://lukascbossert.de/downloads/nfdi_sankey.html">http://lukascbossert.de/downloads/nfdi_sankey.html</a></p>
 <p>Auffällig ist, dass die Naturwissenschaften auf die Lebenswissenschaften, Ingenieurwissenschaften und Chemie/Physik aufgeteilt worden sind.</p>
 <p>Alle Konsortien sind also einem dieser fünf Bereiche zugeteilt und wir wollen das nun im Netzwerk zeigen.
-Diese Einteilung der Konsortien auf die Konferenzsystematik laden wir als fertigen Datensatz aus einem GitHub-Gist, was uns manche Tipparbeit sparen wird: <a href="https://gist.github.com/LukasCBossert/36d6034c8ebc2a4d61f011169371bc31">https://gist.github.com/LukasCBossert/36d6034c8ebc2a4d61f011169371bc31</a></p>
+Diese Einteilung der Konsortien auf die Konferenzsystematik laden wir als fertigen Datensatz aus einem GitHub-Gist, was uns manche Tipparbeit sparen wird.<sup class="footnote-ref" id="fnref-10"><a href="#fn-10">1</a></sup></p>
 <p>Dieser neue Datensatz wird der Variable <code>NFDI_nodes</code> übergeben; die erste Spalte beinhaltet die Konsortialnamen, die zweite Spalte die Nummer aus der NFDI-<em>Konferenz</em>systematik.</p>
-<p>Jetzt müssen wir aus dem Datensatz noch ein Graph-Datensatz erstellen, was wiederum mit <code>graph_from_data_frame</code> geschieht. Neu ist, dass wir nun differenzieren, was unser Kanten-Data-Frame ist und was die Liste mit den Knoten.</p>
+<div class="footnotes">
+<hr>
+<ol><li id="fn-10"><p><a href="https://gist.github.com/LukasCBossert/36d6034c8ebc2a4d61f011169371bc31">https://gist.github.com/LukasCBossert/36d6034c8ebc2a4d61f011169371bc31</a><a href="#fnref-10" class="footnote">&#8617;</a></p></li>
+</ol>
+</div>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="c1">#10 NFDI-consortia with group-number</span>
-<span class="c1"># group is the number according to NFDI-consortium classification</span>
-<span class="c1"># This Code-Snippet is also on GitHub-Gist:</span>
-<span class="c1"># https://gist.github.com/LukasCBossert/36d6034c8ebc2a4d61f011169371bc31</span>
-
-
-<span class="n">NFDI_nodes</span> <span class="o">&lt;-</span> <span class="nf">read.table</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">&quot;,&quot;</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s">&quot;</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">NFDI_nodes</span> <span class="o">&lt;-</span> <span class="nf">read.table</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span>
+                         <span class="n">sep</span><span class="o">=</span><span class="s">&quot;,&quot;</span><span class="p">,</span>
+                         <span class="n">text</span><span class="o">=</span><span class="s">&quot;</span>
 <span class="s">name,group</span>
 <span class="s">BERD@NFDI,3</span>
 <span class="s">DAPHNE4NFDI,5</span>
@@ -39006,11 +38997,26 @@ Diese Einteilung der Konsortien auf die Konferenzsystematik laden wir als fertig
 <span class="s">PUNCH4NFDI,5</span>
 <span class="s">Text+,3</span>
 <span class="s">&quot;</span><span class="p">)</span>
+</pre></div>
 
+     </div>
+</div>
+</div>
+</div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Jetzt müssen wir aus dem Datensatz noch ein Graph-Datensatz erstellen, was wiederum mit <code>graph_from_data_frame</code> geschieht. Neu ist, dass wir nun differenzieren, was unser Kanten-Data-Frame ist und was die Liste mit den Knoten.</p>
 
-<span class="c1"># Making Data accessible</span>
-<span class="n">NFDI_network_directed</span> <span class="o">&lt;-</span> <span class="nf">graph_from_data_frame</span><span class="p">(</span><span class="n">d</span> <span class="o">=</span> <span class="n">NFDI_edges</span><span class="p">,</span>        <span class="c1"># d = data frame =~ edges</span>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="n">NFDI_network_directed</span> <span class="o">&lt;-</span> <span class="nf">graph_from_data_frame</span><span class="p">(</span><span class="n">d</span> <span class="o">=</span> <span class="n">NFDI_edges</span><span class="p">,</span>        <span class="c1"># d = data frame =~ edges</span>
                                                <span class="n">vertices</span> <span class="o">=</span> <span class="n">NFDI_nodes</span><span class="p">,</span> <span class="c1">#nodes</span>
                                                <span class="n">directed</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>       <span class="c1">#directed</span>
 </pre></div>
@@ -39062,39 +39068,27 @@ Diese Einteilung der Konsortien auf die Konferenzsystematik laden wir als fertig
 </table>
 <p>Diese Farbwerte geben wir jetzt der Reihe nach an die Variable <code>NFDI_color_code</code> weiter,
 dabei werden die Farbwerte in eine Liste geschrieben. 
-Anhand der Funktion <code>c</code> werden die Werte in einen Vektor geschrieben,<a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/c">1</a>
+Anhand der Funktion <code>c</code> werden die Werte in einen Vektor geschrieben,<sup class="footnote-ref" id="fnref-11"><a href="#fn-11">1</a></sup>
 mit dem wir weiterarbeiten können.</p>
 <p>Jetzt müssen wir noch die Verknüpfung zwischen Farbwert und den Konsortien herstellen.
 Dafür führen wir die Variable <code>NFDI_color_groups</code> ein:
 Jeder Wert aus <code>NFDI_color_code</code> hat eine Positionsnummer (1-5),
 das nutzen wir, indem wir den Wert der zweiten Spalte des Netzwerkgraphen (<code>$group</code>) als Zahl auswerten und so den Farbwert übergeben.
 Vereinfacht gesagt und vom Ergebnis her gesehen, bekommt die Nummer der NFDI-Konferenzsystematik den Farbwert, der an der entsprechenden Stelle in der Liste der Variable <code>NFDI_color_code</code> steht.</p>
+<div class="footnotes">
+<hr>
+<ol><li id="fn-11"><p><a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/c">https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/c</a><a href="#fnref-11" class="footnote">&#8617;</a></p></li>
+</ol>
+</div>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="c1">#10b Color nodes by NFDI-group-number</span>
-
-<span class="c1"># +-----+-------------------------+---------------+</span>
-<span class="c1"># | Nr. | Bezeichnung             | HTML-Farbcode |</span>
-<span class="c1"># +-----+-------------------------+---------------+</span>
-<span class="c1"># | (1) | Medizin                 | `#f5ac9f`     |</span>
-<span class="c1"># +-----+-------------------------+---------------+</span>
-<span class="c1"># | (2) | Lebenswissenschaften    | `#e43516`     |</span>
-<span class="c1"># +-----+-------------------------+---------------+</span>
-<span class="c1"># | (3) | Geisteswissenschaften   | `#f9b900`     |</span>
-<span class="c1"># +-----+-------------------------+---------------+</span>
-<span class="c1"># | (4) | Ingenieurwissenschaften | `#007aaf`     |</span>
-<span class="c1"># +-----+-------------------------+---------------+</span>
-<span class="c1"># | (5) | Chemie/Physik           | `#6ca11d`     |</span>
-<span class="c1"># +-----+-------------------------+---------------+</span>
-
-
-<span class="n">NFDI_color_code</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;#f5ac9f&quot;</span><span class="p">,</span> <span class="c1"># Medizin</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">NFDI_color_code</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;#f5ac9f&quot;</span><span class="p">,</span> <span class="c1"># Medizin</span>
                      <span class="s">&quot;#e43516&quot;</span><span class="p">,</span> <span class="c1"># Lebenswissenschaften</span>
                      <span class="s">&quot;#f9b900&quot;</span><span class="p">,</span> <span class="c1"># Geisteswissenschaften</span>
                      <span class="s">&quot;#007aaf&quot;</span><span class="p">,</span> <span class="c1"># Ingenieurwissenschaften</span>
@@ -39114,8 +39108,6 @@ Vereinfacht gesagt und vom Ergebnis her gesehen, bekommt die Nummer der NFDI-Kon
 <h2 id="Netzwerk-mit-eingef&#228;rbten-Knoten">Netzwerk mit eingef&#228;rbten Knoten<a class="anchor-link" href="#Netzwerk-mit-eingef&#228;rbten-Knoten">&#182;</a></h2><p>Wir können wiederum den Zellencode von oben übernehmen und anpassen.</p>
 <p>Entscheidend ist, dass wir bei <code>vertex.color</code> und <code>vertex.frame.color</code> die Variable <code>NFDI_color_groups</code> als Wert angeben.
 Wir wollen ebenfalls das gesamte Netzwerk mit allen Kanten (<code>mode = "total"</code>) berücksichtigen und darstellen.</p>
-<blockquote><p>(Plotten)</p>
-</blockquote>
 <p>Was jetzt noch fehlt, ist eine Legende, sodass wir auch sehen, was hinter der Farbcodierung an sich steckt.</p>
 <p>Dafür gibt es eine spezielle Funktion <code>legend</code>, die wir nun mit Werten füllen.</p>
 <p>Zunächst die Positionierung der Legende, die wir "unten rechts" (<code>"bottomright"</code>) haben wollen,
@@ -39133,22 +39125,11 @@ Mit dem Wert <code>20</code> wählen wir einen ausgefüllten Kreis.</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="c1">#11 group detection with numbered consortia</span>
-<span class="c1"># coloring groups according to NFDI-classification</span>
-<span class="c1">#1,Medizin</span>
-<span class="c1">#2,Lebenswissenschaften</span>
-<span class="c1">#3,Geisteswissenschaften</span>
-<span class="c1">#4,Ingenieurswissenschaften</span>
-<span class="c1">#5,Physik/Chemie</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
 
-
-<span class="c1"># Making Plots more constant</span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
-
-<span class="c1"># Plotting data</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">NFDI_network_directed</span><span class="p">,</span>            <span class="c1"># loading data frame</span>
      <span class="n">main</span>   <span class="o">=</span> <span class="s">&quot;NFDI-Netzwerk (&lt;Konferenzsystematik&gt;)&quot;</span><span class="p">,</span>  <span class="c1">#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; adding a title</span>
      <span class="n">frame</span>  <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span>                    <span class="c1"># FALSE -&gt; making a frame </span>
@@ -39166,7 +39147,6 @@ Mit dem Wert <code>20</code> wählen wir einen ausgefüllten Kreis.</p>
     <span class="p">)</span>
 
 
-<span class="c1"># Add a legend</span>
 <span class="nf">legend</span><span class="p">(</span><span class="s">&quot;bottomright&quot;</span><span class="p">,</span>   <span class="c1"># x-position</span>
        <span class="n">title</span>  <span class="o">=</span> <span class="s">&quot;NFDI-Konferenzsystematik&quot;</span><span class="p">,</span> <span class="c1"># title</span>
        <span class="n">legend</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span>
@@ -42292,7 +42272,7 @@ AABAIQh2AAAACvF/wMvSWGVqo6YAAAAASUVORK5CYII="
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Clustering">Clustering<a class="anchor-link" href="#Clustering">&#182;</a></h2><p>Die Einfärbung des Netzwerks mit den Farben der NFDI-Konferenzsystematik lässt die Vermutung zu, dass es bestimmte Gruppen gibt, die eine engere Beziehung zueinander haben (ausgehend von den Kooperationsabsichten in den Letter of Intents).</p>
 <p>Wir können in R einen Algorithmus anwenden, der solche Gruppen ermittelt.
-Dafür wählen wir den Algorithmus <code>cluster_optimal</code><a href="https://igraph.org/r/doc/cluster_optimal.html">1</a></p>
+Dafür wählen wir den Algorithmus <code>cluster_optimal</code><sup class="footnote-ref" id="fnref-12"><a href="#fn-12">1</a></sup></p>
 <p>In der Dokumentation steht:</p>
 <blockquote><p>This function calculates the optimal community structure of a graph, by maximizing the modularity measure over all possible partitions.</p>
 <p>Diese Funktion berechnet die optimale Gemeinschaftsstruktur eines Graphen, indem das Modularitätsmaß über alle möglichen Partitionen maximiert wird. (deepl)</p>
@@ -42302,34 +42282,29 @@ Dafür wählen wir den Algorithmus <code>cluster_optimal</code><a href="https://
 Wir verzichten jetzt auf die Darstellung der Kanten, was wir mit <code>edge.color = NA</code> erreichen.</p>
 <p>Die Einfärberung der Knoten erfolgt nicht mehr über die Parameter <code>vertex.color</code> und <code>vertex.frame.color</code>, 
 sodass wir diese Zeilen auskommentieren oder löschen können. 
-Dafür gibt es einen neuen Parameter und wir können <code>col</code> den Wert <code>NFDI_color_groups</code> übergeben.<a href="https://igraph.org/r/doc/communities.html">2</a></p>
+Dafür gibt es einen neuen Parameter und wir können <code>col</code> den Wert <code>NFDI_color_groups</code> übergeben.<sup class="footnote-ref" id="fnref-13"><a href="#fn-13">2</a></sup></p>
 <p>Die Einfassung der Gruppen möchten wir grau hervorheben, was wir mit <code>mark.col = "grey"</code> erreichen,
 zudem verzichten wir auf die Darstellung des Randes (<code>mark.border = NA</code>).</p>
 <p>Für die Legende müssen wir nichts anpassen.</p>
+<div class="footnotes">
+<hr>
+<ol><li id="fn-12"><p><a href="https://igraph.org/r/doc/cluster_optimal.html">https://igraph.org/r/doc/cluster_optimal.html</a><a href="#fnref-12" class="footnote">&#8617;</a></p></li>
+<li id="fn-13"><p><a href="https://igraph.org/r/doc/communities.html">https://igraph.org/r/doc/communities.html</a><a href="#fnref-13" class="footnote">&#8617;</a></p></li>
+</ol>
+</div>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="c1">#12 group detection coloring edges</span>
-<span class="c1">###################################</span>
-<span class="c1"># Showing that there are three homogenous groups</span>
-<span class="c1"># A) 1+2</span>
-<span class="c1"># B) 3</span>
-<span class="c1"># C) 4+5</span>
-<span class="c1"># So the statement made in https://youtu.be/YmuUT8HkXxY?t=904 seems to be true.</span>
-
-
-
-<span class="c1"># Making Plots more constant</span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
 
 <span class="n">NFDI_network_directed_cluster</span> <span class="o">&lt;-</span> <span class="nf">cluster_optimal</span><span class="p">(</span><span class="n">NFDI_network_directed</span><span class="p">)</span>
 
-<span class="c1"># Plotting data</span>
+
 <span class="nf">plot</span><span class="p">(</span><span class="n">NFDI_network_directed_cluster</span><span class="p">,</span>    <span class="c1">#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; clustered network data</span>
      <span class="n">NFDI_network_directed</span><span class="p">,</span>            <span class="c1"># loading data frame</span>
      <span class="n">main</span>   <span class="o">=</span> <span class="s">&quot;NFDI-Netzwerk (&lt;Konferenzsystematik&gt;)&quot;</span><span class="p">,</span>  <span class="c1"># adding a title</span>
@@ -42345,14 +42320,12 @@ zudem verzichten wir auf die Darstellung des Randes (<code>mark.border = NA</cod
      <span class="n">vertex.size</span>        <span class="o">=</span> <span class="nf">degree</span><span class="p">(</span><span class="n">NFDI_network_directed</span><span class="p">,</span>
                                  <span class="n">mode</span> <span class="o">=</span> <span class="s">&quot;total&quot;</span><span class="p">),</span> <span class="c1">#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; size of nodes depends on amount of edges</span>
      <span class="n">edge.arrow.size</span>    <span class="o">=</span> <span class="n">.</span><span class="m">5</span><span class="p">,</span>          <span class="c1"># arrow size,  defaults to 1</span>
-     <span class="c1">#####################################</span>
      <span class="n">col</span>    <span class="o">=</span> <span class="n">NFDI_color_groups</span><span class="p">,</span>       <span class="c1">#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;  color of nodes</span>
      <span class="n">mark.col</span>           <span class="o">=</span> <span class="s">&quot;grey&quot;</span><span class="p">,</span>      <span class="c1">#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; color groups</span>
      <span class="n">mark.border</span>        <span class="o">=</span> <span class="kc">NA</span><span class="p">,</span>          <span class="c1">#&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; no border color</span>
     <span class="p">)</span>
 
 
-<span class="c1"># Add a legend</span>
 <span class="nf">legend</span><span class="p">(</span><span class="s">&quot;bottomright&quot;</span><span class="p">,</span>   <span class="c1"># x-position</span>
        <span class="n">title</span>  <span class="o">=</span> <span class="s">&quot;NFDI-Konferenzsystematik&quot;</span><span class="p">,</span> <span class="c1"># title</span>
        <span class="n">legend</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span>
@@ -43950,8 +43923,13 @@ Lediglich beim Parameter <code>edge.color</code> müssen wir die Angabe modifizi
 Als Wert setzen wir eine Liste, die aus zwei Einträgen besteht (<code>c(NA,"#bf4040")</code>):
 Der erste Eintrag ist <code>NA</code> (<code>Not Available</code>), womit wir die cis-disziplinäre Kanten ansteuern; sie werden also nicht ausgegeben. Der zweite Einträg ist ein HTML-Farbcode, den wir für die trans-disziplinäre Kanten verwenden.
 Die Unterscheidung zwischen cis- und trans-disziplinärer Kante wird über die Funktion <code>crossing</code> vorgenommen.</p>
-<blockquote><p><code>crossing</code> returns a logical vector, with one value for each edge, ordered according to the edge ids. The value is TRUE iff the edge connects two different communities, according to the (best) membership vector, as returned by <code>membership()</code>.<a href="https://igraph.org/r/doc/communities.html">1</a></p>
+<blockquote><p><code>crossing</code> returns a logical vector, with one value for each edge, ordered according to the edge ids. The value is TRUE iff the edge connects two different communities, according to the (best) membership vector, as returned by <code>membership()</code>.<sup class="footnote-ref" id="fnref-14"><a href="#fn-14">1</a></sup></p>
 </blockquote>
+<div class="footnotes">
+<hr>
+<ol><li id="fn-14"><p><a href="https://igraph.org/r/doc/communities.html">https://igraph.org/r/doc/communities.html</a><a href="#fnref-14" class="footnote">&#8617;</a></p></li>
+</ol>
+</div>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -43960,14 +43938,8 @@ Die Unterscheidung zwischen cis- und trans-disziplinärer Kante wird über die F
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="c1">#13 group detection coloring edges</span>
-<span class="c1"># Showing that there is a connection between groups</span>
-<span class="c1"># cooperations are not only between NFDI-group-definition consortia</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
 
-<span class="c1"># Making Plots more constant</span>
-<span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
-
-<span class="c1"># Plotting data</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">NFDI_network_directed_cluster</span><span class="p">,</span>    <span class="c1"># clustered network data</span>
      <span class="n">NFDI_network_directed</span><span class="p">,</span>            <span class="c1"># loading data frame</span>
      <span class="n">main</span>   <span class="o">=</span> <span class="s">&quot;NFDI-Netzwerk (&lt;Konferenzsystematik&gt;)&quot;</span><span class="p">,</span>  <span class="c1"># adding a title</span>
@@ -43990,7 +43962,6 @@ Die Unterscheidung zwischen cis- und trans-disziplinärer Kante wird über die F
     <span class="p">)</span>
 
 
-<span class="c1"># Add a legend</span>
 <span class="nf">legend</span><span class="p">(</span><span class="s">&quot;bottomright&quot;</span><span class="p">,</span>   <span class="c1"># x-position</span>
        <span class="n">title</span>  <span class="o">=</span> <span class="s">&quot;NFDI-Konferenzsystematik&quot;</span><span class="p">,</span> <span class="c1"># title</span>
        <span class="n">legend</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span>
@@ -46480,32 +46451,18 @@ ILEDAAAA0BNI7AAAAAD0BBI7AAAAAD2BxA4AAABATyCxAwAAANATSOwAAAAA9AQSOwAAAAA9
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Es zeigt sich eine rege Interakation auch zwischen den einzelnen Silos.
+<p>Es zeigt sich eine rege Interaktion auch zwischen den einzelnen Silos.
 Nur ein Konsortium hat keine transdisziplinäre Verbindung.</p>
 <h1 id="Schluss">Schluss<a class="anchor-link" href="#Schluss">&#182;</a></h1><p>Wir haben die Netzwerkvisualisierung und -analyse nur anhand des Pakets <code>igraph</code> gemacht.
-Jetzt gilt es noch das Ergebnis zu sichern, bspw. unter "File" --&gt; "Save and Checkpoint".</p>
+Jetzt gilt es noch das Ergebnis zu sichern, bspw. unter "<em>File</em>" --&gt; "<em>Save and Checkpoint</em>".</p>
 <p>Ihr könnt ebenso das JupyterNotebook herunterladen, es stehen verschiedene Formate bereit.</p>
 <p>Zudem ist das JupyterNotebook über die URL jederzeit wieder ansteuerbar und ihr könnt weitere Modifikationen im Netzwerk vornehmen.</p>
-<h2 id="Ausblick">Ausblick<a class="anchor-link" href="#Ausblick">&#182;</a></h2><p>Es gibt noch weitere spannende Beschäftigungen mit diesem Netzwerk.
+<p>Es gibt noch weitere spannende Beschäftigungen mit diesem Netzwerk.
 Zum Beispiel kann man auch ein interaktives Netzwerk erstellen oder das Netzwerk als Kreisdiagramm darstellen.</p>
 <p>Beides könnt ihr selbst ausprobieren unter: <a href="https://nfdi4ing.de/nfdi-network">https://nfdi4ing.de/nfdi-network</a><br>
 Das Passwort lautet <code>fdmrwth</code>.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
 </div>
 </body>
 

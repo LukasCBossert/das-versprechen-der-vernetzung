@@ -3,25 +3,42 @@ MAKE = make
 MYPATH = JupyterNotebook
 export TEXINPUTS:=.//:
 
+COMPILER_INFO=$(shell lualatex -v | head -n1 | cut -d ' ' -f3-)
+LATEX_OPTS="\newcommand*\InfoTeX{Die automatisierte Konvertierung des RNotebooks wurde erstellt mit ${COMPILER_INFO}.}\AtBeginDocument{\title{Das Versprechen der Vernetzung}\author{Dorothea Strecker | Lukas C. Bossert | Évariste Demandt}\date{30.11.2020\protect\footnote{\InfoTeX}}\setmainfont{Alegreya}\RequirePackage{microtype,etoolbox,bookmark}\renewcommand{\prompt}[4]{}\definecolor{cellbackground}{HTML}{FFFFFF}}\raggedbottom"
+
+# 
+
+
 
 all:
 	time $(MAKE) {html,pdf,script,md}
 
 html:
-	cd $(MYPATH) && jupyter nbconvert --to html $(NAME).ipynb
+	jupyter nbconvert --to html $(NAME).ipynb
 
-pdf:
-	cd $(MYPATH) && jupyter nbconvert --to pdf $(NAME).ipynb
+pdf: tex
+	# jupyter nbconvert --to pdf $(NAME).ipynb
+	latexmk \
+ -gg \
+ -quiet \
+ -lualatex \
+ -usepretex=$(LATEX_OPTS) \
+ $(NAME).tex
+	rm $(NAME).{aux,fdb*,fls,log} 
+	rm *.fls
+tex:
+	jupyter nbconvert --to latex $(NAME).ipynb
 
 slides:
-	cd $(MYPATH) && jupyter nbconvert --to slides $(NAME).ipynb
+	jupyter nbconvert --to slides $(NAME).ipynb
 
 script:
-	cd $(MYPATH) && jupyter nbconvert --to script $(NAME).ipynb
+	jupyter nbconvert --to script $(NAME).ipynb
 
 md:
-	cd $(MYPATH) && jupyter nbconvert --to markdown $(NAME).ipynb
+	jupyter nbconvert --to markdown $(NAME).ipynb
 
 
 execute:
-	cd $(MYPATH) && jupyter nbconvert --to notebook --execute $(NAME).ipynb
+	jupyter nbconvert --to notebook --execute $(NAME).ipynb
+

@@ -1,9 +1,4 @@
-# Loading Package
-library('igraph') # Further information and its documentation at https://igraph.org/r/
-
-# Loading Data (Letter of Intention)
-# This Code-Snippet is also on GitHub-Gist:
-# https://gist.github.com/LukasCBossert/27fafa33e9b16c33e1107914e928c472
+library('igraph')
 
 NFDI_edges <- read.table(header=TRUE,
                          sep=",",
@@ -136,52 +131,34 @@ Text+,NFDI4Memory
 Text+,NFDI4Objects
 ")
 
-# Making Data accessible
 NFDI_network <- graph_from_data_frame(NFDI_edges,
-                                      directed=FALSE # Direction between nodes is omitted
+                                      directed=FALSE
                                      )
 
-
-#02 First Plot
-# We first show the network with default values
-# Making Plots more constant
 set.seed(1234)
 
-# Plotting data
 plot(NFDI_network,                    # loading data frame
      main  = "NFDI-Netzwerk",         # adding a title
      frame = TRUE                     # FALSE -> making a frame 
      )
 
 
-#02b First Plot
-# We first show the network with default values
-# Making Plots more constant
 set.seed(1234)
 
-# Plotting data
 plot(NFDI_network,                     # loading data frame
      main   = "NFDI-Netzwerk",         # adding a title
      frame  = TRUE,                    # FALSE -> making a frame
-     ###################################
      layout = layout.graphopt,         #* better layout options
      )
 
 
-#03 Modifying Plot Layout
-# With small changes in the plot layout we can modify and adjust
-# the outcome of the networks design.
-
-# Making Plots more constant
 set.seed(1234)
 
-# Plotting data
+
 plot(NFDI_network,                     # loading data frame
      main   = "NFDI-Netzwerk",         # adding a title
      frame  = TRUE,                    # FALSE -> making a frame 
      layout = layout.graphopt,         # better layout options
-     ##########################################################
-                                       #* color: https://www.w3schools.com/colors/colors_picker.asp 
      vertex.color       = "#ffcc66",   #* color of nodes
      vertex.frame.color = "#ffcc66",   #* color of the frame of nodes
      vertex.label.cex   = 0.5,         #* size of the description of the labels
@@ -190,15 +167,10 @@ plot(NFDI_network,                     # loading data frame
      edge.curved        = 0.1,         #* factor of "curvity"
      )
 
-#04 Size of nodes
-# Size of nodes depends on amount of edges
-
-# Making Plots more constant
 set.seed(1234)
 
 degree(NFDI_network)                   #* calculate number of edges
 
-# Plotting data
 plot(NFDI_network,                     # loading data frame
      main   = "NFDI-Netzwerk",         # adding a title
      frame  = TRUE,                    # FALSE -> making a frame 
@@ -210,7 +182,6 @@ plot(NFDI_network,                     # loading data frame
                                        # color: https://www.w3schools.com/colors/colors_picker.asp 
      edge.color         = "#808080",   # color of edges
      edge.curved        = 0.1,         # factor of "curvity"
-     ##########################################################
      vertex.size        = degree(NFDI_network), #* size of nodes depends on amount of edges
      )
 
@@ -218,19 +189,12 @@ plot(NFDI_network,                     # loading data frame
 
 
 
-#05 Direction of edges
-# Size of nodes depends on amount of edges
-
-#<<<<<<<<<<<< Loading data which considers the direction of edges
 NFDI_network_directed <- graph_from_data_frame(NFDI_edges,
-                                          directed = TRUE # Direction between nodes is important
+                                          directed = TRUE
                                          )
 
-# Making Plots more constant
 set.seed(1234)
 
-
-# Plotting data
 plot(NFDI_network_directed,            #<<<<<<< loading data frame
      main   = "NFDI-Netzwerk",         # adding a title
      frame  = TRUE,                    # FALSE -> making a frame 
@@ -243,20 +207,16 @@ plot(NFDI_network_directed,            #<<<<<<< loading data frame
      edge.color         = "#808080",   # color of edges
      edge.curved        = 0,           #<<<<<<<<< factor of "curvity"
      vertex.size        = degree(NFDI_network_directed), #<<<<<< size of nodes depends on amount of edges
-     ##########################################################
      edge.arrow.size    = .5,          #* arrow size,  defaults to 1
     )
 
 
-#06 Size of nodes depending on direction of edges ("in")
-
-# Making Plots more constant
 set.seed(1234)
 
 degree(NFDI_network_directed,
        mode = "in")
 
-# Plotting data
+
 plot(NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<in>)",  #<<<<<<<< adding a title
      frame  = TRUE,                    # FALSE -> making a frame 
@@ -276,18 +236,11 @@ plot(NFDI_network_directed,            # loading data frame
 
 
 
-#07 Size of nodes depending on direction of edges ("out")
-
-
-# Making Plots more constant
 set.seed(1234)
 
 degree(NFDI_network_directed,
        mode = "out")
 
-
-
-# Plotting data
 plot(NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<out>)",  #<<<<<<<< adding a title
      frame  = TRUE,                    # FALSE -> making a frame 
@@ -304,24 +257,14 @@ plot(NFDI_network_directed,            # loading data frame
      edge.arrow.size    = .5,          # arrow size,  defaults to 1
     )
 
-#07 Size of nodes depending on direction of edges ("out")
-
-
-# Making Plots more constant
 set.seed(1234)
 
-#<<<<<<<< Filter / Deleting certain nodes/vertices from the network
-# all nodes which have no outgoing edges
 NFDI_network_directed_filter <- delete_vertices(NFDI_network_directed, 
             V(NFDI_network_directed)[ degree(NFDI_network_directed, mode = "out") == 0 ])
 
-#<<<<<<<< show the table of the filtered network
 degree(NFDI_network_directed_filter,
        mode = "total")
 
-
-
-# Plotting data
 plot(NFDI_network_directed_filter,           #<<<<<<<< loading data frame
      main   = "NFDI-Netzwerk (<filtered>)",  #<<<<<<<< adding a title
      frame  = TRUE,                    # FALSE -> making a frame 
@@ -338,13 +281,9 @@ plot(NFDI_network_directed_filter,           #<<<<<<<< loading data frame
      edge.arrow.size    = .5,          # arrow size,  defaults to 1
     )
 
-#10 NFDI-consortia with group-number
-# group is the number according to NFDI-consortium classification
-# This Code-Snippet is also on GitHub-Gist:
-# https://gist.github.com/LukasCBossert/36d6034c8ebc2a4d61f011169371bc31
-
-
-NFDI_nodes <- read.table(header=TRUE,sep=",",text="
+NFDI_nodes <- read.table(header=TRUE,
+                         sep=",",
+                         text="
 name,group
 BERD@NFDI,3
 DAPHNE4NFDI,5
@@ -374,29 +313,9 @@ PUNCH4NFDI,5
 Text+,3
 ")
 
-
-
-# Making Data accessible
 NFDI_network_directed <- graph_from_data_frame(d = NFDI_edges,        # d = data frame =~ edges
                                                vertices = NFDI_nodes, #nodes
                                                directed = TRUE)       #directed
-
-#10b Color nodes by NFDI-group-number
-
-# +-----+-------------------------+---------------+
-# | Nr. | Bezeichnung             | HTML-Farbcode |
-# +-----+-------------------------+---------------+
-# | (1) | Medizin                 | `#f5ac9f`     |
-# +-----+-------------------------+---------------+
-# | (2) | Lebenswissenschaften    | `#e43516`     |
-# +-----+-------------------------+---------------+
-# | (3) | Geisteswissenschaften   | `#f9b900`     |
-# +-----+-------------------------+---------------+
-# | (4) | Ingenieurwissenschaften | `#007aaf`     |
-# +-----+-------------------------+---------------+
-# | (5) | Chemie/Physik           | `#6ca11d`     |
-# +-----+-------------------------+---------------+
-
 
 NFDI_color_code <- c("#f5ac9f", # Medizin
                      "#e43516", # Lebenswissenschaften
@@ -406,21 +325,8 @@ NFDI_color_code <- c("#f5ac9f", # Medizin
                     )
 NFDI_color_groups <- NFDI_color_code[as.numeric(as.factor(V(NFDI_network_directed)$group))]
 
-
-
-#11 group detection with numbered consortia
-# coloring groups according to NFDI-classification
-#1,Medizin
-#2,Lebenswissenschaften
-#3,Geisteswissenschaften
-#4,Ingenieurswissenschaften
-#5,Physik/Chemie
-
-
-# Making Plots more constant
 set.seed(1234)
 
-# Plotting data
 plot(NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<Konferenzsystematik>)",  #<<<<<<<< adding a title
      frame  = TRUE,                    # FALSE -> making a frame 
@@ -438,7 +344,6 @@ plot(NFDI_network_directed,            # loading data frame
     )
 
 
-# Add a legend
 legend("bottomright",   # x-position
        title  = "NFDI-Konferenzsystematik", # title
        legend = c(
@@ -455,25 +360,11 @@ legend("bottomright",   # x-position
        pt.cex = 2       # expansion factor(s) for the points
 )
 
-
-
-
-#12 group detection coloring edges
-###################################
-# Showing that there are three homogenous groups
-# A) 1+2
-# B) 3
-# C) 4+5
-# So the statement made in https://youtu.be/YmuUT8HkXxY?t=904 seems to be true.
-
-
-
-# Making Plots more constant
 set.seed(1234)
 
 NFDI_network_directed_cluster <- cluster_optimal(NFDI_network_directed)
 
-# Plotting data
+
 plot(NFDI_network_directed_cluster,    #<<<<<<<<<<< clustered network data
      NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<Konferenzsystematik>)",  # adding a title
@@ -489,14 +380,12 @@ plot(NFDI_network_directed_cluster,    #<<<<<<<<<<< clustered network data
      vertex.size        = degree(NFDI_network_directed,
                                  mode = "total"), #<<<<<<<<<<< size of nodes depends on amount of edges
      edge.arrow.size    = .5,          # arrow size,  defaults to 1
-     #####################################
      col    = NFDI_color_groups,       #<<<<<<<<<<<<<  color of nodes
      mark.col           = "grey",      #<<<<<<<<<< color groups
      mark.border        = NA,          #<<<<<<<<<< no border color
     )
 
 
-# Add a legend
 legend("bottomright",   # x-position
        title  = "NFDI-Konferenzsystematik", # title
        legend = c(
@@ -513,15 +402,8 @@ legend("bottomright",   # x-position
        pt.cex = 2       # expansion factor(s) for the points
 )
 
-
-#13 group detection coloring edges
-# Showing that there is a connection between groups
-# cooperations are not only between NFDI-group-definition consortia
-
-# Making Plots more constant
 set.seed(1234)
 
-# Plotting data
 plot(NFDI_network_directed_cluster,    # clustered network data
      NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<Konferenzsystematik>)",  # adding a title
@@ -544,7 +426,6 @@ plot(NFDI_network_directed_cluster,    # clustered network data
     )
 
 
-# Add a legend
 legend("bottomright",   # x-position
        title  = "NFDI-Konferenzsystematik", # title
        legend = c(
@@ -560,8 +441,3 @@ legend("bottomright",   # x-position
        cex    = .75,    # character expansion factor relative to current par("cex").
        pt.cex = 2       # expansion factor(s) for the points
 )
-
-
-
-
-

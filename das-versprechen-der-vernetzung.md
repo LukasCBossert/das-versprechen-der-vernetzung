@@ -1,52 +1,46 @@
 # Netzwerkvisualisierung
 
-Im folgenden wird ein Netzwerk der NFDI-Konsortien erstellt, welche sich für die zweite Antragsrunde 2020 beworben haben.
-Die Datengrundlage bilden die Letter of Intents, in denen die antragsstellende Konsortien ihre Kooperationskonsortien nennen.
+In diesem JupyterNotebook zeigen wir euch, wie man ein Netzwerk visualisiert und analysiert. Wir machen dies am Beispiel der Konsortien, die sich bei der Nationalen Forschungsdateninfrastrukturinitiative (NFDI) beteiligen bzw. beworben haben.
 
+Als Datengrundlage nehmen wir die *Letter of Intent* der jeweiligen Konsortien, in denen Kooperationspartner genannt werden. Diese Nennungen sind Ausgangspunkt unseres Netzwerkes.[^1]
+
+[^1]: Siehe dazu auch das Repositorium von Dorothea Strecker (https://github.com/dorothearrr/NFDI_Netzwerk), in dem sie bereits eine ähnliche Visualisierung und Analyse vorgenommen hat.
+
+Die Visualisierung machen wir in einem JupyterNotebook bzw. RNoteBook[^2], sodass keine lokale Installation von R notwendig ist. 
+JupyterNotebooks sind so aufgebaut, dass man verschiedene Zellen hat, in die man Code schreibt (in unserem Fall `R`-Code).
+Um die Zelle mit dem Code auszuführen, können wir im Menü auf "*Cell*" und "*Run Cells*" klicken.
+Oder mit dem Cursor in die Zelle klicken und anschließend gleichzeitig *SHIFT*" und "*ENTER*" drücken.
+Ihr seht dann das Ergebnis des Codes direkt unter der Zelle angezeigt.
+
+[^2]: https://rnotebook.io
 
 Bevor wir loslegen, möchten wir noch ein paar Begriffe klären.
 Ein Netzwerk besteht aus drei Komponenten:
 
-* Kanten
-* Knoten
-* Kreuzungen
+* Knoten (Kreis)
+* Kanten (Balken)
+* Kreuzungen (Schnittpunkte)
 
-Knoten (*nodes* oder *vertices*) repräsentieren Konsortien, Kanten (*edges*) zeigen eine Verbindung zwischen zwei Knoten an. 
-Kreuzungen (*crossing*) sind Schnittpunkte zweier Kanten. 
+Knoten (*nodes* oder *vertices*) werden als Kreise dargestellt und repräsentieren Konsortien. Kanten (*edges*) werden als mehr oder minder gebogene Balken dargestellt und gehen von den Knoten aus. Sie zeigen eine Verbindung zwischen zwei Knoten an. Kreuzungen (*crossings*) sind Schnittpunkte zweier oder mehrerer Kanten. 
 
-
-![Einheitskreis](img/Einheitskreis_Gestalt.png)
+![Komponenten eines Netzwerks. Erstellt von ÉD.](img/Einheitskreis_Gestalt.png)
 
 R ist so aufgebaut, dass verschiedene Bibliotheken für unterschiedliche Funktionen geladen werden müssen.
-Für die Netzwerkanalyse werden wir auf das Paket `igraph` zurückgreifen.
+Für die Netzwerkanalyse werden wir auf das Paket `igraph`[^2] zurückgreifen.
 Mit `library('igraph')` können wir das Paket laden. 
 
-Um die Zelle mit dem Code auszuführen können wir im Menü auf "*Cell*" und "*Run Cells*" klicken.
-Oder mit dem Cursor in die Zelle klicken und gleichzeitig "*SHIFT*" und "*ENTER*" drücken.
+[^2]: https://igraph.org/r/
 
 
 ```R
-# Loading Package
-library('igraph') # Further information and its documentation at https://igraph.org/r/
+library('igraph')
 ```
 
-    
-    Attaching package: ‘igraph’
-    
-    The following objects are masked from ‘package:stats’:
-    
-        decompose, spectrum
-    
-    The following object is masked from ‘package:base’:
-    
-        union
-    
+Die Datengrundlage steht bereits in Form einer Auflistung zur Verfügung,[^1b], sodass wir 
+die Daten kopieren und in die nächste Zelle einfügen können.
 
 
-Die Datengrundlage steht bereits in Form einer Auflistung zur Verfügung.
-Unter https://gist.github.com/LukasCBossert/27fafa33e9b16c33e1107914e928c472 können wir 
-die Daten kopieren und in die nächste Zelle einfügen.
-
+[^1b]: https://gist.github.com/LukasCBossert/27fafa33e9b16c33e1107914e928c472 
 
 Fangen wir bei der Funktion `read.table` an.
 Wir geben an, dass es sich um einen Datensatz handelt, bei dem es 
@@ -59,25 +53,7 @@ Wir geben an, dass es sich um einen Datensatz handelt, bei dem es
 Diese Werte übergeben wir der selbstgewählten Variable `NFDI_edges` , was mit dem nach links weisenden Pfeilsymbol erfolgt.
 
 
-Damit wir aus diesem Datensatz ein Netzwerk erstellen können,
-müssen wir es aufbereiten und ein `igraph graph` erstellen.[1]
-Das geschieht mit der Funktion `graph_from_data_frame`, der wir unseren Datensatz übergeben.
-
-Zudem geben wir an, dass unser Datensatz bzw. das Netzwerk ungerichtet ist 
-(`directed=FALSE`), das heißt, dass die Richtung, wie sie bei `from,to` im Datensatz
-angegeben ist, egal ist.
-Es geht uns jetzt nur darum, dass zwei Konsortien verknüpft sind. 
-
-
-[1]: https://igraph.org/r/doc/graph_from_data_frame.html
-
-
-
 ```R
-# Loading Data (Letter of Intention)
-# This Code-Snippet is also on GitHub-Gist:
-# https://gist.github.com/LukasCBossert/27fafa33e9b16c33e1107914e928c472
-
 NFDI_edges <- read.table(header=TRUE,
                          sep=",",
                          text="
@@ -208,35 +184,42 @@ Text+,NFDI4Ing
 Text+,NFDI4Memory
 Text+,NFDI4Objects
 ")
+```
 
-# Making Data accessible
+
+Damit wir aus diesem Datensatz ein Netzwerk erstellen können,
+müssen wir es aufbereiten und ein `igraph graph` erstellen.[^3]
+Das geschieht mit der Funktion `graph_from_data_frame`, der wir unseren Datensatz übergeben.
+
+Zudem geben wir an, dass unser Datensatz bzw. das Netzwerk ungerichtet ist 
+(`directed=FALSE`), das heißt, dass die Richtung, wie sie bei `from,to` im Datensatz
+angegeben ist, egal ist.
+Es geht uns jetzt nur darum, dass zwei Konsortien verknüpft sind. 
+
+
+[^3]: https://igraph.org/r/doc/graph_from_data_frame.html
+
+
+```R
 NFDI_network <- graph_from_data_frame(NFDI_edges,
-                                      directed=FALSE # Direction between nodes is omitted
+                                      directed=FALSE
                                      )
-
 ```
 
 ## Erstes Netzwerk (Grundeinstellung)
 
 
-Zunächst werden wir einen Parameter festlegen, damit unser Netzwerk bei gleicher Datengrundlage immer gleich aussieht. Dieser Parameter ist `seed`[2].
-Wir wählen eine beliebige Zahl, die nicht zu kurz ist.
+Zunächst werden wir einen Parameter festlegen, damit unser Netzwerk bei gleicher Datengrundlage immer gleich aussieht. Dieser Parameter ist `seed`.
+Wir wählen eine beliebige Zahl, die nicht allzu klein ist.
 
 Anschließend kommen wir zum eigentlichen Plot.
 Dafür rufen wir die Funktion `plot` auf und übergeben ihr die Variable unseres Netzwerkgraphen `NFDI_network`.
 Für einen Titel können wir noch den Parameter `main` bestimmen und ebenso können wir angeben, ob wir mit `frame=TRUE` einen Rahmen um das Netzwerk haben wollen.
 
 
-
-
-
 ```R
-#02 First Plot
-# We first show the network with default values
-# Making Plots more constant
 set.seed(1234)
 
-# Plotting data
 plot(NFDI_network,                    # loading data frame
      main  = "NFDI-Netzwerk",         # adding a title
      frame = TRUE                     # FALSE -> making a frame 
@@ -246,13 +229,13 @@ plot(NFDI_network,                    # loading data frame
 
 
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_8_0.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_10_0.png)
     
 
 
 Wir sehen das Netzwerk der NFDI-Konsortien ohne weitere Einstellungen.
 
-## Layout-Einstellungen (graphopt)
+## Layout-Einstellungen
 
 Als nächsten Schritt möchten wir das Layout des Netzwerks optimieren.
 Anstatt den Code für den Plot nochmals abzutippen, werden wir den Inhalt der letzten Zelle markieren, kopieren und in die nächste Zelle einfügen.
@@ -261,24 +244,19 @@ Wir erweitern auf diese Weise den Code und arbeiten Schritt für Schritt am Netz
 
 Für das Layout von Netzwerken gibt es verschiedene Algorithmen.
 Je nach Datensatz kann mal das eine, mal ein anderes besser geeignet sein.
-Meiner Meinung nach erzielen wir ein gutes Ergebnis mit dem Layout `graphopt`[3].
+Meiner Meinung nach erzielen wir ein gutes Ergebnis mit dem Layout `graphopt`[^4].
 
 Dieses Layout übergeben wir dem Parameter `layout` mit dem Wert `layout.graphopt`.
 
-[3]: https://igraph.org/r/doc/layout_with_graphopt.html
+[^4]: https://igraph.org/r/doc/layout_with_graphopt.html
 
 
 ```R
-#02b First Plot
-# We first show the network with default values
-# Making Plots more constant
 set.seed(1234)
 
-# Plotting data
 plot(NFDI_network,                     # loading data frame
      main   = "NFDI-Netzwerk",         # adding a title
      frame  = TRUE,                    # FALSE -> making a frame
-     ###################################
      layout = layout.graphopt,         #* better layout options
      )
 
@@ -286,13 +264,13 @@ plot(NFDI_network,                     # loading data frame
 
 
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_11_0.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_13_0.png)
     
 
 
 Das Netzwerk ist jetzt schon besser strukturiert und die Abstände der Knoten ist harmonischer.
 
-Wer möchte, der kann mal verschiedene Layouts ausprobieren:
+Wer möchte, der kann weitere Layout-Einstellungen ausprobieren:
 
 * `layout.auto`: Choose an appropriate graph layout algorithm automatically
 * `layout.davidson.harel`: The Davidson-Harel layout algorithm
@@ -313,7 +291,7 @@ Nachdem wir die Anordnung der Knoten optimiert haben, wollen wir im nächsten Sc
 Es lassen sich verschiedene Werte nach eigenen Wünschen anpassen.
 
 Zunächst möchten wir die Farbe der Knoten angehen.
-Der Parameter lautet `vertex.color` und wir können einen HTML-Farbwert angeben (bspw. `#ffcc66`).[4]
+Der Parameter lautet `vertex.color` und wir können einen HTML-Farbwert angeben (bspw. `#ffcc66`).[^5]
 Für die Umrandung der Knoten wählen wir den gleichen Farbcode. Der Parameter lautet `vertex.frame.color`.
 
 Die Beschriftung der Knoten lässt sich ebenfalls modifizieren. 
@@ -330,24 +308,17 @@ Neben der Farbe können wir auch den Grad der "Kurvigkeit" bestimmen, die mit `e
 
 
 
-[4]: https://www.w3schools.com/colors/colors_picker.asp
+[^5]: https://www.w3schools.com/colors/colors_picker.asp
 
 
 ```R
-#03 Modifying Plot Layout
-# With small changes in the plot layout we can modify and adjust
-# the outcome of the networks design.
-
-# Making Plots more constant
 set.seed(1234)
 
-# Plotting data
+
 plot(NFDI_network,                     # loading data frame
      main   = "NFDI-Netzwerk",         # adding a title
      frame  = TRUE,                    # FALSE -> making a frame 
      layout = layout.graphopt,         # better layout options
-     ##########################################################
-                                       #* color: https://www.w3schools.com/colors/colors_picker.asp 
      vertex.color       = "#ffcc66",   #* color of nodes
      vertex.frame.color = "#ffcc66",   #* color of the frame of nodes
      vertex.label.cex   = 0.5,         #* size of the description of the labels
@@ -359,7 +330,7 @@ plot(NFDI_network,                     # loading data frame
 
 
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_14_0.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_16_0.png)
     
 
 
@@ -369,7 +340,7 @@ In den bisherigen Netzwerkdarstellungen sind alle Knoten gleich groß.
 
 Jetzt möchten wir eine weitere Informationsebene einbauen und die Knotengröße entsprechend der Anzahl ihrer Kanten ausgeben.
 
-Die Anzahl der Kanten pro Knoten können wir mit der Funktion `degree`[1] ermitteln.
+Die Anzahl der Kanten pro Knoten können wir mit der Funktion `degree`[^6] ermitteln.
 Wenn wir dieser Funktion den Datensatz des Netzwerkes übergeben (`degree(NFDI_network)`),
 dann erhalten wir die Anzahl der Kanten pro Knoten.
 Diese Werte nehmen wir als Größeangabe für die Kanten.
@@ -380,20 +351,15 @@ Die Knotengröße verbirgt sich hinter dem Parameter `vertex.size` und als Wert 
 
 
 
-[1]: https://igraph.org/r/doc/degree.html
+[^6]: https://igraph.org/r/doc/degree.html
 
 
 
 ```R
-#04 Size of nodes
-# Size of nodes depends on amount of edges
-
-# Making Plots more constant
 set.seed(1234)
 
 degree(NFDI_network)                   #* calculate number of edges
 
-# Plotting data
 plot(NFDI_network,                     # loading data frame
      main   = "NFDI-Netzwerk",         # adding a title
      frame  = TRUE,                    # FALSE -> making a frame 
@@ -405,7 +371,6 @@ plot(NFDI_network,                     # loading data frame
                                        # color: https://www.w3schools.com/colors/colors_picker.asp 
      edge.color         = "#808080",   # color of edges
      edge.curved        = 0.1,         # factor of "curvity"
-     ##########################################################
      vertex.size        = degree(NFDI_network), #* size of nodes depends on amount of edges
      )
 
@@ -474,7 +439,7 @@ plot(NFDI_network,                     # loading data frame
 
 
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_16_1.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_18_1.png)
     
 
 
@@ -486,17 +451,23 @@ Im nächsten Schritt möchten wir eine weitere Komponente einführen.
 Bislang war es unerheblich ob ein Konsortium im Datensatz an erster oder zweiter Stelle genannt wurde, das heißt, es war unerheblich ob der aktive oder der passive Kooperationspartner ist.
 
 Jetzt möchten wir die Unterscheidung im Netzwerk berücksichtigen. 
-Dafür muss unser Graph (Netzwerk) "gerichtet" werden[1].
+Dafür muss unser Graph (Netzwerk) "gerichtet" werden[^7].
 
 Wir führen eine neue Variable (`NFDI_network_directed`) ein, die den Datensatz als gerichteten Graph enthält, 
 was wir mit `directed = TRUE` einstellen.
 
+[^7]: https://de.wikipedia.org/wiki/Gerichteter_Graph
+
+
+```R
+NFDI_network_directed <- graph_from_data_frame(NFDI_edges,
+                                          directed = TRUE
+                                         )
+```
+
 Die restlichen Plotangaben übertragen wir aus der vorherigen Zelle.
 Entscheidend ist nun, dass wir der Plot-Funktion die neue Variable mit dem gerichteten Graphen übergeben.
 Zudem übergeben wir auch der Funktion `degree` die neue Variable.
-
-
-(Zelle ausführen)
 
 Im gerichteten Netzwerk erschwert die Kurvigkeit der Kanten die Lesbarkeit.
 Daher wäheln wir für `edge.curved` den Wert `0`.
@@ -504,23 +475,9 @@ Daher wäheln wir für `edge.curved` den Wert `0`.
 Ebenso sollen die Pfeilspitzen kleiner werden, was mit `edge.arrow.size` und dem relativen Wert `0.5` möglich ist.
 
 
-[1]: https://de.wikipedia.org/wiki/Gerichteter_Graph
-
-
 ```R
-#05 Direction of edges
-# Size of nodes depends on amount of edges
-
-#<<<<<<<<<<<< Loading data which considers the direction of edges
-NFDI_network_directed <- graph_from_data_frame(NFDI_edges,
-                                          directed = TRUE # Direction between nodes is important
-                                         )
-
-# Making Plots more constant
 set.seed(1234)
 
-
-# Plotting data
 plot(NFDI_network_directed,            #<<<<<<< loading data frame
      main   = "NFDI-Netzwerk",         # adding a title
      frame  = TRUE,                    # FALSE -> making a frame 
@@ -533,7 +490,6 @@ plot(NFDI_network_directed,            #<<<<<<< loading data frame
      edge.color         = "#808080",   # color of edges
      edge.curved        = 0,           #<<<<<<<<< factor of "curvity"
      vertex.size        = degree(NFDI_network_directed), #<<<<<< size of nodes depends on amount of edges
-     ##########################################################
      edge.arrow.size    = .5,          #* arrow size,  defaults to 1
     )
 
@@ -541,36 +497,32 @@ plot(NFDI_network_directed,            #<<<<<<< loading data frame
 
 
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_18_0.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_22_0.png)
     
 
-
-Wunderbar, das Netzwerk nimmt Gestalt an.
 
 Im nächsten Schritt möchten wir die Knotengröße entsprechend der *ein*gehenden Kanten skalieren.
 Je öfter ein Konsortium als Kooperationspartner genannt wird, desto größer wird dessen Knoten.
 
-Wir können dafür die Funktion `degree` modifizieren, indem wir `mode = "in"` ergänzen[1].
+Wir können dafür die Funktion `degree` modifizieren, indem wir `mode = "in"` ergänzen[^8].
+
 ```
 degree(NFDI_network_directed,
        mode = "in")
 ```
 
 
-[1]: https://igraph.org/r/doc/degree.html
+[^8]: https://igraph.org/r/doc/degree.html
 
 
 
 ```R
-#06 Size of nodes depending on direction of edges ("in")
-
-# Making Plots more constant
 set.seed(1234)
 
 degree(NFDI_network_directed,
        mode = "in")
 
-# Plotting data
+
 plot(NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<in>)",  #<<<<<<<< adding a title
      frame  = TRUE,                    # FALSE -> making a frame 
@@ -651,7 +603,7 @@ plot(NFDI_network_directed,            # loading data frame
 
 
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_20_1.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_24_1.png)
     
 
 
@@ -663,18 +615,11 @@ Wir übernehmen den kompletten Zelleninhalt von zuvor und ändern lediglich `in`
 
 
 ```R
-#07 Size of nodes depending on direction of edges ("out")
-
-
-# Making Plots more constant
 set.seed(1234)
 
 degree(NFDI_network_directed,
        mode = "out")
 
-
-
-# Plotting data
 plot(NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<out>)",  #<<<<<<<< adding a title
      frame  = TRUE,                    # FALSE -> making a frame 
@@ -752,7 +697,7 @@ plot(NFDI_network_directed,            # loading data frame
 
 
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_22_1.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_26_1.png)
     
 
 
@@ -777,24 +722,14 @@ Als Darstellungsmodus des Netzwerks wähle ich `total`, da es mir jetzt nicht um
 
 
 ```R
-#07 Size of nodes depending on direction of edges ("out")
-
-
-# Making Plots more constant
 set.seed(1234)
 
-#<<<<<<<< Filter / Deleting certain nodes/vertices from the network
-# all nodes which have no outgoing edges
 NFDI_network_directed_filter <- delete_vertices(NFDI_network_directed, 
             V(NFDI_network_directed)[ degree(NFDI_network_directed, mode = "out") == 0 ])
 
-#<<<<<<<< show the table of the filtered network
 degree(NFDI_network_directed_filter,
        mode = "total")
 
-
-
-# Plotting data
 plot(NFDI_network_directed_filter,           #<<<<<<<< loading data frame
      main   = "NFDI-Netzwerk (<filtered>)",  #<<<<<<<< adding a title
      frame  = TRUE,                    # FALSE -> making a frame 
@@ -854,7 +789,7 @@ plot(NFDI_network_directed_filter,           #<<<<<<<< loading data frame
 
 
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_24_1.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_28_1.png)
     
 
 
@@ -877,27 +812,20 @@ Für die Vorträge wurden fünf Panels aufgemacht:
 
 Die antragsstellenden Konsortien wurden auf diese fünf Gruppen eingeteilt.
 
-Der Unterschied der DFG-*Fach*systematik zur NFDI-*Konferenz*systematik ist in diesem Sankey-Plot verdeutlicht: http://lukascbossert.de/downloads/nfdi_sankey.html
-
 Auffällig ist, dass die Naturwissenschaften auf die Lebenswissenschaften, Ingenieurwissenschaften und Chemie/Physik aufgeteilt worden sind.
 
 Alle Konsortien sind also einem dieser fünf Bereiche zugeteilt und wir wollen das nun im Netzwerk zeigen.
-Diese Einteilung der Konsortien auf die Konferenzsystematik laden wir als fertigen Datensatz aus einem GitHub-Gist, was uns manche Tipparbeit sparen wird: https://gist.github.com/LukasCBossert/36d6034c8ebc2a4d61f011169371bc31
+Diese Einteilung der Konsortien auf die Konferenzsystematik laden wir als fertigen Datensatz aus einem GitHub-Gist, was uns manche Tipparbeit sparen wird.[^10]
 
 Dieser neue Datensatz wird der Variable `NFDI_nodes` übergeben; die erste Spalte beinhaltet die Konsortialnamen, die zweite Spalte die Nummer aus der NFDI-*Konferenz*systematik.
 
-Jetzt müssen wir aus dem Datensatz noch ein Graph-Datensatz erstellen, was wiederum mit `graph_from_data_frame` geschieht. Neu ist, dass wir nun differenzieren, was unser Kanten-Data-Frame ist und was die Liste mit den Knoten.
-
+[^10]:  https://gist.github.com/LukasCBossert/36d6034c8ebc2a4d61f011169371bc31
 
 
 ```R
-#10 NFDI-consortia with group-number
-# group is the number according to NFDI-consortium classification
-# This Code-Snippet is also on GitHub-Gist:
-# https://gist.github.com/LukasCBossert/36d6034c8ebc2a4d61f011169371bc31
-
-
-NFDI_nodes <- read.table(header=TRUE,sep=",",text="
+NFDI_nodes <- read.table(header=TRUE,
+                         sep=",",
+                         text="
 name,group
 BERD@NFDI,3
 DAPHNE4NFDI,5
@@ -926,10 +854,14 @@ NFDIxCS,4
 PUNCH4NFDI,5
 Text+,3
 ")
+```
+
+Jetzt müssen wir aus dem Datensatz noch ein Graph-Datensatz erstellen, was wiederum mit `graph_from_data_frame` geschieht. Neu ist, dass wir nun differenzieren, was unser Kanten-Data-Frame ist und was die Liste mit den Knoten.
 
 
 
-# Making Data accessible
+
+```R
 NFDI_network_directed <- graph_from_data_frame(d = NFDI_edges,        # d = data frame =~ edges
                                                vertices = NFDI_nodes, #nodes
                                                directed = TRUE)       #directed
@@ -951,7 +883,7 @@ Es gelten folgende Werte
 
 Diese Farbwerte geben wir jetzt der Reihe nach an die Variable `NFDI_color_code` weiter,
 dabei werden die Farbwerte in eine Liste geschrieben. 
-Anhand der Funktion `c` werden die Werte in einen Vektor geschrieben,[1]
+Anhand der Funktion `c` werden die Werte in einen Vektor geschrieben,[^11]
 mit dem wir weiterarbeiten können.
 
 
@@ -962,7 +894,7 @@ das nutzen wir, indem wir den Wert der zweiten Spalte des Netzwerkgraphen (`$gro
 Vereinfacht gesagt und vom Ergebnis her gesehen, bekommt die Nummer der NFDI-Konferenzsystematik den Farbwert, der an der entsprechenden Stelle in der Liste der Variable `NFDI_color_code` steht.
 
 
-[1]: https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/c
+[^11]: https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/c
 
 
 
@@ -970,23 +902,6 @@ Vereinfacht gesagt und vom Ergebnis her gesehen, bekommt die Nummer der NFDI-Kon
 
 
 ```R
-#10b Color nodes by NFDI-group-number
-
-# +-----+-------------------------+---------------+
-# | Nr. | Bezeichnung             | HTML-Farbcode |
-# +-----+-------------------------+---------------+
-# | (1) | Medizin                 | `#f5ac9f`     |
-# +-----+-------------------------+---------------+
-# | (2) | Lebenswissenschaften    | `#e43516`     |
-# +-----+-------------------------+---------------+
-# | (3) | Geisteswissenschaften   | `#f9b900`     |
-# +-----+-------------------------+---------------+
-# | (4) | Ingenieurwissenschaften | `#007aaf`     |
-# +-----+-------------------------+---------------+
-# | (5) | Chemie/Physik           | `#6ca11d`     |
-# +-----+-------------------------+---------------+
-
-
 NFDI_color_code <- c("#f5ac9f", # Medizin
                      "#e43516", # Lebenswissenschaften
                      "#f9b900", # Geisteswissenschaften
@@ -994,8 +909,6 @@ NFDI_color_code <- c("#f5ac9f", # Medizin
                      "#6ca11d"  # Chemie/Physik
                     )
 NFDI_color_groups <- NFDI_color_code[as.numeric(as.factor(V(NFDI_network_directed)$group))]
-
-
 ```
 
 ## Netzwerk mit eingefärbten Knoten
@@ -1004,8 +917,6 @@ Wir können wiederum den Zellencode von oben übernehmen und anpassen.
 
 Entscheidend ist, dass wir bei `vertex.color` und `vertex.frame.color` die Variable `NFDI_color_groups` als Wert angeben.
 Wir wollen ebenfalls das gesamte Netzwerk mit allen Kanten (`mode = "total"`) berücksichtigen und darstellen.
-
-> (Plotten)
 
 Was jetzt noch fehlt, ist eine Legende, sodass wir auch sehen, was hinter der Farbcodierung an sich steckt.
 
@@ -1029,19 +940,8 @@ Mit `bty` und dem Wert `n` für `no` verzichten wir auf einen Rahmen um die Lege
 
 
 ```R
-#11 group detection with numbered consortia
-# coloring groups according to NFDI-classification
-#1,Medizin
-#2,Lebenswissenschaften
-#3,Geisteswissenschaften
-#4,Ingenieurswissenschaften
-#5,Physik/Chemie
-
-
-# Making Plots more constant
 set.seed(1234)
 
-# Plotting data
 plot(NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<Konferenzsystematik>)",  #<<<<<<<< adding a title
      frame  = TRUE,                    # FALSE -> making a frame 
@@ -1059,7 +959,6 @@ plot(NFDI_network_directed,            # loading data frame
     )
 
 
-# Add a legend
 legend("bottomright",   # x-position
        title  = "NFDI-Konferenzsystematik", # title
        legend = c(
@@ -1075,14 +974,11 @@ legend("bottomright",   # x-position
        cex    = .75,    # character expansion factor relative to current par("cex").
        pt.cex = 2       # expansion factor(s) for the points
 )
-
-
-
 ```
 
 
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_30_0.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_36_0.png)
     
 
 
@@ -1091,7 +987,7 @@ legend("bottomright",   # x-position
 Die Einfärbung des Netzwerks mit den Farben der NFDI-Konferenzsystematik lässt die Vermutung zu, dass es bestimmte Gruppen gibt, die eine engere Beziehung zueinander haben (ausgehend von den Kooperationsabsichten in den Letter of Intents).
 
 Wir können in R einen Algorithmus anwenden, der solche Gruppen ermittelt.
-Dafür wählen wir den Algorithmus `cluster_optimal`[1]
+Dafür wählen wir den Algorithmus `cluster_optimal`[^12]
 
 In der Dokumentation steht:
 
@@ -1106,7 +1002,7 @@ Wir verzichten jetzt auf die Darstellung der Kanten, was wir mit `edge.color = N
 
 Die Einfärberung der Knoten erfolgt nicht mehr über die Parameter `vertex.color` und `vertex.frame.color`, 
 sodass wir diese Zeilen auskommentieren oder löschen können. 
-Dafür gibt es einen neuen Parameter und wir können `col` den Wert `NFDI_color_groups` übergeben.[2]
+Dafür gibt es einen neuen Parameter und wir können `col` den Wert `NFDI_color_groups` übergeben.[^13]
 
 Die Einfassung der Gruppen möchten wir grau hervorheben, was wir mit `mark.col = "grey"` erreichen,
 zudem verzichten wir auf die Darstellung des Randes (`mark.border = NA`).
@@ -1114,28 +1010,17 @@ zudem verzichten wir auf die Darstellung des Randes (`mark.border = NA`).
 
 Für die Legende müssen wir nichts anpassen.
 
-[1]: https://igraph.org/r/doc/cluster_optimal.html
-[2]: https://igraph.org/r/doc/communities.html
+[^12]: https://igraph.org/r/doc/cluster_optimal.html
+[^13]: https://igraph.org/r/doc/communities.html
 
 
 
 ```R
-#12 group detection coloring edges
-###################################
-# Showing that there are three homogenous groups
-# A) 1+2
-# B) 3
-# C) 4+5
-# So the statement made in https://youtu.be/YmuUT8HkXxY?t=904 seems to be true.
-
-
-
-# Making Plots more constant
 set.seed(1234)
 
 NFDI_network_directed_cluster <- cluster_optimal(NFDI_network_directed)
 
-# Plotting data
+
 plot(NFDI_network_directed_cluster,    #<<<<<<<<<<< clustered network data
      NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<Konferenzsystematik>)",  # adding a title
@@ -1151,14 +1036,12 @@ plot(NFDI_network_directed_cluster,    #<<<<<<<<<<< clustered network data
      vertex.size        = degree(NFDI_network_directed,
                                  mode = "total"), #<<<<<<<<<<< size of nodes depends on amount of edges
      edge.arrow.size    = .5,          # arrow size,  defaults to 1
-     #####################################
      col    = NFDI_color_groups,       #<<<<<<<<<<<<<  color of nodes
      mark.col           = "grey",      #<<<<<<<<<< color groups
      mark.border        = NA,          #<<<<<<<<<< no border color
     )
 
 
-# Add a legend
 legend("bottomright",   # x-position
        title  = "NFDI-Konferenzsystematik", # title
        legend = c(
@@ -1174,12 +1057,11 @@ legend("bottomright",   # x-position
        cex    = .75,    # character expansion factor relative to current par("cex").
        pt.cex = 2       # expansion factor(s) for the points
 )
-
 ```
 
 
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_32_0.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_38_0.png)
     
 
 
@@ -1209,22 +1091,16 @@ Als Wert setzen wir eine Liste, die aus zwei Einträgen besteht (`c(NA,"#bf4040"
 Der erste Eintrag ist `NA` (`Not Available`), womit wir die cis-disziplinäre Kanten ansteuern; sie werden also nicht ausgegeben. Der zweite Einträg ist ein HTML-Farbcode, den wir für die trans-disziplinäre Kanten verwenden.
 Die Unterscheidung zwischen cis- und trans-disziplinärer Kante wird über die Funktion `crossing` vorgenommen.
 
-> `crossing` returns a logical vector, with one value for each edge, ordered according to the edge ids. The value is TRUE iff the edge connects two different communities, according to the (best) membership vector, as returned by `membership()`.[1]
+> `crossing` returns a logical vector, with one value for each edge, ordered according to the edge ids. The value is TRUE iff the edge connects two different communities, according to the (best) membership vector, as returned by `membership()`.[^14]
 
-[1]: https://igraph.org/r/doc/communities.html
+[^14]: https://igraph.org/r/doc/communities.html
 
 
 
 
 ```R
-#13 group detection coloring edges
-# Showing that there is a connection between groups
-# cooperations are not only between NFDI-group-definition consortia
-
-# Making Plots more constant
 set.seed(1234)
 
-# Plotting data
 plot(NFDI_network_directed_cluster,    # clustered network data
      NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<Konferenzsystematik>)",  # adding a title
@@ -1247,7 +1123,6 @@ plot(NFDI_network_directed_cluster,    # clustered network data
     )
 
 
-# Add a legend
 legend("bottomright",   # x-position
        title  = "NFDI-Konferenzsystematik", # title
        legend = c(
@@ -1263,33 +1138,26 @@ legend("bottomright",   # x-position
        cex    = .75,    # character expansion factor relative to current par("cex").
        pt.cex = 2       # expansion factor(s) for the points
 )
-
-
-
 ```
 
 
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_35_0.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_41_0.png)
     
 
 
-Es zeigt sich eine rege Interakation auch zwischen den einzelnen Silos.
+Es zeigt sich eine rege Interaktion auch zwischen den einzelnen Silos.
 Nur ein Konsortium hat keine transdisziplinäre Verbindung.
 
 
 # Schluss
 
 Wir haben die Netzwerkvisualisierung und -analyse nur anhand des Pakets `igraph` gemacht.
-Jetzt gilt es noch das Ergebnis zu sichern, bspw. unter "File" --> "Save and Checkpoint".
+Jetzt gilt es noch das Ergebnis zu sichern, bspw. unter "*File*" --> "*Save and Checkpoint*".
 
 Ihr könnt ebenso das JupyterNotebook herunterladen, es stehen verschiedene Formate bereit.
 
 Zudem ist das JupyterNotebook über die URL jederzeit wieder ansteuerbar und ihr könnt weitere Modifikationen im Netzwerk vornehmen.
-
-
-## Ausblick
-
 
 Es gibt noch weitere spannende Beschäftigungen mit diesem Netzwerk.
 Zum Beispiel kann man auch ein interaktives Netzwerk erstellen oder das Netzwerk als Kreisdiagramm darstellen.
@@ -1299,8 +1167,3 @@ Das Passwort lautet `fdmrwth`.
 
 
 
-
-
-```R
-
-```
