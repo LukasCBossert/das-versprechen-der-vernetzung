@@ -1,12 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
 
-<title>das-versprechen-der-vernetzung</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 
+<title>das-versprechen-der-vernetzung slides</title><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
+<!-- General and theme style sheets -->
+<link rel="stylesheet" href="https://unpkg.com/reveal.js@4.0.2/dist/reveal.css">
+<link rel="stylesheet" href="https://unpkg.com/reveal.js@4.0.2/dist/theme/simple.css" id="theme">
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+}
+</script>
+
+<!-- Loading the mathjax macro -->
+<!-- Load mathjax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML-full,Safe"> </script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    init_mathjax = function() {
+        if (window.MathJax) {
+        // MathJax loaded
+            MathJax.Hub.Config({
+                TeX: {
+                    equationNumbers: {
+                    autoNumber: "AMS",
+                    useLabelIds: true
+                    }
+                },
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                displayAlign: 'center',
+                CommonHTML: {
+                    linebreaks: { 
+                    automatic: true 
+                    }
+                },
+                "HTML-CSS": {
+                    linebreaks: { 
+                    automatic: true 
+                    }
+                }
+            });
+        
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    <!-- End of mathjax configuration -->
 
 <style type="text/css">
     pre { line-height: 125%; margin: 0; }
@@ -14197,16 +14253,15 @@ a.anchor-link {
 .highlight  {
     margin: 0.4em;
 }
-
-/* Input area styling */
-.jp-InputArea {
-    overflow: hidden;
+.jp-Notebook {
+    padding: 0;
 }
-
-.jp-InputArea-editor {
-    overflow: hidden;
+:root {
+    --jp-ui-font-size1: 20px;       /* instead of 14px */
+    --jp-content-font-size1: 20px;  /* instead of 14px */
+    --jp-code-font-size: 19px;      /* instead of 13px */
+    --jp-cell-prompt-width: 110px;  /* instead of 64px */
 }
-
 @media print {
   body {
     margin: 0;
@@ -14214,49 +14269,120 @@ a.anchor-link {
 }
 </style>
 
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+.reveal {
+  font-size: 160%;
+}
+.reveal pre {
+  width: inherit;
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace, sans-serif;
+  font-size: 80%;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+}
+.reveal pre code {
+  padding: 0px;
+}
+.reveal section img {
+  border: 0px solid black;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+}
+.reveal i {
+  font-style: normal;
+  font-family: FontAwesome;
+  font-size: 2em;
+}
+.reveal .slides {
+  text-align: left;
+}
+.reveal.fade {
+  opacity: 1;
+}
+.reveal .progress {
+  position: static;
+}
 
+div.jp-InputArea-editor {
+  padding: 0.06em;
+}
 
-<!-- Load mathjax -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML-full,Safe"> </script>
-    <!-- MathJax configuration -->
-    <script type="text/x-mathjax-config">
-    init_mathjax = function() {
-        if (window.MathJax) {
-        // MathJax loaded
-            MathJax.Hub.Config({
-                TeX: {
-                    equationNumbers: {
-                    autoNumber: "AMS",
-                    useLabelIds: true
-                    }
-                },
-                tex2jax: {
-                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-                    processEscapes: true,
-                    processEnvironments: true
-                },
-                displayAlign: 'center',
-                CommonHTML: {
-                    linebreaks: { 
-                    automatic: true 
-                    }
-                },
-                "HTML-CSS": {
-                    linebreaks: { 
-                    automatic: true 
-                    }
-                }
-            });
-        
-            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
-        }
-    }
-    init_mathjax();
-    </script>
-    <!-- End of mathjax configuration --></head>
+div.code_cell {
+  background-color: transparent;
+}
+
+div.output_area pre {
+  font-family: monospace, sans-serif;
+  font-size: 80%;
+}
+
+div.jp-OutputPrompt {
+  /* 5px right shift to account for margin in parent container */
+  margin: 5px 5px 0 0;
+}
+
+/* Reveal navigation controls */
+
+.reveal .controls .navigate-left,
+.reveal .controls .navigate-left.enabled {
+  border-right-color: #727272;
+}
+.reveal .controls .navigate-left.enabled:hover,
+.reveal .controls .navigate-left.enabled.enabled:hover {
+  border-right-color: #dfdfdf;
+}
+.reveal .controls .navigate-right,
+.reveal .controls .navigate-right.enabled {
+  border-left-color: #727272;
+}
+.reveal .controls .navigate-right.enabled:hover,
+.reveal .controls .navigate-right.enabled.enabled:hover {
+  border-left-color: #dfdfdf;
+}
+.reveal .controls .navigate-up,
+.reveal .controls .navigate-up.enabled {
+  border-bottom-color: #727272;
+}
+.reveal .controls .navigate-up.enabled:hover,
+.reveal .controls .navigate-up.enabled.enabled:hover {
+  border-bottom-color: #dfdfdf;
+}
+.reveal .controls .navigate-down,
+.reveal .controls .navigate-down.enabled {
+  border-top-color: #727272;
+}
+.reveal .controls .navigate-down.enabled:hover,
+.reveal .controls .navigate-down.enabled.enabled:hover {
+  border-top-color: #dfdfdf;
+}
+.reveal .progress span {
+  background: #727272;
+}
+
+/* Scrollbars */
+
+::-webkit-scrollbar
+{
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar *
+{
+  background:transparent;
+}
+::-webkit-scrollbar-thumb
+{
+  background: #727272 !important;
+}
+</style>
+
+</head>
+
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 
+<div class="reveal">
+<div class="slides"><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h1 id="Netzwerkvisualisierung">Netzwerkvisualisierung<a class="anchor-link" href="#Netzwerkvisualisierung">&#182;</a></h1><p>In diesem JupyterNotebook zeigen wir euch, wie man ein Netzwerk visualisiert und analysiert. Wir machen dies am Beispiel der Konsortien, die sich bei der Nationalen Forschungsdateninfrastrukturinitiative (NFDI) beteiligen bzw. beworben haben.</p>
 <p>Als Datengrundlage nehmen wir die <em>Letters of Intent</em> der jeweiligen Konsortien, in denen Kooperationspartner genannt werden. Diese Nennungen sind Ausgangspunkt unseres Netzwerkes<sup class="footnote-ref" id="fnref-1"><a href="#fn-1">1</a></sup>.</p>
@@ -14273,7 +14399,7 @@ Ihr seht dann das Ergebnis des Codes direkt unter der Zelle angezeigt.</p>
 </div>
 
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Bevor wir loslegen, möchten wir noch ein paar Begriffe klären.
 Ein Netzwerk besteht aus zwei Komponenten:</p>
@@ -14285,7 +14411,7 @@ Ein Netzwerk besteht aus zwei Komponenten:</p>
 <p><img src="img/Einheitskreis_Gestalt.png" alt="Komponenten eines Netzwerks. Erstellt von ÉD."></p>
 
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>R ist so aufgebaut, dass verschiedene Bibliotheken für unterschiedliche Funktionen geladen werden können.
 Für die Netzwerkanalyse werden wir auf das Paket <code>igraph</code><sup class="footnote-ref" id="fnref-2b"><a href="#fn-2b">1</a></sup> zurückgreifen.
@@ -14297,7 +14423,7 @@ Mit <code>library('igraph')</code> laden wir das Paket.</p>
 </div>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -14337,7 +14463,7 @@ The following object is masked from ‘package:base’:
 
 </div>
 
-</div>
+</div></div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Die Datengrundlage steht bereits in Form einer Auflistung zur Verfügung,<sup class="footnote-ref" id="fnref-1b"><a href="#fn-1b">1</a></sup>, sodass wir 
 die Daten kopieren und in die nächste Zelle einfügen können.</p>
@@ -14360,150 +14486,7 @@ Es gibt drei Parameter:</p>
 </div>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="n">NFDI_edges</span> <span class="o">&lt;-</span> <span class="nf">read.table</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span>
-                         <span class="n">sep</span><span class="o">=</span><span class="s">&quot;,&quot;</span><span class="p">,</span>
-                         <span class="n">text</span><span class="o">=</span><span class="s">&quot;</span>
-<span class="s">from,to</span>
-<span class="s">BERD@NFDI,KonsortSWD</span>
-<span class="s">BERD@NFDI,MaRDI</span>
-<span class="s">BERD@NFDI,NFDI4Memory</span>
-<span class="s">BERD@NFDI,Text+</span>
-<span class="s">DAPHNE4NFDI,FAIRmat</span>
-<span class="s">DAPHNE4NFDI,NFDI-MatWerk</span>
-<span class="s">DAPHNE4NFDI,NFDI4Cat</span>
-<span class="s">DAPHNE4NFDI,NFDI4Chem</span>
-<span class="s">DAPHNE4NFDI,NFDI4Health</span>
-<span class="s">DAPHNE4NFDI,NFDI4Ing</span>
-<span class="s">DAPHNE4NFDI,NFDI4Objects</span>
-<span class="s">DAPHNE4NFDI,PUNCH4NFDI</span>
-<span class="s">FAIRmat,DAPHNE4NFDI</span>
-<span class="s">FAIRmat,DataPLANT</span>
-<span class="s">FAIRmat,MaRDI</span>
-<span class="s">FAIRmat,NFDI-MatWerk</span>
-<span class="s">FAIRmat,NFDI4Cat</span>
-<span class="s">FAIRmat,NFDI4Chem</span>
-<span class="s">FAIRmat,NFDI4DataScience</span>
-<span class="s">FAIRmat,NFDI4Ing</span>
-<span class="s">FAIRmat,NFDIxCS</span>
-<span class="s">FAIRmat,PUNCH4NFDI</span>
-<span class="s">MaRDI,BERD@NFDI</span>
-<span class="s">MaRDI,FAIRmat</span>
-<span class="s">MaRDI,NFDI-MatWerk</span>
-<span class="s">MaRDI,NFDI-Neuro</span>
-<span class="s">MaRDI,NFDI4Cat</span>
-<span class="s">MaRDI,NFDI4Chem</span>
-<span class="s">MaRDI,NFDI4Ing</span>
-<span class="s">MaRDI,PUNCH4NFDI</span>
-<span class="s">NFDI-MatWerk,DAPHNE4NFDI</span>
-<span class="s">NFDI-MatWerk,DataPLANT</span>
-<span class="s">NFDI-MatWerk,FAIRmat</span>
-<span class="s">NFDI-MatWerk,MaRDI</span>
-<span class="s">NFDI-MatWerk,NFDI4Chem</span>
-<span class="s">NFDI-MatWerk,NFDI4DataScience</span>
-<span class="s">NFDI-MatWerk,NFDI4Ing</span>
-<span class="s">NFDI-MatWerk,NFDIxCS</span>
-<span class="s">NFDI-Neuro,DataPLANT</span>
-<span class="s">NFDI-Neuro,GHGA</span>
-<span class="s">NFDI-Neuro,NFDI4BioDiversity</span>
-<span class="s">NFDI-Neuro,NFDI4Culture</span>
-<span class="s">NFDI-Neuro,NFDI4Earth</span>
-<span class="s">NFDI-Neuro,NFDI4Health</span>
-<span class="s">NFDI-Neuro,NFDI4Ing</span>
-<span class="s">NFDI-Neuro,NFDI4Microbiota</span>
-<span class="s">NFDI4Agri,DataPLANT</span>
-<span class="s">NFDI4Agri,KonsortSWD</span>
-<span class="s">NFDI4Agri,NFDI4BioDiversity</span>
-<span class="s">NFDI4Agri,NFDI4Earth</span>
-<span class="s">NFDI4Agri,NFDI4Health</span>
-<span class="s">NFDI4Agri,NFDI4Immuno</span>
-<span class="s">NFDI4Agri,NFDI4Microbiota</span>
-<span class="s">NFDI4DataScience,KonsortSWD</span>
-<span class="s">NFDI4DataScience,MaRDI</span>
-<span class="s">NFDI4DataScience,NFDI-MatWerk</span>
-<span class="s">NFDI4DataScience,NFDI4BioDiversity</span>
-<span class="s">NFDI4DataScience,NFDI4Cat</span>
-<span class="s">NFDI4DataScience,NFDI4Chem</span>
-<span class="s">NFDI4DataScience,NFDI4Culture</span>
-<span class="s">NFDI4DataScience,NFDI4Health</span>
-<span class="s">NFDI4DataScience,NFDI4Ing</span>
-<span class="s">NFDI4DataScience,NFDI4Microbiota</span>
-<span class="s">NFDI4DataScience,NFDIxCS</span>
-<span class="s">NFDI4Earth,DataPLANT</span>
-<span class="s">NFDI4Earth,GHGA</span>
-<span class="s">NFDI4Earth,KonsortSWD</span>
-<span class="s">NFDI4Earth,NFDI4Agri</span>
-<span class="s">NFDI4Earth,NFDI4BioDiversity</span>
-<span class="s">NFDI4Earth,NFDI4Cat</span>
-<span class="s">NFDI4Earth,NFDI4Chem</span>
-<span class="s">NFDI4Earth,NFDI4Culture</span>
-<span class="s">NFDI4Earth,NFDI4Health</span>
-<span class="s">NFDI4Earth,NFDI4Ing</span>
-<span class="s">NFDI4Earth,NFDI4Objects</span>
-<span class="s">NFDI4Immuno,GHGA</span>
-<span class="s">NFDI4Immuno,NFDI4Agri</span>
-<span class="s">NFDI4Immuno,NFDI4Health</span>
-<span class="s">NFDI4Immuno,NFDI4Microbiota</span>
-<span class="s">NFDI4Memory,BERD@NFDI</span>
-<span class="s">NFDI4Memory,KonsortSWD</span>
-<span class="s">NFDI4Memory,MaRDI</span>
-<span class="s">NFDI4Memory,NFDI4Culture</span>
-<span class="s">NFDI4Memory,NFDI4Objects</span>
-<span class="s">NFDI4Memory,Text+</span>
-<span class="s">NFDI4Microbiota,DataPLANT</span>
-<span class="s">NFDI4Microbiota,GHGA</span>
-<span class="s">NFDI4Microbiota,NFDI4Agri</span>
-<span class="s">NFDI4Microbiota,NFDI4BioDiversity</span>
-<span class="s">NFDI4Microbiota,NFDI4Chem</span>
-<span class="s">NFDI4Microbiota,NFDI4DataScience</span>
-<span class="s">NFDI4Microbiota,NFDI4Health</span>
-<span class="s">NFDI4Microbiota,NFDI4Immuno</span>
-<span class="s">NFDI4Microbiota,NFDI4Ing</span>
-<span class="s">NFDI4Objects,KonsortSWD</span>
-<span class="s">NFDI4Objects,NFDI4Agri</span>
-<span class="s">NFDI4Objects,NFDI4BioDiversity</span>
-<span class="s">NFDI4Objects,NFDI4Culture</span>
-<span class="s">NFDI4Objects,NFDI4Earth</span>
-<span class="s">NFDI4Objects,NFDI4Memory</span>
-<span class="s">NFDI4Objects,Text+</span>
-<span class="s">NFDI4SD,NFDI4Culture</span>
-<span class="s">NFDI4SD,NFDI4DataScience</span>
-<span class="s">NFDI4SD,NFDI4Memory</span>
-<span class="s">NFDI4SD,NFDI4Objects</span>
-<span class="s">NFDIxCS,FAIRmat</span>
-<span class="s">NFDIxCS,MaRDI</span>
-<span class="s">NFDIxCS,NFDI4Chem</span>
-<span class="s">NFDIxCS,NFDI4DataScience</span>
-<span class="s">NFDIxCS,NFDI4Earth</span>
-<span class="s">NFDIxCS,NFDI4Ing</span>
-<span class="s">PUNCH4NFDI,DAPHNE4NFDI</span>
-<span class="s">PUNCH4NFDI,FAIRmat</span>
-<span class="s">PUNCH4NFDI,GHGA</span>
-<span class="s">PUNCH4NFDI,MaRDI</span>
-<span class="s">PUNCH4NFDI,NFDI4Earth</span>
-<span class="s">PUNCH4NFDI,NFDI4Ing</span>
-<span class="s">PUNCH4NFDI,NFDIxCS</span>
-<span class="s">Text+,KonsortSWD</span>
-<span class="s">Text+,NFDI4BioDiversity</span>
-<span class="s">Text+,NFDI4Culture</span>
-<span class="s">Text+,NFDI4Earth</span>
-<span class="s">Text+,NFDI4Ing</span>
-<span class="s">Text+,NFDI4Memory</span>
-<span class="s">Text+,NFDI4Objects</span>
-<span class="s">&quot;</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Damit wir aus diesem Datensatz ein Netzwerk erstellen können,
 müssen wir es aufbereiten und einen <code>igraph graph</code> erstellen.<sup class="footnote-ref" id="fnref-3"><a href="#fn-3">1</a></sup>
@@ -14520,7 +14503,7 @@ Es geht uns jetzt nur darum, dass zwei Konsortien verknüpft sind.</p>
 </div>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -14536,7 +14519,7 @@ Es geht uns jetzt nur darum, dass zwei Konsortien verknüpft sind.</p>
 </div>
 </div>
 
-</div>
+</div></div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Erstes-Netzwerk-(Grundeinstellung)">Erstes Netzwerk (Grundeinstellung)<a class="anchor-link" href="#Erstes-Netzwerk-(Grundeinstellung)">&#182;</a></h2><p>Zunächst werden wir einen Parameter festlegen, damit unser Netzwerk bei gleicher Datengrundlage immer gleich aussieht. Dieser Parameter ist <code>seed</code>.
 Wir wählen eine beliebige Zahl, die groß sein darf.</p>
@@ -14545,7 +14528,7 @@ Dafür rufen wir die Funktion <code>plot</code> auf und übergeben ihr die Varia
 Für einen Titel können wir noch den Parameter <code>main</code> bestimmen und ebenso können wir angeben, ob wir mit <code>frame=TRUE</code> einen Rahmen um das Netzwerk haben wollen.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -17788,12 +17771,7 @@ gCD+A2xQt6LeFiWJAAAAAElFTkSuQmCC"
 
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Wir sehen das Netzwerk der NFDI-Konsortien ohne weitere explizite Einstellungen.</p>
-
-</div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Layout-Einstellungen">Layout-Einstellungen<a class="anchor-link" href="#Layout-Einstellungen">&#182;</a></h2><p>Als nächsten Schritt möchten wir das Layout des Netzwerks optimieren.
 Anstatt den Code für den Plot nochmals abzutippen, werden wir den Inhalt der letzten Zelle markieren, kopieren und in die nächste Zelle einfügen.</p>
@@ -17809,7 +17787,7 @@ Mit dem Layout <code>graphopt</code><sup class="footnote-ref" id="fnref-4"><a hr
 </div>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -21420,7 +21398,7 @@ EHYAAEEIOwCAIIQdAEAQwg4AIAhhBwAQhLADAAhC2AEABCHsAACCEHYAAEEIOwCAIIQdAEAQ
 
 </div>
 
-</div>
+</div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Das Netzwerk ist jetzt schon besser strukturiert und die Abstände der Knoten sind harmonischer.</p>
 <p>Wer möchte, der kann weitere Layout-Einstellungen<sup class="footnote-ref" id="fnref-4"><a href="#fn-4">1</a></sup> ausprobieren:</p>
@@ -21446,7 +21424,7 @@ EHYAAEEIOwCAIIQdAEAQwg4AIAhhBwAQhLADAAhC2AEABCHsAACCEHYAAEEIOwCAIIQdAEAQ
 </div>
 
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Farbe,-Gr&#246;&#223;e,-Kr&#252;mmung-(Knoten-und-Kanten)">Farbe, Gr&#246;&#223;e, Kr&#252;mmung (Knoten und Kanten)<a class="anchor-link" href="#Farbe,-Gr&#246;&#223;e,-Kr&#252;mmung-(Knoten-und-Kanten)">&#182;</a></h2><p>Nachdem wir die Anordnung der Knoten optimiert haben, wollen wir im nächsten Schritt die Darstellung der Knoten und Kanten angehen.</p>
 <p>Es lassen sich verschiedene Parameter nach eigenen Wünschen anpassen.</p>
@@ -21469,7 +21447,7 @@ Neben der Farbe können wir auch den Grad der "Krümmung" bestimmen, die mit <co
 </div>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -24455,7 +24433,7 @@ SUVORK5CYII="
 
 </div>
 
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Knotengr&#246;&#223;e-in-Abh&#228;ngigkeit-der-Kantenanzahl">Knotengr&#246;&#223;e in Abh&#228;ngigkeit der Kantenanzahl<a class="anchor-link" href="#Knotengr&#246;&#223;e-in-Abh&#228;ngigkeit-der-Kantenanzahl">&#182;</a></h2><p>In den bisherigen Netzwerkdarstellungen sind alle Knoten gleich groß.</p>
 <p>Jetzt möchten wir eine weitere Informationsebene einbauen und die Knotengröße entsprechend der Anzahl ihrer Kanten ausgeben.</p>
@@ -24473,7 +24451,7 @@ Die Knotengröße verbirgt sich hinter dem Parameter <code>vertex.size</code> un
 </div>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -24558,7 +24536,7 @@ Die Knotengröße verbirgt sich hinter dem Parameter <code>vertex.size</code> un
 
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -27597,7 +27575,7 @@ YII="
 
 </div>
 
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Knotengr&#246;&#223;e-in-Abh&#228;ngigkeit-der-Anzahl-ein--und-ausgehender-Kanten">Knotengr&#246;&#223;e in Abh&#228;ngigkeit der Anzahl ein- und ausgehender Kanten<a class="anchor-link" href="#Knotengr&#246;&#223;e-in-Abh&#228;ngigkeit-der-Anzahl-ein--und-ausgehender-Kanten">&#182;</a></h2><p>Wir haben jetzt eine zweite Informationsebene in unser Netzwerk eingeführt und können die Knotengröße in Relation zur Kantenanzahl darstellen.</p>
 <p>Im nächsten Schritt möchten wir eine weitere Komponente einführen. 
@@ -27613,7 +27591,7 @@ was wir mit <code>directed = TRUE</code> einstellen.</p>
 </div>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -27629,7 +27607,7 @@ was wir mit <code>directed = TRUE</code> einstellen.</p>
 </div>
 </div>
 
-</div>
+</div></div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Die restlichen Plotangaben übertragen wir aus der vorherigen Zelle.
 Entscheidend ist nun, dass wir der Plot-Funktion die neue Variable mit dem gerichteten Graphen übergeben.
@@ -27639,7 +27617,7 @@ Daher wählen wir für <code>edge.curved</code> den Wert <code>0</code>.</p>
 <p>Ebenso sollen die Pfeilspitzen kleiner werden, was mit <code>edge.arrow.size</code> und dem relativen Wert <code>0.5</code> möglich ist.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -30665,7 +30643,7 @@ gCIIOwAAAEUQdgAAAIog7AAAABRB2AEAACiCsAMAAFAEYQcAAKAIwg4AAEAR/w/FRr3bJR+A
 
 </div>
 
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Im nächsten Schritt möchten wir die Knotengröße entsprechend der <em>ein</em>gehenden Kanten skalieren.
 Je öfter ein Konsortium als Kooperationspartner genannt wird, desto größer wird dessen Knoten.</p>
@@ -30680,7 +30658,7 @@ Je öfter ein Konsortium als Kooperationspartner genannt wird, desto größer wi
 </div>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -30766,7 +30744,7 @@ Je öfter ein Konsortium als Kooperationspartner genannt wird, desto größer wi
 
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -33966,13 +33944,13 @@ uK/AAAAAAElFTkSuQmCC"
 
 </div>
 
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Ebenfalls können wir nun auch die Größe der Konsortien entsprechend ihrer <em>aus</em>gehenden Kanten darstellen.</p>
 <p>Wir übernehmen den kompletten Zelleninhalt von zuvor und ändern lediglich <code>in</code> zu <code>out</code>.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -34058,7 +34036,7 @@ uK/AAAAAAElFTkSuQmCC"
 
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -37235,13 +37213,13 @@ AGAIBDsAAAAAhkCwAwAAAGAIBDsAAAAAhvj/9Fd3Ay3ZSEkAAAAASUVORK5CYII="
 
 </div>
 
-</div>
+</div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Es fällt auf, dass einige Knoten schrumpfen und in der Tabelle sieht man, dass sie den Wert <code>0</code> bei ausgehenden Kanten haben. Das liegt daran, dass dies die Konsortien sind, die in der ersten Förderrunde bereits bewilligt wurden und daher keinen neuen Letters of Intent eingereicht haben. Unser Datensatz berücksichtigt ja nur die Letters of Intent der zweiten Förderrunde. 
 Die Konsortien der ersten Runde können daher nur als "passive" Kooperationspartner genannt werden.</p>
 
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Ausschluss-der-Konsortien-aus-der-ersten-F&#246;rderrunde">Ausschluss der Konsortien aus der ersten F&#246;rderrunde<a class="anchor-link" href="#Ausschluss-der-Konsortien-aus-der-ersten-F&#246;rderrunde">&#182;</a></h2><p>Wir können nun mal schauen, wie sich das Netzwerk ändert, wenn wir die bereits geförderten Konsortien ausschließen.
 Damit bekommen wir ein Netzwerk, das nur die Kooperationen der Konsortien der zweiten Förderrunde berücksichtigt.</p>
@@ -37254,7 +37232,7 @@ die wir weiter nutzen können.</p>
 <p>Als Darstellungsmodus des Netzwerks wählen wir <code>total</code>, da es jetzt nicht um die separate Anzahl der ein- und ausgehenden Verbindungen, sondern um deren Summe geht.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -37325,7 +37303,7 @@ die wir weiter nutzen können.</p>
 
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -38976,7 +38954,7 @@ AFAIgh0AAIBCEOwAAAAU4v8DUlm4VxKFd3oAAAAASUVORK5CYII="
 
 </div>
 
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h1 id="Netzwerkanalyse">Netzwerkanalyse<a class="anchor-link" href="#Netzwerkanalyse">&#182;</a></h1><p>Nach den bisherigen Runden der Netzwerkvisualisierung wollen wir noch einen Schritt weiter gehen und die Netzwerkstruktur analysieren.</p>
 <h2 id="NFDI-Konferenzsystematik">NFDI-Konferenzsystematik<a class="anchor-link" href="#NFDI-Konferenzsystematik">&#182;</a></h2><p>Als ersten Schritt wollen wir die Knoten bzw. Konsortien in den Farben der NFDI-Konferenzsystematik einfärben.</p>
@@ -38991,7 +38969,7 @@ Für die Vorträge wurden fünf Panels aufgemacht:</p>
 </ol>
 
 </div>
-</div>
+</div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Die antragsstellenden Konsortien wurden auf diese fünf Gruppen eingeteilt:<sup class="footnote-ref" id="fnref-7b"><a href="#fn-7b">1</a></sup></p>
 <p><img src="img/nfdi-konferenzsystematik.png" alt="Konferenzsystematik"></p>
@@ -39002,7 +38980,7 @@ Für die Vorträge wurden fünf Panels aufgemacht:</p>
 </div>
 
 </div>
-</div>
+</div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Auffällig ist, dass nach der DFG-Fachsystematik die Naturwissenschaften auf die Lebenswissenschaften, Ingenieurwissenschaften und Chemie/Physik aufgeteilt worden sind, wie man im folgenden Sankey (Flussdiagramm) sehen kann.</p>
 <p><img src="img/dfg-nfdi-sankey.png" alt="Sankey"></p>
@@ -39011,7 +38989,7 @@ Diese Einteilung der Konsortien auf die Konferenzsystematik laden wir in der nä
 <p>Dieser neue Datensatz wird der Variable <code>NFDI_nodes</code> übergeben; die erste Spalte beinhaltet die Konsortialnamen, die zweite Spalte die Nummer aus der NFDI-<em>Konferenz</em>systematik.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -39055,12 +39033,12 @@ Diese Einteilung der Konsortien auf die Konferenzsystematik laden wir in der nä
 </div>
 </div>
 
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Jetzt müssen wir aus dem Datensatz noch ein Graph-Datensatz erstellen, was wiederum mit <code>graph_from_data_frame</code> geschieht. Neu ist, dass wir nun differenzieren, was unser Kanten-Data-Frame und was die Liste mit den Knoten ist.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -39076,7 +39054,7 @@ Diese Einteilung der Konsortien auf die Konferenzsystematik laden wir in der nä
 </div>
 </div>
 
-</div>
+</div></div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="NFDI-Farbkodierung">NFDI-Farbkodierung<a class="anchor-link" href="#NFDI-Farbkodierung">&#182;</a></h2><p>Damit wir die Knoteneinteilung auf die NFDI-Konferenzsystematik im Netzwerk besser erkennen, wählen wir eine Farbcodierung entsprechend der DFG-Fachsystematik (ggf. leichte Anpassung).</p>
 <p>Es gelten folgende Werte</p>
@@ -39117,7 +39095,7 @@ Diese Einteilung der Konsortien auf die Konferenzsystematik laden wir in der nä
 </table>
 
 </div>
-</div>
+</div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Diese Farbwerte geben wir jetzt der Reihe nach an die Variable <code>NFDI_color_code</code> weiter,
 dabei werden die Farbwerte in eine Liste geschrieben. 
@@ -39135,7 +39113,7 @@ Vereinfacht gesagt und vom Ergebnis her gesehen, bekommt die Nummer der NFDI-Kon
 </div>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -39155,7 +39133,7 @@ Vereinfacht gesagt und vom Ergebnis her gesehen, bekommt die Nummer der NFDI-Kon
 </div>
 </div>
 
-</div>
+</div></div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Netzwerk-mit-eingef&#228;rbten-Knoten">Netzwerk mit eingef&#228;rbten Knoten<a class="anchor-link" href="#Netzwerk-mit-eingef&#228;rbten-Knoten">&#182;</a></h2><p>Wir können wiederum den Code der vorhergehenden Zelle übernehmen und anpassen.</p>
 <p>Entscheidend ist, dass wir bei <code>vertex.color</code> und <code>vertex.frame.color</code> die Variable <code>NFDI_color_groups</code> als Wert angeben.
@@ -39163,7 +39141,7 @@ Wir wollen ebenfalls das gesamte Netzwerk mit allen Kanten (<code>mode = "total"
 <p>Was jetzt noch fehlt, ist eine Legende, sodass wir auch sehen, was hinter der Farbcodierung steckt.</p>
 
 </div>
-</div>
+</div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Dafür gibt es eine spezielle Funktion <code>legend</code>, die wir nun mit Werten füllen:</p>
 <ul>
@@ -39179,7 +39157,7 @@ Hierfür bauen wir uns wiederum eine Liste (<code>c()</code>), in der wir die ge
 </ul>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -42319,7 +42297,7 @@ AABAIQh2AAAACvF/wMvSWGVqo6YAAAAASUVORK5CYII="
 
 </div>
 
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Clustering">Clustering<a class="anchor-link" href="#Clustering">&#182;</a></h2><p>Die Einfärbung des Netzwerks mit den Farben der NFDI-Konferenzsystematik lässt die Vermutung zu, dass es bestimmte Gruppen gibt, die eine engere Beziehung zueinander haben (ausgehend von den Kooperationsabsichten in den Letters of Intent).</p>
 <p>Wir können in R einen Algorithmus anwenden, der solche Gruppen ermittelt.
@@ -42334,7 +42312,7 @@ Dafür wählen wir den Algorithmus <code>cluster_optimal</code><sup class="footn
 </div>
 
 </div>
-</div>
+</div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>In unserer Plotfunktion setzen wir diese neue Variable noch <em>vor</em> den bisherigen Datensatz.
 Wir verzichten jetzt auf die Darstellung der Kanten, was wir mit <code>edge.color = NA</code> erreichen.</p>
@@ -42351,7 +42329,7 @@ zudem verzichten wir auf die Darstellung des Randes (<code>mark.border = NA</cod
 </div>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -43937,7 +43915,7 @@ QmCC"
 
 </div>
 
-</div>
+</div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Der Algorithmus <code>cluster_optimal</code> ermittelt drei Gruppen (oder auch Silos), die just <em>exakt</em> mit den NFDI-Konferenzsystematiken übereinstimmen, sodass folgende Gruppen/Silos zustande kommen:</p>
 <table>
@@ -43965,7 +43943,7 @@ QmCC"
 <p>Es wäre also wichtig zu sehen, ob Kooperationen über die Silo-Grenzen hinweg erfolgen bzw. konkret gesagt, welche Konsortien kooperieren mit welchen Konsortien anderer Silos.</p>
 
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Transdisziplin&#228;re-Kooperation">Transdisziplin&#228;re Kooperation<a class="anchor-link" href="#Transdisziplin&#228;re-Kooperation">&#182;</a></h2><p>Im letzten Plot dieses Workshops wollen wir die transdisziplinäre Kooperationen hervorheben.</p>
 <p>Wir können den vorherigen Plot als ganzes übernehmen.
@@ -43983,7 +43961,7 @@ Die Unterscheidung zwischen cis- und trans-disziplinärer Kante wird über die F
 </div>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -46494,13 +46472,13 @@ ILEDAAAA0BNI7AAAAAD0BBI7AAAAAD2BxA4AAABATyCxAwAAANATSOwAAAAA9AQSOwAAAAA9
 
 </div>
 
-</div>
+</div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Es zeigt sich eine rege Interaktion auch zwischen den einzelnen Silos.
 Nur ein Konsortium hat keine transdisziplinäre Verbindung.</p>
 
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h1 id="Schluss">Schluss<a class="anchor-link" href="#Schluss">&#182;</a></h1><p>Wir haben die Netzwerkvisualisierung und -analyse nur anhand des Pakets <code>igraph</code> gemacht.
 Jetzt gilt es noch das Ergebnis zu sichern, bspw. unter "<em>File</em>" --&gt; "<em>Save and Checkpoint</em>".
@@ -46511,13 +46489,58 @@ Zum Beispiel kann man auch ein interaktives Netzwerk erstellen oder das Netzwerk
 Schaut euch dazu die Übersicht auf <a href="https://www.r-graph-gallery.com/network.html">https://www.r-graph-gallery.com/network.html</a> an.</p>
 
 </div>
+</div></section></section>
+</div>
 </div>
 </body>
 
 
+<script>
+require(
+    {
+      // it makes sense to wait a little bit when you are loading
+      // reveal from a cdn in a slow connection environment
+      waitSeconds: 15
+    },
+    [
+      "https://unpkg.com/reveal.js@4.0.2/dist/reveal.js"
+    ],
 
+    function(Reveal){
+        // Full list of configuration options available here: https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            transition: "slide",
+        });
 
+        var update = function(event){
+          if(MathJax.Hub.getAllJax(Reveal.getCurrentSlide())){
+            MathJax.Hub.Rerender(Reveal.getCurrentSlide());
+          }
+        };
 
+        Reveal.addEventListener('slidechanged', update);
 
+        function setScrollingSlide() {
+            var scroll = true
+            if (scroll === true) {
+              var h = $('.reveal').height() * 0.95;
+              $('section.present').find('section')
+                .filter(function() {
+                  return $(this).height() > h;
+                })
+                .css('height', 'calc(95vh)')
+                .css('overflow-y', 'scroll')
+                .css('margin-top', '20px');
+            }
+        }
+
+        // check and set the scrolling slide every time the slide change
+        Reveal.addEventListener('slidechanged', setScrollingSlide);
+    }
+);
+</script>
 
 </html>

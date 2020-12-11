@@ -389,10 +389,10 @@ die sich bei der Nationalen Forschungsdateninfrastrukturinitiative
 
 Als Datengrundlage nehmen wir die \emph{Letters of Intent} der
 jeweiligen Konsortien, in denen Kooperationspartner genannt werden.
-Diese Nennungen sind Ausgangspunkt unseres Netzwerkes.\footnote{Siehe
+Diese Nennungen sind Ausgangspunkt unseres Netzwerkes\footnote{Siehe
   dazu auch das Repositorium von Dorothea Strecker
   (https://github.com/dorothearrr/NFDI\_Netzwerk), in dem sie bereits
-  eine ähnliche Visualisierung und Analyse vorgenommen hat.}
+  eine ähnliche Visualisierung und Analyse vorgenommen hat.}.
 
 Die Visualisierung machen wir in einem JupyterNotebook bzw.
 RNoteBook\footnote{https://rnotebook.io}, sodass keine lokale
@@ -405,7 +405,7 @@ dem Cursor in die Zelle klicken und anschließend gleichzeitig
 des Codes direkt unter der Zelle angezeigt.
 
     Bevor wir loslegen, möchten wir noch ein paar Begriffe klären. Ein
-Netzwerk besteht aus drei Komponenten:
+Netzwerk besteht aus zwei Komponenten:
 
 \begin{itemize}
 \tightlist
@@ -433,7 +433,6 @@ Mit \texttt{library(\textquotesingle{}igraph\textquotesingle{})} laden
 wir das Paket.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{1}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{library}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{igraph\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
@@ -475,8 +474,13 @@ Diese Werte übergeben wir der selbstgewählten Variable
 \texttt{NFDI\_edges} , was mit dem nach links weisenden Pfeilsymbol
 erfolgt.
 
+\begin{verbatim}
+NFDI_edges <- read.table(header=TRUE,
+                         sep=",",
+                         text="...")
+\end{verbatim}
+
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{2}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{NFDI\PYZus{}edges} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.table}\PY{p}{(}\PY{n}{header}\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{,}
                          \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{,\PYZdq{}}\PY{p}{,}
@@ -621,8 +625,9 @@ ist (\texttt{directed=FALSE}), das heißt, dass die Richtung, wie sie bei
 \texttt{from,to} im Datensatz angegeben ist, egal ist. Es geht uns jetzt
 nur darum, dass zwei Konsortien verknüpft sind.
 
+Diese Informationen übergeben wir der Variablen \texttt{NFDI\_network}.
+
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{3}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{NFDI\PYZus{}network} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{graph\PYZus{}from\PYZus{}data\PYZus{}frame}\PY{p}{(}\PY{n}{NFDI\PYZus{}edges}\PY{p}{,}
                                       \PY{n}{directed}\PY{o}{=}\PY{k+kc}{FALSE}
@@ -634,7 +639,7 @@ nur darum, dass zwei Konsortien verknüpft sind.
 \subsection{Erstes Netzwerk
 (Grundeinstellung)}\label{erstes-netzwerk-grundeinstellung}}
 
-    Zunächst werden wir einen Parameter festlegen, damit unser Netzwerk bei
+Zunächst werden wir einen Parameter festlegen, damit unser Netzwerk bei
 gleicher Datengrundlage immer gleich aussieht. Dieser Parameter ist
 \texttt{seed}. Wir wählen eine beliebige Zahl, die groß sein darf.
 
@@ -645,7 +650,6 @@ den Parameter \texttt{main} bestimmen und ebenso können wir angeben, ob
 wir mit \texttt{frame=TRUE} einen Rahmen um das Netzwerk haben wollen.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{4}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -657,7 +661,7 @@ wir mit \texttt{frame=TRUE} einen Rahmen um das Netzwerk haben wollen.
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_10_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_9_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -683,7 +687,6 @@ Diesen Wert \texttt{layout.graphopt} übergeben wir dem Parameter
 \texttt{layout}.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{5}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -696,7 +699,7 @@ Diesen Wert \texttt{layout.graphopt} übergeben wir dem Parameter
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_13_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_12_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -787,7 +790,6 @@ Wichtig ist auch hier wieder, dass \emph{keine} Anführungszeichen
 gesetzt werden.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{6}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -807,7 +809,7 @@ gesetzt werden.
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_16_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_15_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -832,25 +834,8 @@ verbirgt sich hinter dem Parameter \texttt{vertex.size} und als Wert
 übergeben wir die Funktion \texttt{degree(NFDI\_network)}.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{7}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
-
 \PY{n+nf}{degree}\PY{p}{(}\PY{n}{NFDI\PYZus{}network}\PY{p}{)}                   \PY{c+c1}{\PYZsh{}* calculate number of edges}
-
-\PY{n+nf}{plot}\PY{p}{(}\PY{n}{NFDI\PYZus{}network}\PY{p}{,}                     \PY{c+c1}{\PYZsh{} loading data frame}
-     \PY{n}{main}   \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{NFDI\PYZhy{}Netzwerk\PYZdq{}}\PY{p}{,}         \PY{c+c1}{\PYZsh{} adding a title}
-     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} making a frame }
-     \PY{n}{layout} \PY{o}{=} \PY{n}{layout.graphopt}\PY{p}{,}         \PY{c+c1}{\PYZsh{} better layout options}
-     \PY{n}{vertex.color}       \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of nodes}
-     \PY{n}{vertex.frame.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of the frame of nodes}
-     \PY{n}{vertex.label.cex}   \PY{o}{=} \PY{l+m}{0.5}\PY{p}{,}         \PY{c+c1}{\PYZsh{} size of the description of the labels}
-     \PY{n}{vertex.label.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,}     \PY{c+c1}{\PYZsh{} color of the description }
-                                       \PY{c+c1}{\PYZsh{} color: https://www.w3schools.com/colors/colors\PYZus{}picker.asp }
-     \PY{n}{edge.color}         \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}808080\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of edges}
-     \PY{n}{edge.curved}        \PY{o}{=} \PY{l+m}{0.1}\PY{p}{,}         \PY{c+c1}{\PYZsh{} factor of \PYZdq{}curvity\PYZdq{}}
-     \PY{n}{vertex.size}        \PY{o}{=} \PY{n+nf}{degree}\PY{p}{(}\PY{n}{NFDI\PYZus{}network}\PY{p}{)}\PY{p}{,} \PY{c+c1}{\PYZsh{}* size of nodes depends on amount of edges}
-     \PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -885,8 +870,28 @@ verbirgt sich hinter dem Parameter \texttt{vertex.size} und als Wert
 
 
     
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
+
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{NFDI\PYZus{}network}\PY{p}{,}                     \PY{c+c1}{\PYZsh{} loading data frame}
+     \PY{n}{main}   \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{NFDI\PYZhy{}Netzwerk\PYZdq{}}\PY{p}{,}         \PY{c+c1}{\PYZsh{} adding a title}
+     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} making a frame }
+     \PY{n}{layout} \PY{o}{=} \PY{n}{layout.graphopt}\PY{p}{,}         \PY{c+c1}{\PYZsh{} better layout options}
+     \PY{n}{vertex.color}       \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of nodes}
+     \PY{n}{vertex.frame.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of the frame of nodes}
+     \PY{n}{vertex.label.cex}   \PY{o}{=} \PY{l+m}{0.5}\PY{p}{,}         \PY{c+c1}{\PYZsh{} size of the description of the labels}
+     \PY{n}{vertex.label.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,}     \PY{c+c1}{\PYZsh{} color of the description }
+                                       \PY{c+c1}{\PYZsh{} color: https://www.w3schools.com/colors/colors\PYZus{}picker.asp }
+     \PY{n}{edge.color}         \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}808080\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of edges}
+     \PY{n}{edge.curved}        \PY{o}{=} \PY{l+m}{0.1}\PY{p}{,}         \PY{c+c1}{\PYZsh{} factor of \PYZdq{}curvity\PYZdq{}}
+     \PY{n}{vertex.size}        \PY{o}{=} \PY{n+nf}{degree}\PY{p}{(}\PY{n}{NFDI\PYZus{}network}\PY{p}{)}\PY{p}{,} \PY{c+c1}{\PYZsh{}* size of nodes depends on amount of edges}
+     \PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_18_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_18_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -911,7 +916,6 @@ die den Datensatz als gerichteten Graph enthält, was wir mit
 \texttt{directed\ =\ TRUE} einstellen.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{8}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{NFDI\PYZus{}network\PYZus{}directed} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{graph\PYZus{}from\PYZus{}data\PYZus{}frame}\PY{p}{(}\PY{n}{NFDI\PYZus{}edges}\PY{p}{,}
                                           \PY{n}{directed} \PY{o}{=} \PY{k+kc}{TRUE}
@@ -933,7 +937,6 @@ Ebenso sollen die Pfeilspitzen kleiner werden, was mit
 ist.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{9}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -972,29 +975,9 @@ degree(NFDI_network_directed,
 \end{verbatim}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{10}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
-
 \PY{n+nf}{degree}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed}\PY{p}{,}
        \PY{n}{mode} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{in\PYZdq{}}\PY{p}{)}
-
-
-\PY{n+nf}{plot}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed}\PY{p}{,}            \PY{c+c1}{\PYZsh{} loading data frame}
-     \PY{n}{main}   \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{NFDI\PYZhy{}Netzwerk (\PYZlt{}in\PYZgt{})\PYZdq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} adding a title}
-     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} making a frame }
-     \PY{n}{layout} \PY{o}{=} \PY{n}{layout.graphopt}\PY{p}{,}         \PY{c+c1}{\PYZsh{} better layout options}
-     \PY{n}{vertex.color}       \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of nodes}
-     \PY{n}{vertex.frame.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of the frame of nodes}
-     \PY{n}{vertex.label.cex}   \PY{o}{=} \PY{l+m}{0.5}\PY{p}{,}         \PY{c+c1}{\PYZsh{} size of the description of the labels}
-     \PY{n}{vertex.label.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,}     \PY{c+c1}{\PYZsh{} color of the description }
-                                       \PY{c+c1}{\PYZsh{} color: https://www.w3schools.com/colors/colors\PYZus{}picker.asp }
-     \PY{n}{edge.color}         \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}808080\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of edges}
-     \PY{n}{edge.curved}        \PY{o}{=} \PY{l+m}{0}\PY{p}{,}           \PY{c+c1}{\PYZsh{} factor of \PYZdq{}curvity\PYZdq{}}
-     \PY{n}{vertex.size}        \PY{o}{=} \PY{n+nf}{degree}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed}\PY{p}{,}
-                                 \PY{n}{mode} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{in\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} size of nodes depends on amount of edges}
-     \PY{n}{edge.arrow.size}    \PY{o}{=} \PY{n}{.}\PY{l+m}{5}\PY{p}{,}          \PY{c+c1}{\PYZsh{} arrow size,  defaults to 1}
-    \PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -1029,27 +1012,12 @@ degree(NFDI_network_directed,
 
 
     
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_24_1.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    Ebenfalls können wir nun auch die Größe der Konsortien entsprechend
-ihrer \emph{aus}gehenden Kanten darstellen.
-
-Wir übernehmen den kompletten Zelleninhalt von zuvor und ändern
-lediglich \texttt{in} zu \texttt{out}.
-
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{11}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
-\PY{n+nf}{degree}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed}\PY{p}{,}
-       \PY{n}{mode} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{out\PYZdq{}}\PY{p}{)}
-
 \PY{n+nf}{plot}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed}\PY{p}{,}            \PY{c+c1}{\PYZsh{} loading data frame}
-     \PY{n}{main}   \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{NFDI\PYZhy{}Netzwerk (\PYZlt{}out\PYZgt{})\PYZdq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} adding a title}
+     \PY{n}{main}   \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{NFDI\PYZhy{}Netzwerk (\PYZlt{}in\PYZgt{})\PYZdq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} adding a title}
      \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} making a frame }
      \PY{n}{layout} \PY{o}{=} \PY{n}{layout.graphopt}\PY{p}{,}         \PY{c+c1}{\PYZsh{} better layout options}
      \PY{n}{vertex.color}       \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of nodes}
@@ -1060,9 +1028,27 @@ lediglich \texttt{in} zu \texttt{out}.
      \PY{n}{edge.color}         \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}808080\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of edges}
      \PY{n}{edge.curved}        \PY{o}{=} \PY{l+m}{0}\PY{p}{,}           \PY{c+c1}{\PYZsh{} factor of \PYZdq{}curvity\PYZdq{}}
      \PY{n}{vertex.size}        \PY{o}{=} \PY{n+nf}{degree}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed}\PY{p}{,}
-                                 \PY{n}{mode} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{out\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} size of nodes depends on amount of edges}
+                                 \PY{n}{mode} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{in\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} size of nodes depends on amount of edges}
      \PY{n}{edge.arrow.size}    \PY{o}{=} \PY{n}{.}\PY{l+m}{5}\PY{p}{,}          \PY{c+c1}{\PYZsh{} arrow size,  defaults to 1}
     \PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Ebenfalls können wir nun auch die Größe der Konsortien entsprechend
+ihrer \emph{aus}gehenden Kanten darstellen.
+
+Wir übernehmen den kompletten Zelleninhalt von zuvor und ändern
+lediglich \texttt{in} zu \texttt{out}.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{degree}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed}\PY{p}{,}
+       \PY{n}{mode} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{out\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -1097,8 +1083,30 @@ lediglich \texttt{in} zu \texttt{out}.
 
 
     
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
+
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed}\PY{p}{,}            \PY{c+c1}{\PYZsh{} loading data frame}
+     \PY{n}{main}   \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{NFDI\PYZhy{}Netzwerk (\PYZlt{}out\PYZgt{})\PYZdq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} adding a title}
+     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} making a frame }
+     \PY{n}{layout} \PY{o}{=} \PY{n}{layout.graphopt}\PY{p}{,}         \PY{c+c1}{\PYZsh{} better layout options}
+     \PY{n}{vertex.color}       \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of nodes}
+     \PY{n}{vertex.frame.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of the frame of nodes}
+     \PY{n}{vertex.label.cex}   \PY{o}{=} \PY{l+m}{0.5}\PY{p}{,}         \PY{c+c1}{\PYZsh{} size of the description of the labels}
+     \PY{n}{vertex.label.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,}     \PY{c+c1}{\PYZsh{} color of the description }
+                                       \PY{c+c1}{\PYZsh{} color: https://www.w3schools.com/colors/colors\PYZus{}picker.asp }
+     \PY{n}{edge.color}         \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}808080\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of edges}
+     \PY{n}{edge.curved}        \PY{o}{=} \PY{l+m}{0}\PY{p}{,}           \PY{c+c1}{\PYZsh{} factor of \PYZdq{}curvity\PYZdq{}}
+     \PY{n}{vertex.size}        \PY{o}{=} \PY{n+nf}{degree}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed}\PY{p}{,}
+                                 \PY{n}{mode} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{out\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} size of nodes depends on amount of edges}
+     \PY{n}{edge.arrow.size}    \PY{o}{=} \PY{n}{.}\PY{l+m}{5}\PY{p}{,}          \PY{c+c1}{\PYZsh{} arrow size,  defaults to 1}
+    \PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_26_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_28_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -1111,7 +1119,7 @@ Letters of Intent der zweiten Förderrunde. Die Konsortien der ersten
 Runde können daher nur als ``passive'' Kooperationspartner genannt
 werden.
 
-\hypertarget{ausschluss-der-konsortien-aus-der-ersten-fuxf6rderrunde}{%
+    \hypertarget{ausschluss-der-konsortien-aus-der-ersten-fuxf6rderrunde}{%
 \subsection{Ausschluss der Konsortien aus der ersten
 Förderrunde}\label{ausschluss-der-konsortien-aus-der-ersten-fuxf6rderrunde}}
 
@@ -1129,36 +1137,17 @@ im Modus \texttt{out} gleich \texttt{0} ist. Diese gelöschte Knoten
 übergeben wir der neuen Variable
 \texttt{NFDI\_network\_directed\_filter}, die wir weiter nutzen können.
 
-Als Darstellungsmodus des Netzwerks wähle ich \texttt{total}, da es mir
+Als Darstellungsmodus des Netzwerks wählen wir \texttt{total}, da es
 jetzt nicht um die separate Anzahl der ein- und ausgehenden
 Verbindungen, sondern um deren Summe geht.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{12}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
-
 \PY{n}{NFDI\PYZus{}network\PYZus{}directed\PYZus{}filter} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{delete\PYZus{}vertices}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed}\PY{p}{,} 
             \PY{n+nf}{V}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed}\PY{p}{)}\PY{p}{[} \PY{n+nf}{degree}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed}\PY{p}{,} \PY{n}{mode} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{out\PYZdq{}}\PY{p}{)} \PY{o}{==} \PY{l+m}{0} \PY{p}{]}\PY{p}{)}
 
 \PY{n+nf}{degree}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed\PYZus{}filter}\PY{p}{,}
        \PY{n}{mode} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{total\PYZdq{}}\PY{p}{)}
-
-\PY{n+nf}{plot}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed\PYZus{}filter}\PY{p}{,}           \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} loading data frame}
-     \PY{n}{main}   \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{NFDI\PYZhy{}Netzwerk (\PYZlt{}filtered\PYZgt{})\PYZdq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} adding a title}
-     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} making a frame }
-     \PY{n}{layout} \PY{o}{=} \PY{n}{layout.graphopt}\PY{p}{,}         \PY{c+c1}{\PYZsh{} better layout options}
-     \PY{n}{vertex.color}       \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of nodes}
-     \PY{n}{vertex.frame.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of the frame of nodes}
-     \PY{n}{vertex.label.cex}   \PY{o}{=} \PY{l+m}{0.5}\PY{p}{,}         \PY{c+c1}{\PYZsh{} size of the description of the labels}
-     \PY{n}{vertex.label.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,}     \PY{c+c1}{\PYZsh{} color of the description }
-                                       \PY{c+c1}{\PYZsh{} color: https://www.w3schools.com/colors/colors\PYZus{}picker.asp }
-     \PY{n}{edge.color}         \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}808080\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of edges}
-     \PY{n}{edge.curved}        \PY{o}{=} \PY{l+m}{0}\PY{p}{,}           \PY{c+c1}{\PYZsh{} factor of \PYZdq{}curvity\PYZdq{}}
-     \PY{n}{vertex.size}        \PY{o}{=} \PY{n+nf}{degree}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed\PYZus{}filter}\PY{p}{,}
-                                 \PY{n}{mode} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{total\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} size of nodes depends on amount of edges}
-     \PY{n}{edge.arrow.size}    \PY{o}{=} \PY{n}{.}\PY{l+m}{5}\PY{p}{,}          \PY{c+c1}{\PYZsh{} arrow size,  defaults to 1}
-    \PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -1184,8 +1173,30 @@ Verbindungen, sondern um deren Summe geht.
 
 
     
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
+
+\PY{n+nf}{plot}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed\PYZus{}filter}\PY{p}{,}           \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} loading data frame}
+     \PY{n}{main}   \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{NFDI\PYZhy{}Netzwerk (\PYZlt{}filtered\PYZgt{})\PYZdq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} adding a title}
+     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} making a frame }
+     \PY{n}{layout} \PY{o}{=} \PY{n}{layout.graphopt}\PY{p}{,}         \PY{c+c1}{\PYZsh{} better layout options}
+     \PY{n}{vertex.color}       \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of nodes}
+     \PY{n}{vertex.frame.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of the frame of nodes}
+     \PY{n}{vertex.label.cex}   \PY{o}{=} \PY{l+m}{0.5}\PY{p}{,}         \PY{c+c1}{\PYZsh{} size of the description of the labels}
+     \PY{n}{vertex.label.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,}     \PY{c+c1}{\PYZsh{} color of the description }
+                                       \PY{c+c1}{\PYZsh{} color: https://www.w3schools.com/colors/colors\PYZus{}picker.asp }
+     \PY{n}{edge.color}         \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}808080\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of edges}
+     \PY{n}{edge.curved}        \PY{o}{=} \PY{l+m}{0}\PY{p}{,}           \PY{c+c1}{\PYZsh{} factor of \PYZdq{}curvity\PYZdq{}}
+     \PY{n}{vertex.size}        \PY{o}{=} \PY{n+nf}{degree}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed\PYZus{}filter}\PY{p}{,}
+                                 \PY{n}{mode} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{total\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} size of nodes depends on amount of edges}
+     \PY{n}{edge.arrow.size}    \PY{o}{=} \PY{n}{.}\PY{l+m}{5}\PY{p}{,}          \PY{c+c1}{\PYZsh{} arrow size,  defaults to 1}
+    \PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_28_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_32_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -1219,7 +1230,7 @@ fünf Panels aufgemacht:
   Chemie/Physik
 \end{enumerate}
 
-Die antragsstellenden Konsortien wurden auf diese fünf Gruppen
+    Die antragsstellenden Konsortien wurden auf diese fünf Gruppen
 eingeteilt:\footnote{https://www.dfg.de/download/pdf/foerderung/programme/nfdi/nfdi\_konferenz\_2020/programm\_webkonferenz\_2020.pdf}
 
 \begin{figure}
@@ -1228,7 +1239,7 @@ eingeteilt:\footnote{https://www.dfg.de/download/pdf/foerderung/programme/nfdi/n
 \caption{Konferenzsystematik}
 \end{figure}
 
-Auffällig ist, dass nach der DFG-Fachsystematik die Naturwissenschaften
+    Auffällig ist, dass nach der DFG-Fachsystematik die Naturwissenschaften
 auf die Lebenswissenschaften, Ingenieurwissenschaften und Chemie/Physik
 aufgeteilt worden sind, wie man im folgenden Sankey (Flussdiagramm)
 sehen kann.
@@ -1248,7 +1259,6 @@ die erste Spalte beinhaltet die Konsortialnamen, die zweite Spalte die
 Nummer aus der NFDI-\emph{Konferenz}systematik.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{13}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{NFDI\PYZus{}nodes} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.table}\PY{p}{(}\PY{n}{header}\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{,}
                          \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{,\PYZdq{}}\PY{p}{,}
@@ -1290,7 +1300,6 @@ dass wir nun differenzieren, was unser Kanten-Data-Frame und was die
 Liste mit den Knoten ist.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{14}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{NFDI\PYZus{}network\PYZus{}directed} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{graph\PYZus{}from\PYZus{}data\PYZus{}frame}\PY{p}{(}\PY{n}{d} \PY{o}{=} \PY{n}{NFDI\PYZus{}edges}\PY{p}{,}        \PY{c+c1}{\PYZsh{} d = data frame =\PYZti{} edges}
                                                \PY{n}{vertices} \PY{o}{=} \PY{n}{NFDI\PYZus{}nodes}\PY{p}{,} \PY{c+c1}{\PYZsh{}nodes}
@@ -1320,7 +1329,7 @@ Nr. & Bezeichnung & HTML-Farbcode\tabularnewline
 \bottomrule
 \end{longtable}
 
-Diese Farbwerte geben wir jetzt der Reihe nach an die Variable
+    Diese Farbwerte geben wir jetzt der Reihe nach an die Variable
 \texttt{NFDI\_color\_code} weiter, dabei werden die Farbwerte in eine
 Liste geschrieben. Anhand der Funktion \texttt{c} werden die Werte in
 einen Vektor geschrieben,\footnote{https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/c}
@@ -1337,7 +1346,6 @@ NFDI-Konferenzsystematik den Farbwert, der an der entsprechenden Stelle
 in der Liste der Variable \texttt{NFDI\_color\_code} steht.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{15}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{NFDI\PYZus{}color\PYZus{}code} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}f5ac9f\PYZdq{}}\PY{p}{,} \PY{c+c1}{\PYZsh{} Medizin}
                      \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}e43516\PYZdq{}}\PY{p}{,} \PY{c+c1}{\PYZsh{} Lebenswissenschaften}
@@ -1364,33 +1372,36 @@ Kanten (\texttt{mode\ =\ "total"}) berücksichtigen und darstellen.
 Was jetzt noch fehlt, ist eine Legende, sodass wir auch sehen, was
 hinter der Farbcodierung steckt.
 
-Dafür gibt es eine spezielle Funktion \texttt{legend}, die wir nun mit
-Werten füllen.
+    Dafür gibt es eine spezielle Funktion \texttt{legend}, die wir nun mit
+Werten füllen:
 
-Zunächst die Positionierung der Legende, die wir ``unten rechts''
-(\texttt{"bottomright"}) haben wollen, dann der Titel
-(\texttt{title\ =\ "NFDI-Konferenzsystematik"}), jetzt kommt der Inhalt
-der Legende, was über den Parameter \texttt{legend} geregelt wird:
-Hierfür bauen wir uns wiederum eine Liste (\texttt{c()}), in der wir die
-gewünschten Werte eintragen.
-
-Mit \texttt{col} wird das Farbschema festgesetzt und wir können direkt
-auf die NFDI-Farbliste über die Variable \texttt{NFDI\_color\_code}
-verweisen.
-
-Wir dürfen auf keinen Fall den Parameter \texttt{pch} vergessen, da
-hierüber das Symbol in der Legende definiert wird. Mit dem Wert
-\texttt{20} wählen wir einen ausgefüllten Kreis.
-
-Mit \texttt{bty} und dem Wert \texttt{n} für \texttt{no} verzichten wir
-auf einen Rahmen um die Legende.
-
-\texttt{cex} (also \texttt{character\ expansion}) ist wieder ein
-relativer Wert und wir können die Schriftgröße bestimmen; ähnlich dazu
-funktioniert \texttt{pt.cex} für die Symbole der Legende.
+\begin{itemize}
+\tightlist
+\item
+  Zunächst die Positionierung der Legende, die wir ``unten rechts''
+  (\texttt{"bottomright"}) haben wollen, dann der Titel
+  (\texttt{title\ =\ "NFDI-Konferenzsystematik"}), jetzt kommt der
+  Inhalt der Legende, was über den Parameter \texttt{legend} geregelt
+  wird: Hierfür bauen wir uns wiederum eine Liste (\texttt{c()}), in der
+  wir die gewünschten Werte eintragen.
+\item
+  \texttt{col}: Mit \texttt{col} wird das Farbschema festgesetzt und wir
+  können direkt auf die NFDI-Farbliste über die Variable
+  \texttt{NFDI\_color\_code} verweisen.
+\item
+  \texttt{pch}: Wir dürfen auf keinen Fall den Parameter \texttt{pch}
+  vergessen, da hierüber das Symbol in der Legende definiert wird. Mit
+  dem Wert \texttt{20} wählen wir einen ausgefüllten Kreis.
+\item
+  \texttt{bty}: Mit \texttt{bty} und dem Wert \texttt{n} für \texttt{no}
+  verzichten wir auf einen Rahmen um die Legende.
+\item
+  \texttt{cex} (also \texttt{character\ expansion}) ist wieder ein
+  relativer Wert und wir können die Schriftgröße bestimmen; ähnlich dazu
+  funktioniert \texttt{pt.cex} für die Symbole der Legende.
+\end{itemize}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{16}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -1430,7 +1441,7 @@ funktioniert \texttt{pt.cex} für die Symbole der Legende.
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_36_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_44_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -1444,19 +1455,12 @@ den Letters of Intent).
 
 Wir können in R einen Algorithmus anwenden, der solche Gruppen
 ermittelt. Dafür wählen wir den Algorithmus
-\texttt{cluster\_optimal}\footnote{https://igraph.org/r/doc/cluster\_optimal.html}
-
-In der Dokumentation steht:
+\texttt{cluster\_optimal}\footnote{https://igraph.org/r/doc/cluster\_optimal.html},
+der in der Dokumentation folgendermaßen beschrieben ist:
 
 \begin{quote}
 This function calculates the optimal community structure of a graph, by
 maximizing the modularity measure over all possible partitions.
-\end{quote}
-
-\begin{quote}
-Diese Funktion berechnet die optimale Gemeinschaftsstruktur eines
-Graphen, indem das Modularitätsmaß über alle möglichen Partitionen
-maximiert wird. (deepl)
 \end{quote}
 
 Die Anwendung ist denkbar einfach: Wir übergeben der Funktion
@@ -1464,7 +1468,7 @@ Die Anwendung ist denkbar einfach: Wir übergeben der Funktion
 speisen es in die neue Variable
 \texttt{NFDI\_network\_directed\_cluster} ein.
 
-In unserer Plotfunktion setzen wir diese neue Variable noch \emph{vor}
+    In unserer Plotfunktion setzen wir diese neue Variable noch \emph{vor}
 den bisherigen Datensatz. Wir verzichten jetzt auf die Darstellung der
 Kanten, was wir mit \texttt{edge.color\ =\ NA} erreichen.
 
@@ -1482,7 +1486,6 @@ Darstellung des Randes (\texttt{mark.border\ =\ NA}
 Für die Legende müssen wir nichts anpassen.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{17}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -1529,7 +1532,7 @@ Für die Legende müssen wir nichts anpassen.
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_38_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_47_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -1581,7 +1584,6 @@ vector, as returned by \texttt{membership()}.\footnote{https://igraph.org/r/doc/
 \end{quote}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{18}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -1626,30 +1628,30 @@ vector, as returned by \texttt{membership()}.\footnote{https://igraph.org/r/doc/
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_41_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_50_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
     Es zeigt sich eine rege Interaktion auch zwischen den einzelnen Silos.
 Nur ein Konsortium hat keine transdisziplinäre Verbindung.
 
-\hypertarget{schluss}{%
+    \hypertarget{schluss}{%
 \section{Schluss}\label{schluss}}
 
 Wir haben die Netzwerkvisualisierung und -analyse nur anhand des Pakets
 \texttt{igraph} gemacht. Jetzt gilt es noch das Ergebnis zu sichern,
 bspw. unter ``\emph{File}'' --\textgreater{} ``\emph{Save and
-Checkpoint}''.
+Checkpoint}''. Ihr könnt ebenso das JupyterNotebook herunterladen, es
+stehen verschiedene Formate bereit.
 
-Ihr könnt ebenso das JupyterNotebook herunterladen, es stehen
-verschiedene Formate bereit.
-
-Zudem ist das JupyterNotebook über die URL jederzeit wieder ansteuerbar
-und ihr könnt weitere Modifikationen im Netzwerk vornehmen.
+Wenn ihr das Netzwerk mit dem RNoteBook erstellt habt, könnt ihr es über
+die URL jederzeit wieder aufrufen und ihr könnt weitere Modifikationen
+im Netzwerk vornehmen.
 
 Es gibt noch weitere spannende Beschäftigungen mit diesem Netzwerk. Zum
 Beispiel kann man auch ein interaktives Netzwerk erstellen oder das
-Netzwerk als Kreisdiagramm darstellen.
+Netzwerk als Kreisdiagramm darstellen. Schaut euch dazu die Übersicht
+auf https://www.r-graph-gallery.com/network.html an.
 
 
     % Add a bibliography block to the postdoc

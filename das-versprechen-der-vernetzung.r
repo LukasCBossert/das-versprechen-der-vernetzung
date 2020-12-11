@@ -167,9 +167,9 @@ plot(NFDI_network,                     # loading data frame
      edge.curved        = 0.1,         #* factor of "curvity"
      )
 
-set.seed(1234)
-
 degree(NFDI_network)                   #* calculate number of edges
+
+set.seed(1234)
 
 plot(NFDI_network,                     # loading data frame
      main   = "NFDI-Netzwerk",         # adding a title
@@ -184,10 +184,6 @@ plot(NFDI_network,                     # loading data frame
      edge.curved        = 0.1,         # factor of "curvity"
      vertex.size        = degree(NFDI_network), #* size of nodes depends on amount of edges
      )
-
-
-
-
 
 NFDI_network_directed <- graph_from_data_frame(NFDI_edges,
                                           directed = TRUE
@@ -211,11 +207,10 @@ plot(NFDI_network_directed,            #<<<<<<< loading data frame
     )
 
 
-set.seed(1234)
-
 degree(NFDI_network_directed,
        mode = "in")
 
+set.seed(1234)
 
 plot(NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<in>)",  #<<<<<<<< adding a title
@@ -233,13 +228,10 @@ plot(NFDI_network_directed,            # loading data frame
      edge.arrow.size    = .5,          # arrow size,  defaults to 1
     )
 
-
-
-
-set.seed(1234)
-
 degree(NFDI_network_directed,
        mode = "out")
+
+set.seed(1234)
 
 plot(NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<out>)",  #<<<<<<<< adding a title
@@ -257,13 +249,13 @@ plot(NFDI_network_directed,            # loading data frame
      edge.arrow.size    = .5,          # arrow size,  defaults to 1
     )
 
-set.seed(1234)
-
 NFDI_network_directed_filter <- delete_vertices(NFDI_network_directed, 
             V(NFDI_network_directed)[ degree(NFDI_network_directed, mode = "out") == 0 ])
 
 degree(NFDI_network_directed_filter,
        mode = "total")
+
+set.seed(1234)
 
 plot(NFDI_network_directed_filter,           #<<<<<<<< loading data frame
      main   = "NFDI-Netzwerk (<filtered>)",  #<<<<<<<< adding a title

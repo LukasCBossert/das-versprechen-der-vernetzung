@@ -2,9 +2,8 @@
 
 In diesem JupyterNotebook zeigen wir euch, wie man ein Netzwerk visualisiert und analysiert. Wir machen dies am Beispiel der Konsortien, die sich bei der Nationalen Forschungsdateninfrastrukturinitiative (NFDI) beteiligen bzw. beworben haben.
 
-Als Datengrundlage nehmen wir die *Letters of Intent* der jeweiligen Konsortien, in denen Kooperationspartner genannt werden. Diese Nennungen sind Ausgangspunkt unseres Netzwerkes.[^1]
+Als Datengrundlage nehmen wir die *Letters of Intent* der jeweiligen Konsortien, in denen Kooperationspartner genannt werden. Diese Nennungen sind Ausgangspunkt unseres Netzwerkes[^1].
 
-[^1]: Siehe dazu auch das Repositorium von Dorothea Strecker (https://github.com/dorothearrr/NFDI_Netzwerk), in dem sie bereits eine ähnliche Visualisierung und Analyse vorgenommen hat.
 
 Die Visualisierung machen wir in einem JupyterNotebook bzw. RNoteBook[^2], sodass keine lokale Installation von R notwendig ist. 
 JupyterNotebooks sind so aufgebaut, dass man verschiedene Zellen hat, in die man Code schreibt (in unserem Fall `R`-Code).
@@ -12,10 +11,12 @@ Um die Zelle mit dem Code auszuführen, können wir im Menü auf "*Cell*" und "*
 Oder mit dem Cursor in die Zelle klicken und anschließend gleichzeitig *SHIFT*" und "*ENTER*" drücken.
 Ihr seht dann das Ergebnis des Codes direkt unter der Zelle angezeigt.
 
+[^1]: Siehe dazu auch das Repositorium von Dorothea Strecker (https://github.com/dorothearrr/NFDI_Netzwerk), in dem sie bereits eine ähnliche Visualisierung und Analyse vorgenommen hat.
+
 [^2]: https://rnotebook.io
 
 Bevor wir loslegen, möchten wir noch ein paar Begriffe klären.
-Ein Netzwerk besteht aus drei Komponenten:
+Ein Netzwerk besteht aus zwei Komponenten:
 
 * Knoten (Kreis)
 * Kanten (Balken)
@@ -25,10 +26,10 @@ Knoten (*nodes* oder *vertices*) werden als Kreise dargestellt und repräsentier
 ![Komponenten eines Netzwerks. Erstellt von ÉD.](img/Einheitskreis_Gestalt.png)
 
 R ist so aufgebaut, dass verschiedene Bibliotheken für unterschiedliche Funktionen geladen werden können.
-Für die Netzwerkanalyse werden wir auf das Paket `igraph`[^2] zurückgreifen.
+Für die Netzwerkanalyse werden wir auf das Paket `igraph`[^2b] zurückgreifen.
 Mit `library('igraph')` laden wir das Paket. 
 
-[^2]: https://igraph.org/r/
+[^2b]: https://igraph.org/r/
 
 
 ```R
@@ -62,6 +63,13 @@ Es gibt drei Parameter:
 * `text=""` (die Werte selbst stehen zwischen den Anführungszeichen)
   
 Diese Werte übergeben wir der selbstgewählten Variable `NFDI_edges` , was mit dem nach links weisenden Pfeilsymbol erfolgt.
+
+```
+NFDI_edges <- read.table(header=TRUE,
+                         sep=",",
+                         text="...")
+```
+                      
 
 
 ```R
@@ -207,6 +215,7 @@ Zudem geben wir an, dass unser Datensatz bzw. das Netzwerk ungerichtet ist
 angegeben ist, egal ist.
 Es geht uns jetzt nur darum, dass zwei Konsortien verknüpft sind. 
 
+Diese Informationen übergeben wir der Variablen `NFDI_network`.
 
 [^3]: https://igraph.org/r/doc/graph_from_data_frame.html
 
@@ -218,7 +227,6 @@ NFDI_network <- graph_from_data_frame(NFDI_edges,
 ```
 
 ## Erstes Netzwerk (Grundeinstellung)
-
 
 Zunächst werden wir einen Parameter festlegen, damit unser Netzwerk bei gleicher Datengrundlage immer gleich aussieht. Dieser Parameter ist `seed`.
 Wir wählen eine beliebige Zahl, die groß sein darf.
@@ -240,7 +248,7 @@ plot(NFDI_network,                    # loading data frame
 
 
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_10_0.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_9_0.png)
     
 
 
@@ -275,7 +283,7 @@ plot(NFDI_network,                     # loading data frame
 
 
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_13_0.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_12_0.png)
     
 
 
@@ -350,7 +358,7 @@ plot(NFDI_network,                     # loading data frame
 
 
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_16_0.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_15_0.png)
     
 
 
@@ -376,27 +384,7 @@ Die Knotengröße verbirgt sich hinter dem Parameter `vertex.size` und als Wert 
 
 
 ```R
-set.seed(1234)
-
 degree(NFDI_network)                   #* calculate number of edges
-
-plot(NFDI_network,                     # loading data frame
-     main   = "NFDI-Netzwerk",         # adding a title
-     frame  = TRUE,                    # making a frame 
-     layout = layout.graphopt,         # better layout options
-     vertex.color       = "#ffcc66",   # color of nodes
-     vertex.frame.color = "#ffcc66",   # color of the frame of nodes
-     vertex.label.cex   = 0.5,         # size of the description of the labels
-     vertex.label.color = "black",     # color of the description 
-                                       # color: https://www.w3schools.com/colors/colors_picker.asp 
-     edge.color         = "#808080",   # color of edges
-     edge.curved        = 0.1,         # factor of "curvity"
-     vertex.size        = degree(NFDI_network), #* size of nodes depends on amount of edges
-     )
-
-
-
-
 ```
 
 
@@ -458,8 +446,27 @@ plot(NFDI_network,                     # loading data frame
 
 
 
+```R
+set.seed(1234)
+
+plot(NFDI_network,                     # loading data frame
+     main   = "NFDI-Netzwerk",         # adding a title
+     frame  = TRUE,                    # making a frame 
+     layout = layout.graphopt,         # better layout options
+     vertex.color       = "#ffcc66",   # color of nodes
+     vertex.frame.color = "#ffcc66",   # color of the frame of nodes
+     vertex.label.cex   = 0.5,         # size of the description of the labels
+     vertex.label.color = "black",     # color of the description 
+                                       # color: https://www.w3schools.com/colors/colors_picker.asp 
+     edge.color         = "#808080",   # color of edges
+     edge.curved        = 0.1,         # factor of "curvity"
+     vertex.size        = degree(NFDI_network), #* size of nodes depends on amount of edges
+     )
+```
+
+
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_18_1.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_18_0.png)
     
 
 
@@ -537,30 +544,8 @@ degree(NFDI_network_directed,
 
 
 ```R
-set.seed(1234)
-
 degree(NFDI_network_directed,
        mode = "in")
-
-
-plot(NFDI_network_directed,            # loading data frame
-     main   = "NFDI-Netzwerk (<in>)",  #<<<<<<<< adding a title
-     frame  = TRUE,                    # making a frame 
-     layout = layout.graphopt,         # better layout options
-     vertex.color       = "#ffcc66",   # color of nodes
-     vertex.frame.color = "#ffcc66",   # color of the frame of nodes
-     vertex.label.cex   = 0.5,         # size of the description of the labels
-     vertex.label.color = "black",     # color of the description 
-                                       # color: https://www.w3schools.com/colors/colors_picker.asp 
-     edge.color         = "#808080",   # color of edges
-     edge.curved        = 0,           # factor of "curvity"
-     vertex.size        = degree(NFDI_network_directed,
-                                 mode = "in"), #<<<<<< size of nodes depends on amount of edges
-     edge.arrow.size    = .5,          # arrow size,  defaults to 1
-    )
-
-
-
 ```
 
 
@@ -622,8 +607,29 @@ plot(NFDI_network_directed,            # loading data frame
 
 
 
+```R
+set.seed(1234)
+
+plot(NFDI_network_directed,            # loading data frame
+     main   = "NFDI-Netzwerk (<in>)",  #<<<<<<<< adding a title
+     frame  = TRUE,                    # making a frame 
+     layout = layout.graphopt,         # better layout options
+     vertex.color       = "#ffcc66",   # color of nodes
+     vertex.frame.color = "#ffcc66",   # color of the frame of nodes
+     vertex.label.cex   = 0.5,         # size of the description of the labels
+     vertex.label.color = "black",     # color of the description 
+                                       # color: https://www.w3schools.com/colors/colors_picker.asp 
+     edge.color         = "#808080",   # color of edges
+     edge.curved        = 0,           # factor of "curvity"
+     vertex.size        = degree(NFDI_network_directed,
+                                 mode = "in"), #<<<<<< size of nodes depends on amount of edges
+     edge.arrow.size    = .5,          # arrow size,  defaults to 1
+    )
+```
+
+
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_24_1.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_25_0.png)
     
 
 
@@ -635,26 +641,8 @@ Wir übernehmen den kompletten Zelleninhalt von zuvor und ändern lediglich `in`
 
 
 ```R
-set.seed(1234)
-
 degree(NFDI_network_directed,
        mode = "out")
-
-plot(NFDI_network_directed,            # loading data frame
-     main   = "NFDI-Netzwerk (<out>)",  #<<<<<<<< adding a title
-     frame  = TRUE,                    # making a frame 
-     layout = layout.graphopt,         # better layout options
-     vertex.color       = "#ffcc66",   # color of nodes
-     vertex.frame.color = "#ffcc66",   # color of the frame of nodes
-     vertex.label.cex   = 0.5,         # size of the description of the labels
-     vertex.label.color = "black",     # color of the description 
-                                       # color: https://www.w3schools.com/colors/colors_picker.asp 
-     edge.color         = "#808080",   # color of edges
-     edge.curved        = 0,           # factor of "curvity"
-     vertex.size        = degree(NFDI_network_directed,
-                                 mode = "out"), #<<<<<< size of nodes depends on amount of edges
-     edge.arrow.size    = .5,          # arrow size,  defaults to 1
-    )
 ```
 
 
@@ -716,8 +704,29 @@ plot(NFDI_network_directed,            # loading data frame
 
 
 
+```R
+set.seed(1234)
+
+plot(NFDI_network_directed,            # loading data frame
+     main   = "NFDI-Netzwerk (<out>)",  #<<<<<<<< adding a title
+     frame  = TRUE,                    # making a frame 
+     layout = layout.graphopt,         # better layout options
+     vertex.color       = "#ffcc66",   # color of nodes
+     vertex.frame.color = "#ffcc66",   # color of the frame of nodes
+     vertex.label.cex   = 0.5,         # size of the description of the labels
+     vertex.label.color = "black",     # color of the description 
+                                       # color: https://www.w3schools.com/colors/colors_picker.asp 
+     edge.color         = "#808080",   # color of edges
+     edge.curved        = 0,           # factor of "curvity"
+     vertex.size        = degree(NFDI_network_directed,
+                                 mode = "out"), #<<<<<< size of nodes depends on amount of edges
+     edge.arrow.size    = .5,          # arrow size,  defaults to 1
+    )
+```
+
+
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_26_1.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_28_0.png)
     
 
 
@@ -736,35 +745,17 @@ Es sollen alle Knoten/Konsortien (ausgegeben durch die Funktion `V`) gelöscht w
 Diese gelöschte Knoten übergeben wir der neuen Variable `NFDI_network_directed_filter`,
 die wir weiter nutzen können.
 
-Als Darstellungsmodus des Netzwerks wähle ich `total`, da es mir jetzt nicht um die separate Anzahl der ein- und ausgehenden Verbindungen, sondern um deren Summe geht.
+Als Darstellungsmodus des Netzwerks wählen wir `total`, da es jetzt nicht um die separate Anzahl der ein- und ausgehenden Verbindungen, sondern um deren Summe geht.
 
 
 
 
 ```R
-set.seed(1234)
-
 NFDI_network_directed_filter <- delete_vertices(NFDI_network_directed, 
             V(NFDI_network_directed)[ degree(NFDI_network_directed, mode = "out") == 0 ])
 
 degree(NFDI_network_directed_filter,
        mode = "total")
-
-plot(NFDI_network_directed_filter,           #<<<<<<<< loading data frame
-     main   = "NFDI-Netzwerk (<filtered>)",  #<<<<<<<< adding a title
-     frame  = TRUE,                    # making a frame 
-     layout = layout.graphopt,         # better layout options
-     vertex.color       = "#ffcc66",   # color of nodes
-     vertex.frame.color = "#ffcc66",   # color of the frame of nodes
-     vertex.label.cex   = 0.5,         # size of the description of the labels
-     vertex.label.color = "black",     # color of the description 
-                                       # color: https://www.w3schools.com/colors/colors_picker.asp 
-     edge.color         = "#808080",   # color of edges
-     edge.curved        = 0,           # factor of "curvity"
-     vertex.size        = degree(NFDI_network_directed_filter,
-                                 mode = "total"), #<<<<<< size of nodes depends on amount of edges
-     edge.arrow.size    = .5,          # arrow size,  defaults to 1
-    )
 ```
 
 
@@ -808,8 +799,29 @@ plot(NFDI_network_directed_filter,           #<<<<<<<< loading data frame
 
 
 
+```R
+set.seed(1234)
+
+plot(NFDI_network_directed_filter,           #<<<<<<<< loading data frame
+     main   = "NFDI-Netzwerk (<filtered>)",  #<<<<<<<< adding a title
+     frame  = TRUE,                    # making a frame 
+     layout = layout.graphopt,         # better layout options
+     vertex.color       = "#ffcc66",   # color of nodes
+     vertex.frame.color = "#ffcc66",   # color of the frame of nodes
+     vertex.label.cex   = 0.5,         # size of the description of the labels
+     vertex.label.color = "black",     # color of the description 
+                                       # color: https://www.w3schools.com/colors/colors_picker.asp 
+     edge.color         = "#808080",   # color of edges
+     edge.curved        = 0,           # factor of "curvity"
+     vertex.size        = degree(NFDI_network_directed_filter,
+                                 mode = "total"), #<<<<<< size of nodes depends on amount of edges
+     edge.arrow.size    = .5,          # arrow size,  defaults to 1
+    )
+```
+
+
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_28_1.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_32_0.png)
     
 
 
@@ -834,6 +846,10 @@ Die antragsstellenden Konsortien wurden auf diese fünf Gruppen eingeteilt:[^7b]
 
 ![Konferenzsystematik](img/nfdi-konferenzsystematik.png)
 
+
+[^7b]: https://www.dfg.de/download/pdf/foerderung/programme/nfdi/nfdi_konferenz_2020/programm_webkonferenz_2020.pdf
+
+
 Auffällig ist, dass nach der DFG-Fachsystematik die Naturwissenschaften auf die Lebenswissenschaften, Ingenieurwissenschaften und Chemie/Physik aufgeteilt worden sind, wie man im folgenden Sankey (Flussdiagramm) sehen kann.
 
 ![Sankey](img/dfg-nfdi-sankey.png)
@@ -842,8 +858,6 @@ Alle Konsortien sind also einem dieser fünf Bereiche zugeteilt und wir wollen d
 Diese Einteilung der Konsortien auf die Konferenzsystematik laden wir in der nächsten Zelle.
 
 Dieser neue Datensatz wird der Variable `NFDI_nodes` übergeben; die erste Spalte beinhaltet die Konsortialnamen, die zweite Spalte die Nummer aus der NFDI-*Konferenz*systematik.
-
-[^7b]: https://www.dfg.de/download/pdf/foerderung/programme/nfdi/nfdi_konferenz_2020/programm_webkonferenz_2020.pdf
 
 
 ```R
@@ -905,6 +919,7 @@ Es gelten folgende Werte
 | (4) | Ingenieurwissenschaften |   `#007aaf`   |
 | (5) | Chemie/Physik           |   `#6ca11d`   |
 
+
 Diese Farbwerte geben wir jetzt der Reihe nach an die Variable `NFDI_color_code` weiter,
 dabei werden die Farbwerte in eine Liste geschrieben. 
 Anhand der Funktion `c` werden die Werte in einen Vektor geschrieben,[^11]
@@ -919,10 +934,6 @@ Vereinfacht gesagt und vom Ergebnis her gesehen, bekommt die Nummer der NFDI-Kon
 
 
 [^11]: https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/c
-
-
-
-
 
 
 ```R
@@ -944,23 +955,17 @@ Wir wollen ebenfalls das gesamte Netzwerk mit allen Kanten (`mode = "total"`) be
 
 Was jetzt noch fehlt, ist eine Legende, sodass wir auch sehen, was hinter der Farbcodierung steckt.
 
-Dafür gibt es eine spezielle Funktion `legend`, die wir nun mit Werten füllen.
+Dafür gibt es eine spezielle Funktion `legend`, die wir nun mit Werten füllen:
 
-Zunächst die Positionierung der Legende, die wir "unten rechts" (`"bottomright"`) haben wollen,
+* Zunächst die Positionierung der Legende, die wir "unten rechts" (`"bottomright"`) haben wollen,
 dann der Titel (`title = "NFDI-Konferenzsystematik"`),
 jetzt kommt der Inhalt der Legende, was über den Parameter `legend` geregelt wird:
 Hierfür bauen wir uns wiederum eine Liste (`c()`), in der wir die gewünschten Werte eintragen.
-
-Mit `col` wird das Farbschema festgesetzt und wir können direkt auf die NFDI-Farbliste über die Variable `NFDI_color_code` verweisen. 
-
-Wir dürfen auf keinen Fall den Parameter `pch` vergessen, da hierüber das Symbol in der Legende definiert wird.
-Mit dem Wert `20` wählen wir einen ausgefüllten Kreis.
-
-Mit `bty` und dem Wert `n` für `no` verzichten wir auf einen Rahmen um die Legende.
-
-`cex` (also `character expansion`)  ist wieder ein relativer Wert und wir können die Schriftgröße bestimmen;
+* `col`: Mit `col` wird das Farbschema festgesetzt und wir können direkt auf die NFDI-Farbliste über die Variable `NFDI_color_code` verweisen. 
+* `pch`: Wir dürfen auf keinen Fall den Parameter `pch` vergessen, da hierüber das Symbol in der Legende definiert wird. Mit dem Wert `20` wählen wir einen ausgefüllten Kreis.
+* `bty`: Mit `bty` und dem Wert `n` für `no` verzichten wir auf einen Rahmen um die Legende.
+* `cex` (also `character expansion`)  ist wieder ein relativer Wert und wir können die Schriftgröße bestimmen;
 ähnlich dazu funktioniert `pt.cex` für die Symbole der Legende.
-
 
 
 ```R
@@ -1002,7 +1007,7 @@ legend("bottomright",   # x-position
 
 
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_36_0.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_44_0.png)
     
 
 
@@ -1011,15 +1016,13 @@ legend("bottomright",   # x-position
 Die Einfärbung des Netzwerks mit den Farben der NFDI-Konferenzsystematik lässt die Vermutung zu, dass es bestimmte Gruppen gibt, die eine engere Beziehung zueinander haben (ausgehend von den Kooperationsabsichten in den Letters of Intent).
 
 Wir können in R einen Algorithmus anwenden, der solche Gruppen ermittelt.
-Dafür wählen wir den Algorithmus `cluster_optimal`[^12]
-
-In der Dokumentation steht:
+Dafür wählen wir den Algorithmus `cluster_optimal`[^12], der in der Dokumentation folgendermaßen beschrieben ist:
 
 > This function calculates the optimal community structure of a graph, by maximizing the modularity measure over all possible partitions.
 
-> Diese Funktion berechnet die optimale Gemeinschaftsstruktur eines Graphen, indem das Modularitätsmaß über alle möglichen Partitionen maximiert wird. (deepl)
-
 Die Anwendung ist denkbar einfach: Wir übergeben der Funktion `cluster_optimal` den Graph `NDFI_network_directed` und speisen es in die neue Variable `NFDI_network_directed_cluster` ein.
+
+[^12]: https://igraph.org/r/doc/cluster_optimal.html
 
 In unserer Plotfunktion setzen wir diese neue Variable noch *vor* den bisherigen Datensatz.
 Wir verzichten jetzt auf die Darstellung der Kanten, was wir mit `edge.color = NA` erreichen.
@@ -1034,9 +1037,7 @@ zudem verzichten wir auf die Darstellung des Randes (`mark.border = NA` [`Not Av
 
 Für die Legende müssen wir nichts anpassen.
 
-[^12]: https://igraph.org/r/doc/cluster_optimal.html
 [^13]: https://igraph.org/r/doc/communities.html
-
 
 
 ```R
@@ -1085,7 +1086,7 @@ legend("bottomright",   # x-position
 
 
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_38_0.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_47_0.png)
     
 
 
@@ -1167,22 +1168,21 @@ legend("bottomright",   # x-position
 
 
     
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_41_0.png)
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_50_0.png)
     
 
 
 Es zeigt sich eine rege Interaktion auch zwischen den einzelnen Silos.
 Nur ein Konsortium hat keine transdisziplinäre Verbindung.
 
-
 # Schluss
 
 Wir haben die Netzwerkvisualisierung und -analyse nur anhand des Pakets `igraph` gemacht.
 Jetzt gilt es noch das Ergebnis zu sichern, bspw. unter "*File*" --> "*Save and Checkpoint*".
-
 Ihr könnt ebenso das JupyterNotebook herunterladen, es stehen verschiedene Formate bereit.
 
-Zudem ist das JupyterNotebook über die URL jederzeit wieder ansteuerbar und ihr könnt weitere Modifikationen im Netzwerk vornehmen.
+Wenn ihr das Netzwerk mit dem RNoteBook erstellt habt, könnt ihr es über die URL jederzeit wieder aufrufen und ihr könnt weitere Modifikationen im Netzwerk vornehmen.
 
 Es gibt noch weitere spannende Beschäftigungen mit diesem Netzwerk.
 Zum Beispiel kann man auch ein interaktives Netzwerk erstellen oder das Netzwerk als Kreisdiagramm darstellen.
+Schaut euch dazu die Übersicht auf https://www.r-graph-gallery.com/network.html an.
