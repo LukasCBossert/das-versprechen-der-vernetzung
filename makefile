@@ -4,10 +4,7 @@ MYPATH = JupyterNotebook
 export TEXINPUTS:=.//:
 
 COMPILER_INFO=$(shell lualatex -v | head -n1 | cut -d ' ' -f3-)
-LATEX_OPTS="\newcommand*\InfoTeX{Die automatisierte Konvertierung des RNotebooks wurde erstellt mit ${COMPILER_INFO}.}\AtBeginDocument{\title{Das Versprechen der Vernetzung}\author{Dorothea Strecker | Lukas C. Bossert | Évariste Demandt}\date{30.11.2020\protect\footnote{\InfoTeX}}\setmainfont{Alegreya}\RequirePackage{microtype,etoolbox,bookmark}\renewcommand{\prompt}[4]{}\definecolor{cellbackground}{HTML}{FFFFFF}}\raggedbottom"
-
-# 
-
+LATEX_OPTS="\newcommand*\InfoTeX{Die automatisierte Konvertierung des RNotebooks wurde erstellt mit ${COMPILER_INFO}.}\AtBeginDocument{\title{Das Versprechen der Vernetzung}\author{Dorothea Strecker | Lukas C. Bossert | Évariste Demandt}\date{\today\protect\footnote{\InfoTeX}}\setmainfont{Alegreya}\RequirePackage{microtype,etoolbox,bookmark}\renewcommand{\prompt}[4]{}\definecolor{cellbackground}{HTML}{FFFFFF}}\raggedbottom"
 
 
 all:

@@ -387,10 +387,10 @@ visualisiert und analysiert. Wir machen dies am Beispiel der Konsortien,
 die sich bei der Nationalen Forschungsdateninfrastrukturinitiative
 (NFDI) beteiligen bzw. beworben haben.
 
-Als Datengrundlage nehmen wir die \emph{Letter of Intent} der jeweiligen
-Konsortien, in denen Kooperationspartner genannt werden. Diese Nennungen
-sind Ausgangspunkt unseres Netzwerkes.\footnote{Siehe dazu auch das
-  Repositorium von Dorothea Strecker
+Als Datengrundlage nehmen wir die \emph{Letters of Intent} der
+jeweiligen Konsortien, in denen Kooperationspartner genannt werden.
+Diese Nennungen sind Ausgangspunkt unseres Netzwerkes.\footnote{Siehe
+  dazu auch das Repositorium von Dorothea Strecker
   (https://github.com/dorothearrr/NFDI\_Netzwerk), in dem sie bereits
   eine ähnliche Visualisierung und Analyse vorgenommen hat.}
 
@@ -413,15 +413,12 @@ Netzwerk besteht aus drei Komponenten:
   Knoten (Kreis)
 \item
   Kanten (Balken)
-\item
-  Kreuzungen (Schnittpunkte)
 \end{itemize}
 
 Knoten (\emph{nodes} oder \emph{vertices}) werden als Kreise dargestellt
 und repräsentieren Konsortien. Kanten (\emph{edges}) werden als mehr
 oder minder gebogene Balken dargestellt und gehen von den Knoten aus.
-Sie zeigen eine Verbindung zwischen zwei Knoten an. Kreuzungen
-(\emph{crossings}) sind Schnittpunkte zweier oder mehrerer Kanten.
+Sie zeigen eine Verbindung zwischen zwei Knoten an.
 
 \begin{figure}
 \centering
@@ -430,13 +427,13 @@ Sie zeigen eine Verbindung zwischen zwei Knoten an. Kreuzungen
 \end{figure}
 
     R ist so aufgebaut, dass verschiedene Bibliotheken für unterschiedliche
-Funktionen geladen werden müssen. Für die Netzwerkanalyse werden wir auf
+Funktionen geladen werden können. Für die Netzwerkanalyse werden wir auf
 das Paket \texttt{igraph}\footnote{https://igraph.org/r/} zurückgreifen.
-Mit \texttt{library(\textquotesingle{}igraph\textquotesingle{})} können
-wir das Paket laden.
+Mit \texttt{library(\textquotesingle{}igraph\textquotesingle{})} laden
+wir das Paket.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{3}{\boxspacing}
+\prompt{In}{incolor}{26}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{library}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{igraph\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
@@ -446,18 +443,18 @@ wir das Paket laden.
 Verfügung,\footnote{https://gist.github.com/LukasCBossert/27fafa33e9b16c33e1107914e928c472},
 sodass wir die Daten kopieren und in die nächste Zelle einfügen können.
 
-Fangen wir bei der Funktion \texttt{read.table} an. Wir geben an, dass
-es sich um einen Datensatz handelt, bei dem es
+Fangen wir bei der Funktion \texttt{read.table} an. Es gibt drei
+Parameter:
 
 \begin{itemize}
 \tightlist
 \item
-  eine Kopfzeile gibt, daher \texttt{header=TRUE}
+  \texttt{header=TRUE} (es gibt eine Kopfzeile)
 \item
-  die Trennung der Werte durch ein Komma erfolgt, \texttt{sep=","}.
+  \texttt{sep=","} (die Trennung der Werte erfolgt durch ein Komma)
 \item
-  Schließlich die Werte selbst, die zwischen den Anführungszeichen von
-  \texttt{text=""} stehen.
+  \texttt{text=""} (die Werte selbst stehen zwischen den
+  Anführungszeichen)
 \end{itemize}
 
 Diese Werte übergeben wir der selbstgewählten Variable
@@ -465,7 +462,7 @@ Diese Werte übergeben wir der selbstgewählten Variable
 erfolgt.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{5}{\boxspacing}
+\prompt{In}{incolor}{27}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{NFDI\PYZus{}edges} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.table}\PY{p}{(}\PY{n}{header}\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{,}
                          \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{,\PYZdq{}}\PY{p}{,}
@@ -601,7 +598,7 @@ erfolgt.
 \end{tcolorbox}
 
     Damit wir aus diesem Datensatz ein Netzwerk erstellen können, müssen wir
-es aufbereiten und ein \texttt{igraph\ graph} erstellen.\footnote{https://igraph.org/r/doc/graph\_from\_data\_frame.html}
+es aufbereiten und einen \texttt{igraph\ graph} erstellen.\footnote{https://igraph.org/r/doc/graph\_from\_data\_frame.html}
 Das geschieht mit der Funktion \texttt{graph\_from\_data\_frame}, der
 wir unseren Datensatz übergeben.
 
@@ -611,7 +608,7 @@ ist (\texttt{directed=FALSE}), das heißt, dass die Richtung, wie sie bei
 nur darum, dass zwei Konsortien verknüpft sind.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{7}{\boxspacing}
+\prompt{In}{incolor}{28}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{NFDI\PYZus{}network} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{graph\PYZus{}from\PYZus{}data\PYZus{}frame}\PY{p}{(}\PY{n}{NFDI\PYZus{}edges}\PY{p}{,}
                                       \PY{n}{directed}\PY{o}{=}\PY{k+kc}{FALSE}
@@ -625,8 +622,7 @@ nur darum, dass zwei Konsortien verknüpft sind.
 
     Zunächst werden wir einen Parameter festlegen, damit unser Netzwerk bei
 gleicher Datengrundlage immer gleich aussieht. Dieser Parameter ist
-\texttt{seed}. Wir wählen eine beliebige Zahl, die nicht allzu klein
-ist.
+\texttt{seed}. Wir wählen eine beliebige Zahl, die groß sein darf.
 
 Anschließend kommen wir zum eigentlichen Plot. Dafür rufen wir die
 Funktion \texttt{plot} auf und übergeben ihr die Variable unseres
@@ -635,13 +631,13 @@ den Parameter \texttt{main} bestimmen und ebenso können wir angeben, ob
 wir mit \texttt{frame=TRUE} einen Rahmen um das Netzwerk haben wollen.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{9}{\boxspacing}
+\prompt{In}{incolor}{29}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
 \PY{n+nf}{plot}\PY{p}{(}\PY{n}{NFDI\PYZus{}network}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} loading data frame}
      \PY{n}{main}  \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{NFDI\PYZhy{}Netzwerk\PYZdq{}}\PY{p}{,}         \PY{c+c1}{\PYZsh{} adding a title}
-     \PY{n}{frame} \PY{o}{=} \PY{k+kc}{TRUE}                     \PY{c+c1}{\PYZsh{} FALSE \PYZhy{}\PYZgt{} making a frame }
+     \PY{n}{frame} \PY{o}{=} \PY{k+kc}{TRUE}                     \PY{c+c1}{\PYZsh{} making a frame }
      \PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
@@ -651,7 +647,8 @@ wir mit \texttt{frame=TRUE} einen Rahmen um das Netzwerk haben wollen.
     \end{center}
     { \hspace*{\fill} \\}
     
-    Wir sehen das Netzwerk der NFDI-Konsortien ohne weitere Einstellungen.
+    Wir sehen das Netzwerk der NFDI-Konsortien ohne weitere explizite
+Einstellungen.
 
     \hypertarget{layout-einstellungen}{%
 \subsection{Layout-Einstellungen}\label{layout-einstellungen}}
@@ -664,21 +661,21 @@ Wir erweitern auf diese Weise den Code und arbeiten Schritt für Schritt
 am Netzwerk.
 
 Für das Layout von Netzwerken gibt es verschiedene Algorithmen. Je nach
-Datensatz kann mal das eine, mal ein anderes besser geeignet sein.
-Meiner Meinung nach erzielen wir ein gutes Ergebnis mit dem Layout
-\texttt{graphopt}\footnote{https://igraph.org/r/doc/layout\_with\_graphopt.html}.
+Datensatz kann mal das eine Layout, mal das andere besser geeignet sein.
+Mit dem Layout \texttt{graphopt}\footnote{https://igraph.org/r/doc/layout\_with\_graphopt.html}
+erzielt man in der Regel ein gutes Ergebnis.
 
-Dieses Layout übergeben wir dem Parameter \texttt{layout} mit dem Wert
-\texttt{layout.graphopt}.
+Diesen Wert \texttt{layout.graphopt} übergeben wir dem Parameter
+\texttt{layout}.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{10}{\boxspacing}
+\prompt{In}{incolor}{30}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
 \PY{n+nf}{plot}\PY{p}{(}\PY{n}{NFDI\PYZus{}network}\PY{p}{,}                     \PY{c+c1}{\PYZsh{} loading data frame}
      \PY{n}{main}   \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{NFDI\PYZhy{}Netzwerk\PYZdq{}}\PY{p}{,}         \PY{c+c1}{\PYZsh{} adding a title}
-     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} FALSE \PYZhy{}\PYZgt{} making a frame}
+     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} making a frame}
      \PY{n}{layout} \PY{o}{=} \PY{n}{layout.graphopt}\PY{p}{,}         \PY{c+c1}{\PYZsh{}* better layout options}
      \PY{p}{)}
 \end{Verbatim}
@@ -690,46 +687,155 @@ Dieses Layout übergeben wir dem Parameter \texttt{layout} mit dem Wert
     { \hspace*{\fill} \\}
     
     Das Netzwerk ist jetzt schon besser strukturiert und die Abstände der
-Knoten ist harmonischer.
+Knoten sind harmonischer.
 
-Wer möchte, der kann weitere Layout-Einstellungen ausprobieren:
+Wer möchte, der kann weitere Layout-Einstellungen\footnote{https://igraph.org/python/doc/tutorial/tutorial.html\#layout-algorithms}
+ausprobieren:
 
-\begin{itemize}
-\tightlist
-\item
-  \texttt{layout.auto}: Choose an appropriate graph layout algorithm
-  automatically
-\item
-  \texttt{layout.davidson.harel}: The Davidson-Harel layout algorithm
-\item
-  \texttt{layout.drl}: The DrL graph layout generator
-\item
-  \texttt{layout.fruchterman.reingold}: Deprecated layout functions
-\item
-  \texttt{layout.gem}: The GEM layout algorithm
-\item
-  \texttt{layout.graphopt}: The graphopt layout algorithm
-\item
-  \texttt{layout.grid}: Simple grid layout
-\item
-  \texttt{layout.mds}: Graph layout by multidimensional scaling
-\item
-  \texttt{layout.merge}: Merging graph layouts
-\item
-  \texttt{layout.norm}: Normalize coordinates for plotting graphs
-\item
-  \texttt{layout.star}: Generate coordinates to place the vertices of a
-  graph in a star-shape
-\end{itemize}
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
+Method name\strut
+\end{minipage} &
+\begin{minipage}[b]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
+Short name\strut
+\end{minipage} &
+\begin{minipage}[b]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
+Algorithm description\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
+layout\_circle\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
+circle,circular\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
+Deterministic layout that places the vertices on a circle\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
+layout\_drl\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
+drl\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
+The Distributed Recursive Layout algorithm for large graphs\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
+layout\_fruchterman\_reingold\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
+fr\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
+Fruchterman-Reingold force-directed algorithm\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
+layout\_fruchterman\_reingold\_3d\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
+fr3d, fr\_3d\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
+Fruchterman-Reingold force-directed algorithm in three dimensions\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
+layout\_grid\_fruchterman\_reingold\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
+grid\_fr\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
+Fruchterman-Reingold force-directed algorithm with grid heuristics for
+large graphs\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
+layout\_kamada\_kawai\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
+kk\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
+Kamada-Kawai force-directed algorithm\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
+layout\_kamada\_kawai\_3d\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
+kk3d, kk\_3d\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
+Kamada-Kawai force-directed algorithm in three dimensions\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
+layout\_lgl\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
+large, lgl,large\_graph\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
+The Large Graph Layout algorithm for large graphs\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
+layout\_random\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
+random\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
+Places the vertices completely randomly\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
+layout\_random\_3d\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
+random\_3d\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
+Places the vertices completely randomly in 3D\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
+layout\_reingold\_tilford\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
+rt, tree\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
+Reingold-Tilford tree layout, useful for (almost) tree-like graphs\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
+layout\_reingold\_tilford\_circular\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
+rt\_circular tree\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
+Reingold-Tilford tree layout with a polar coordinate
+post-transformation, useful for (almost) tree-like graphs\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
+layout\_sphere\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
+sphere,spherical,circular\_3d\strut
+\end{minipage} &
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
+Deterministic layout that places the vertices evenly on the surface of a
+sphere\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
-    \hypertarget{farbe-gruxf6uxdfe-kurve-knoten-und-kanten}{%
-\subsection{Farbe, Größe, Kurve (Knoten und
-Kanten)}\label{farbe-gruxf6uxdfe-kurve-knoten-und-kanten}}
+    \hypertarget{farbe-gruxf6uxdfe-kruxfcmmung-knoten-und-kanten}{%
+\subsection{Farbe, Größe, Krümmung (Knoten und
+Kanten)}\label{farbe-gruxf6uxdfe-kruxfcmmung-knoten-und-kanten}}
 
 Nachdem wir die Anordnung der Knoten optimiert haben, wollen wir im
-nächsten Schritt die Darstellung der Knoten und Kanten selbst angehen.
+nächsten Schritt die Darstellung der Knoten und Kanten angehen.
 
-Es lassen sich verschiedene Werte nach eigenen Wünschen anpassen.
+Es lassen sich verschiedene Parameter nach eigenen Wünschen anpassen.
 
 Zunächst möchten wir die Farbe der Knoten angehen. Der Parameter lautet
 \texttt{vertex.color} und wir können einen HTML-Farbwert angeben (bspw.
@@ -745,25 +851,25 @@ geschrieben wird. Dies ist eine relative Größe und wir möchten die Label
 nur halb so groß wie im vorherigen Netzwerk dargestellt haben. Auch die
 Farbe der Beschriftung ist änderbar. Ganz analog heißt der Parameter
 \texttt{vertex.label.color}, an den wir den Farbwert auch als String,
-wie bspw. \texttt{"black"} übergeben können.
+wie bspw. \texttt{"black"}, übergeben können.
 
-Ein Netzwerk besteht neben den Knoten auch aus Kanten, die
-Verbindungslinien, die wir ebenfalls modifizieren können. Für die
-Farbänderung brauchen wir den Parameter \texttt{edge.color}, an den wir
-bspw. \texttt{"\#808080"} übergeben. Neben der Farbe können wir auch den
-Grad der ``Kurvigkeit'' bestimmen, die mit \texttt{edge.curved} und dem
-Wert \texttt{0.1} eingestellt wird. Wichtig ist auch hier wieder, dass
-\emph{keine} Anführungszeichen gesetzt werden.
+Ein Netzwerk besteht neben den Knoten auch aus Kanten, die zwei Knoten
+verbinden. Für die Farbänderung brauchen wir den Parameter
+\texttt{edge.color}, an den wir bspw. \texttt{"\#808080"} übergeben.
+Neben der Farbe können wir auch den Grad der ``Krümmung'' bestimmen, die
+mit \texttt{edge.curved} und dem Wert \texttt{0.1} eingestellt wird.
+Wichtig ist auch hier wieder, dass \emph{keine} Anführungszeichen
+gesetzt werden.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{11}{\boxspacing}
+\prompt{In}{incolor}{31}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
 
 \PY{n+nf}{plot}\PY{p}{(}\PY{n}{NFDI\PYZus{}network}\PY{p}{,}                     \PY{c+c1}{\PYZsh{} loading data frame}
      \PY{n}{main}   \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{NFDI\PYZhy{}Netzwerk\PYZdq{}}\PY{p}{,}         \PY{c+c1}{\PYZsh{} adding a title}
-     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} FALSE \PYZhy{}\PYZgt{} making a frame }
+     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} making a frame }
      \PY{n}{layout} \PY{o}{=} \PY{n}{layout.graphopt}\PY{p}{,}         \PY{c+c1}{\PYZsh{} better layout options}
      \PY{n}{vertex.color}       \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{}* color of nodes}
      \PY{n}{vertex.frame.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{}* color of the frame of nodes}
@@ -780,9 +886,9 @@ Wert \texttt{0.1} eingestellt wird. Wichtig ist auch hier wieder, dass
     \end{center}
     { \hspace*{\fill} \\}
     
-    \hypertarget{knotengruxf6uxdfe-in-abhuxe4ngigkeit-der-kanten}{%
+    \hypertarget{knotengruxf6uxdfe-in-abhuxe4ngigkeit-der-kantenanzahl}{%
 \subsection{Knotengröße in Abhängigkeit der
-Kanten}\label{knotengruxf6uxdfe-in-abhuxe4ngigkeit-der-kanten}}
+Kantenanzahl}\label{knotengruxf6uxdfe-in-abhuxe4ngigkeit-der-kantenanzahl}}
 
 In den bisherigen Netzwerkdarstellungen sind alle Knoten gleich groß.
 
@@ -794,14 +900,14 @@ Die Anzahl der Kanten pro Knoten können wir mit der Funktion
 ermitteln. Wenn wir dieser Funktion den Datensatz des Netzwerkes
 übergeben (\texttt{degree(NFDI\_network)}), dann erhalten wir die Anzahl
 der Kanten pro Knoten. Diese Werte nehmen wir als Größeangabe für die
-Kanten.
+Knoten.
 
 Wir erweitern somit den bisherigen Code um eine Zeile. Die Knotengröße
 verbirgt sich hinter dem Parameter \texttt{vertex.size} und als Wert
 übergeben wir die Funktion \texttt{degree(NFDI\_network)}.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{12}{\boxspacing}
+\prompt{In}{incolor}{32}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -809,7 +915,7 @@ verbirgt sich hinter dem Parameter \texttt{vertex.size} und als Wert
 
 \PY{n+nf}{plot}\PY{p}{(}\PY{n}{NFDI\PYZus{}network}\PY{p}{,}                     \PY{c+c1}{\PYZsh{} loading data frame}
      \PY{n}{main}   \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{NFDI\PYZhy{}Netzwerk\PYZdq{}}\PY{p}{,}         \PY{c+c1}{\PYZsh{} adding a title}
-     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} FALSE \PYZhy{}\PYZgt{} making a frame }
+     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} making a frame }
      \PY{n}{layout} \PY{o}{=} \PY{n}{layout.graphopt}\PY{p}{,}         \PY{c+c1}{\PYZsh{} better layout options}
      \PY{n}{vertex.color}       \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of nodes}
      \PY{n}{vertex.frame.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of the frame of nodes}
@@ -859,17 +965,17 @@ verbirgt sich hinter dem Parameter \texttt{vertex.size} und als Wert
     \end{center}
     { \hspace*{\fill} \\}
     
-    \hypertarget{knotengruxf6uxdfe-in-abhuxe4ngigkeit-der-ein--und-ausgehenden-kanten}{%
-\subsection{Knotengröße in Abhängigkeit der ein- und ausgehenden
-Kanten}\label{knotengruxf6uxdfe-in-abhuxe4ngigkeit-der-ein--und-ausgehenden-kanten}}
+    \hypertarget{knotengruxf6uxdfe-in-abhuxe4ngigkeit-der-anzahl-ein--und-ausgehender-kanten}{%
+\subsection{Knotengröße in Abhängigkeit der Anzahl ein- und ausgehender
+Kanten}\label{knotengruxf6uxdfe-in-abhuxe4ngigkeit-der-anzahl-ein--und-ausgehender-kanten}}
 
 Wir haben jetzt eine zweite Informationsebene in unser Netzwerk
 eingeführt und können die Knotengröße in Relation zur Kantenanzahl
 darstellen.
 
 Im nächsten Schritt möchten wir eine weitere Komponente einführen.
-Bislang war es unerheblich ob ein Konsortium im Datensatz an erster oder
-zweiter Stelle genannt wurde, das heißt, es war unerheblich ob der
+Bislang war es unerheblich, ob ein Konsortium im Datensatz an erster
+oder zweiter Stelle genannt wurde, das heißt, es war unerheblich, ob der
 aktive oder der passive Kooperationspartner ist.
 
 Jetzt möchten wir die Unterscheidung im Netzwerk berücksichtigen. Dafür
@@ -880,7 +986,7 @@ die den Datensatz als gerichteten Graph enthält, was wir mit
 \texttt{directed\ =\ TRUE} einstellen.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{13}{\boxspacing}
+\prompt{In}{incolor}{33}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{NFDI\PYZus{}network\PYZus{}directed} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{graph\PYZus{}from\PYZus{}data\PYZus{}frame}\PY{p}{(}\PY{n}{NFDI\PYZus{}edges}\PY{p}{,}
                                           \PY{n}{directed} \PY{o}{=} \PY{k+kc}{TRUE}
@@ -893,8 +999,8 @@ Entscheidend ist nun, dass wir der Plot-Funktion die neue Variable mit
 dem gerichteten Graphen übergeben. Zudem übergeben wir auch der Funktion
 \texttt{degree} die neue Variable.
 
-Im gerichteten Netzwerk erschwert die Kurvigkeit der Kanten die
-Lesbarkeit. Daher wäheln wir für \texttt{edge.curved} den Wert
+Im gerichteten Netzwerk erschwert die Krümmung der Kanten die
+Lesbarkeit. Daher wählen wir für \texttt{edge.curved} den Wert
 \texttt{0}.
 
 Ebenso sollen die Pfeilspitzen kleiner werden, was mit
@@ -902,13 +1008,13 @@ Ebenso sollen die Pfeilspitzen kleiner werden, was mit
 ist.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{14}{\boxspacing}
+\prompt{In}{incolor}{34}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
 \PY{n+nf}{plot}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed}\PY{p}{,}            \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} loading data frame}
      \PY{n}{main}   \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{NFDI\PYZhy{}Netzwerk\PYZdq{}}\PY{p}{,}         \PY{c+c1}{\PYZsh{} adding a title}
-     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} FALSE \PYZhy{}\PYZgt{} making a frame }
+     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} making a frame }
      \PY{n}{layout} \PY{o}{=} \PY{n}{layout.graphopt}\PY{p}{,}         \PY{c+c1}{\PYZsh{} better layout options}
      \PY{n}{vertex.color}       \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of nodes}
      \PY{n}{vertex.frame.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of the frame of nodes}
@@ -941,7 +1047,7 @@ degree(NFDI_network_directed,
 \end{verbatim}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{8}{\boxspacing}
+\prompt{In}{incolor}{35}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -951,7 +1057,7 @@ degree(NFDI_network_directed,
 
 \PY{n+nf}{plot}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed}\PY{p}{,}            \PY{c+c1}{\PYZsh{} loading data frame}
      \PY{n}{main}   \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{NFDI\PYZhy{}Netzwerk (\PYZlt{}in\PYZgt{})\PYZdq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} adding a title}
-     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} FALSE \PYZhy{}\PYZgt{} making a frame }
+     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} making a frame }
      \PY{n}{layout} \PY{o}{=} \PY{n}{layout.graphopt}\PY{p}{,}         \PY{c+c1}{\PYZsh{} better layout options}
      \PY{n}{vertex.color}       \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of nodes}
      \PY{n}{vertex.frame.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of the frame of nodes}
@@ -1010,7 +1116,7 @@ Wir übernehmen den kompletten Zelleninhalt von zuvor und ändern
 lediglich \texttt{in} zu \texttt{out}.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{15}{\boxspacing}
+\prompt{In}{incolor}{36}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -1019,7 +1125,7 @@ lediglich \texttt{in} zu \texttt{out}.
 
 \PY{n+nf}{plot}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed}\PY{p}{,}            \PY{c+c1}{\PYZsh{} loading data frame}
      \PY{n}{main}   \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{NFDI\PYZhy{}Netzwerk (\PYZlt{}out\PYZgt{})\PYZdq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} adding a title}
-     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} FALSE \PYZhy{}\PYZgt{} making a frame }
+     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} making a frame }
      \PY{n}{layout} \PY{o}{=} \PY{n}{layout.graphopt}\PY{p}{,}         \PY{c+c1}{\PYZsh{} better layout options}
      \PY{n}{vertex.color}       \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of nodes}
      \PY{n}{vertex.frame.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of the frame of nodes}
@@ -1074,9 +1180,9 @@ lediglich \texttt{in} zu \texttt{out}.
     Es fällt auf, dass einige Knoten schrumpfen und in der Tabelle sieht
 man, dass sie den Wert \texttt{0} bei ausgehenden Kanten haben. Das
 liegt daran, dass dies die Konsortien sind, die in der ersten
-Förderrunde bereits bewilligt wurden und daher keinen neuen Letter of
+Förderrunde bereits bewilligt wurden und daher keinen neuen Letters of
 Intent eingereicht haben. Unser Datensatz berücksichtigt ja nur die
-Letter of Intent der zweiten Förderrunde. Die Konsortien der ersten
+Letters of Intent der zweiten Förderrunde. Die Konsortien der ersten
 Runde können daher nur als ``passive'' Kooperationspartner genannt
 werden.
 
@@ -1092,9 +1198,10 @@ Förderrunde berücksichtigt.
 Der Filter bzw. das Löschen der besagten Konsortien funktioniert so: Die
 Funktion \texttt{delete\_vertices} kümmert sich um die Löschung wir
 müssen dafür zunächst den Netzwerkgraphen angeben, anschließend findet
-eine Berechnung statt: Es sollen alle Knoten/Konsortien gelöscht werden,
-deren Anzahl an Kanten (\texttt{V} = Value) im Modus \texttt{out} gleich
-\texttt{0} ist. Diese gelöschte Knoten übergeben wir der neuen Variable
+eine Berechnung statt: Es sollen alle Knoten/Konsortien (ausgegeben
+durch die Funktion \texttt{V}) gelöscht werden, deren Anzahl an Kanten
+im Modus \texttt{out} gleich \texttt{0} ist. Diese gelöschte Knoten
+übergeben wir der neuen Variable
 \texttt{NFDI\_network\_directed\_filter}, die wir weiter nutzen können.
 
 Als Darstellungsmodus des Netzwerks wähle ich \texttt{total}, da es mir
@@ -1102,7 +1209,7 @@ jetzt nicht um die separate Anzahl der ein- und ausgehenden
 Verbindungen, sondern um deren Summe geht.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{16}{\boxspacing}
+\prompt{In}{incolor}{37}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -1114,7 +1221,7 @@ Verbindungen, sondern um deren Summe geht.
 
 \PY{n+nf}{plot}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed\PYZus{}filter}\PY{p}{,}           \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} loading data frame}
      \PY{n}{main}   \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{NFDI\PYZhy{}Netzwerk (\PYZlt{}filtered\PYZgt{})\PYZdq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} adding a title}
-     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} FALSE \PYZhy{}\PYZgt{} making a frame }
+     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} making a frame }
      \PY{n}{layout} \PY{o}{=} \PY{n}{layout.graphopt}\PY{p}{,}         \PY{c+c1}{\PYZsh{} better layout options}
      \PY{n}{vertex.color}       \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of nodes}
      \PY{n}{vertex.frame.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}ffcc66\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of the frame of nodes}
@@ -1188,23 +1295,36 @@ fünf Panels aufgemacht:
 \end{enumerate}
 
 Die antragsstellenden Konsortien wurden auf diese fünf Gruppen
-eingeteilt.
+eingeteilt:{[}\^{}7{]}
 
-Auffällig ist, dass die Naturwissenschaften auf die
-Lebenswissenschaften, Ingenieurwissenschaften und Chemie/Physik
-aufgeteilt worden sind.
+\begin{figure}
+\centering
+\includegraphics{img/nfdi-konferenzsystematik.png}
+\caption{Konferenzsystematik}
+\end{figure}
+
+Auffällig ist, dass nach der DFG-Fachsystematik die Naturwissenschaften
+auf die Lebenswissenschaften, Ingenieurwissenschaften und Chemie/Physik
+aufgeteilt worden sind, wie man im folgenden Sankey (Flussdiagramm)
+sehen kann.
+
+\begin{figure}
+\centering
+\includegraphics{img/dfg-nfdi-sankey.png}
+\caption{Sankey}
+\end{figure}
 
 Alle Konsortien sind also einem dieser fünf Bereiche zugeteilt und wir
 wollen das nun im Netzwerk zeigen. Diese Einteilung der Konsortien auf
-die Konferenzsystematik laden wir als fertigen Datensatz aus einem
-GitHub-Gist, was uns manche Tipparbeit sparen wird.\footnote{https://gist.github.com/LukasCBossert/36d6034c8ebc2a4d61f011169371bc31}
+die Konferenzsystematik laden wir in der nächsten Zelle.
 
 Dieser neue Datensatz wird der Variable \texttt{NFDI\_nodes} übergeben;
 die erste Spalte beinhaltet die Konsortialnamen, die zweite Spalte die
-Nummer aus der NFDI-\emph{Konferenz}systematik.
+Nummer aus der NFDI-\emph{Konferenz}systematik. {[}\^{}7{]}:
+https://www.dfg.de/download/pdf/foerderung/programme/nfdi/nfdi\_konferenz\_2020/programm\_webkonferenz\_2020.pdf
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{18}{\boxspacing}
+\prompt{In}{incolor}{38}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{NFDI\PYZus{}nodes} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.table}\PY{p}{(}\PY{n}{header}\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{,}
                          \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{,\PYZdq{}}\PY{p}{,}
@@ -1242,11 +1362,11 @@ Nummer aus der NFDI-\emph{Konferenz}systematik.
 
     Jetzt müssen wir aus dem Datensatz noch ein Graph-Datensatz erstellen,
 was wiederum mit \texttt{graph\_from\_data\_frame} geschieht. Neu ist,
-dass wir nun differenzieren, was unser Kanten-Data-Frame ist und was die
-Liste mit den Knoten.
+dass wir nun differenzieren, was unser Kanten-Data-Frame und was die
+Liste mit den Knoten ist.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{19}{\boxspacing}
+\prompt{In}{incolor}{39}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{NFDI\PYZus{}network\PYZus{}directed} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{graph\PYZus{}from\PYZus{}data\PYZus{}frame}\PY{p}{(}\PY{n}{d} \PY{o}{=} \PY{n}{NFDI\PYZus{}edges}\PY{p}{,}        \PY{c+c1}{\PYZsh{} d = data frame =\PYZti{} edges}
                                                \PY{n}{vertices} \PY{o}{=} \PY{n}{NFDI\PYZus{}nodes}\PY{p}{,} \PY{c+c1}{\PYZsh{}nodes}
@@ -1293,7 +1413,7 @@ NFDI-Konferenzsystematik den Farbwert, der an der entsprechenden Stelle
 in der Liste der Variable \texttt{NFDI\_color\_code} steht.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{20}{\boxspacing}
+\prompt{In}{incolor}{40}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{NFDI\PYZus{}color\PYZus{}code} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}f5ac9f\PYZdq{}}\PY{p}{,} \PY{c+c1}{\PYZsh{} Medizin}
                      \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}e43516\PYZdq{}}\PY{p}{,} \PY{c+c1}{\PYZsh{} Lebenswissenschaften}
@@ -1309,7 +1429,8 @@ in der Liste der Variable \texttt{NFDI\_color\_code} steht.
 \subsection{Netzwerk mit eingefärbten
 Knoten}\label{netzwerk-mit-eingefuxe4rbten-knoten}}
 
-Wir können wiederum den Zellencode von oben übernehmen und anpassen.
+Wir können wiederum den Code der vorhergehenden Zelle übernehmen und
+anpassen.
 
 Entscheidend ist, dass wir bei \texttt{vertex.color} und
 \texttt{vertex.frame.color} die Variable \texttt{NFDI\_color\_groups}
@@ -1317,7 +1438,7 @@ als Wert angeben. Wir wollen ebenfalls das gesamte Netzwerk mit allen
 Kanten (\texttt{mode\ =\ "total"}) berücksichtigen und darstellen.
 
 Was jetzt noch fehlt, ist eine Legende, sodass wir auch sehen, was
-hinter der Farbcodierung an sich steckt.
+hinter der Farbcodierung steckt.
 
 Dafür gibt es eine spezielle Funktion \texttt{legend}, die wir nun mit
 Werten füllen.
@@ -1345,13 +1466,13 @@ relativer Wert und wir können die Schriftgröße bestimmen; ähnlich dazu
 funktioniert \texttt{pt.cex} für die Symbole der Legende.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{21}{\boxspacing}
+\prompt{In}{incolor}{41}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
 \PY{n+nf}{plot}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed}\PY{p}{,}            \PY{c+c1}{\PYZsh{} loading data frame}
      \PY{n}{main}   \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{NFDI\PYZhy{}Netzwerk (\PYZlt{}Konferenzsystematik\PYZgt{})\PYZdq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} adding a title}
-     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} FALSE \PYZhy{}\PYZgt{} making a frame }
+     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} making a frame }
      \PY{n}{layout} \PY{o}{=} \PY{n}{layout.graphopt}\PY{p}{,}         \PY{c+c1}{\PYZsh{} better layout options}
      \PY{n}{vertex.color}       \PY{o}{=} \PY{n}{NFDI\PYZus{}color\PYZus{}groups}\PY{p}{,}   \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}  color of nodes}
      \PY{n}{vertex.frame.color} \PY{o}{=} \PY{n}{NFDI\PYZus{}color\PYZus{}groups}\PY{p}{,}   \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} color of the frame of nodes}
@@ -1395,7 +1516,7 @@ funktioniert \texttt{pt.cex} für die Symbole der Legende.
 Die Einfärbung des Netzwerks mit den Farben der NFDI-Konferenzsystematik
 lässt die Vermutung zu, dass es bestimmte Gruppen gibt, die eine engere
 Beziehung zueinander haben (ausgehend von den Kooperationsabsichten in
-den Letter of Intents).
+den Letters of Intent).
 
 Wir können in R einen Algorithmus anwenden, der solche Gruppen
 ermittelt. Dafür wählen wir den Algorithmus
@@ -1431,12 +1552,13 @@ Parameter und wir können \texttt{col} den Wert
 
 Die Einfassung der Gruppen möchten wir grau hervorheben, was wir mit
 \texttt{mark.col\ =\ "grey"} erreichen, zudem verzichten wir auf die
-Darstellung des Randes (\texttt{mark.border\ =\ NA}).
+Darstellung des Randes (\texttt{mark.border\ =\ NA}
+{[}\texttt{Not\ Available}{]}).
 
 Für die Legende müssen wir nichts anpassen.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{22}{\boxspacing}
+\prompt{In}{incolor}{42}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -1446,7 +1568,7 @@ Für die Legende müssen wir nichts anpassen.
 \PY{n+nf}{plot}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed\PYZus{}cluster}\PY{p}{,}    \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} clustered network data}
      \PY{n}{NFDI\PYZus{}network\PYZus{}directed}\PY{p}{,}            \PY{c+c1}{\PYZsh{} loading data frame}
      \PY{n}{main}   \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{NFDI\PYZhy{}Netzwerk (\PYZlt{}Konferenzsystematik\PYZgt{})\PYZdq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{} adding a title}
-     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} FALSE \PYZhy{}\PYZgt{} making a frame }
+     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} making a frame }
      \PY{n}{layout} \PY{o}{=} \PY{n}{layout.graphopt}\PY{p}{,}         \PY{c+c1}{\PYZsh{} better layout options}
      \PY{c+c1}{\PYZsh{}vertex.color       = NFDI\PYZus{}color\PYZus{}groups,   \PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}  color of nodes}
      \PY{c+c1}{\PYZsh{}vertex.frame.color = NFDI\PYZus{}color\PYZus{}groups,   \PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} color of the frame of nodes}
@@ -1520,12 +1642,12 @@ Kooperationen hervorheben.
 Wir können den vorherigen Plot als ganzes übernehmen. Lediglich beim
 Parameter \texttt{edge.color} müssen wir die Angabe modifizieren. Als
 Wert setzen wir eine Liste, die aus zwei Einträgen besteht
-(\texttt{c(NA,"\#bf4040")}): Der erste Eintrag ist \texttt{NA}
-(\texttt{Not\ Available}), womit wir die cis-disziplinäre Kanten
-ansteuern; sie werden also nicht ausgegeben. Der zweite Einträg ist ein
-HTML-Farbcode, den wir für die trans-disziplinäre Kanten verwenden. Die
-Unterscheidung zwischen cis- und trans-disziplinärer Kante wird über die
-Funktion \texttt{crossing} vorgenommen.
+(\texttt{c(NA,"\#bf4040")}): Der erste Eintrag ist \texttt{NA} , womit
+wir die cis-disziplinäre Kanten ansteuern; sie werden also nicht
+ausgegeben. Der zweite Einträg ist ein HTML-Farbcode, den wir für die
+trans-disziplinäre Kanten verwenden. Die Unterscheidung zwischen cis-
+und trans-disziplinärer Kante wird über die Funktion \texttt{crossing}
+vorgenommen.
 
 \begin{quote}
 \texttt{crossing} returns a logical vector, with one value for each
@@ -1535,14 +1657,14 @@ vector, as returned by \texttt{membership()}.\footnote{https://igraph.org/r/doc/
 \end{quote}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{15}{\boxspacing}
+\prompt{In}{incolor}{43}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
 \PY{n+nf}{plot}\PY{p}{(}\PY{n}{NFDI\PYZus{}network\PYZus{}directed\PYZus{}cluster}\PY{p}{,}    \PY{c+c1}{\PYZsh{} clustered network data}
      \PY{n}{NFDI\PYZus{}network\PYZus{}directed}\PY{p}{,}            \PY{c+c1}{\PYZsh{} loading data frame}
      \PY{n}{main}   \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{NFDI\PYZhy{}Netzwerk (\PYZlt{}Konferenzsystematik\PYZgt{})\PYZdq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{} adding a title}
-     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} FALSE \PYZhy{}\PYZgt{} making a frame }
+     \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} making a frame }
      \PY{n}{layout} \PY{o}{=} \PY{n}{layout.graphopt}\PY{p}{,}         \PY{c+c1}{\PYZsh{} better layout options}
      \PY{c+c1}{\PYZsh{}vertex.color       = NFDI\PYZus{}color\PYZus{}groups,   \PYZsh{}  color of nodes}
      \PY{c+c1}{\PYZsh{}vertex.frame.color = NFDI\PYZus{}color\PYZus{}groups,   \PYZsh{} color of the frame of nodes}
@@ -1604,10 +1726,6 @@ und ihr könnt weitere Modifikationen im Netzwerk vornehmen.
 Es gibt noch weitere spannende Beschäftigungen mit diesem Netzwerk. Zum
 Beispiel kann man auch ein interaktives Netzwerk erstellen oder das
 Netzwerk als Kreisdiagramm darstellen.
-
-Beides könnt ihr selbst ausprobieren unter:
-https://nfdi4ing.de/nfdi-network\\
-Das Passwort lautet \texttt{fdmrwth}.
 
 
     % Add a bibliography block to the postdoc
