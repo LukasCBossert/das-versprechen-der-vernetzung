@@ -139,7 +139,7 @@ set.seed(1234)
 
 plot(NFDI_network,                    # loading data frame
      main  = "NFDI-Netzwerk",         # adding a title
-     frame = TRUE                     # FALSE -> making a frame 
+     frame = TRUE                     # making a frame 
      )
 
 
@@ -147,7 +147,7 @@ set.seed(1234)
 
 plot(NFDI_network,                     # loading data frame
      main   = "NFDI-Netzwerk",         # adding a title
-     frame  = TRUE,                    # FALSE -> making a frame
+     frame  = TRUE,                    # making a frame
      layout = layout.graphopt,         #* better layout options
      )
 
@@ -157,7 +157,7 @@ set.seed(1234)
 
 plot(NFDI_network,                     # loading data frame
      main   = "NFDI-Netzwerk",         # adding a title
-     frame  = TRUE,                    # FALSE -> making a frame 
+     frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
      vertex.color       = "#ffcc66",   #* color of nodes
      vertex.frame.color = "#ffcc66",   #* color of the frame of nodes
@@ -173,7 +173,7 @@ degree(NFDI_network)                   #* calculate number of edges
 
 plot(NFDI_network,                     # loading data frame
      main   = "NFDI-Netzwerk",         # adding a title
-     frame  = TRUE,                    # FALSE -> making a frame 
+     frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
      vertex.color       = "#ffcc66",   # color of nodes
      vertex.frame.color = "#ffcc66",   # color of the frame of nodes
@@ -197,7 +197,7 @@ set.seed(1234)
 
 plot(NFDI_network_directed,            #<<<<<<< loading data frame
      main   = "NFDI-Netzwerk",         # adding a title
-     frame  = TRUE,                    # FALSE -> making a frame 
+     frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
      vertex.color       = "#ffcc66",   # color of nodes
      vertex.frame.color = "#ffcc66",   # color of the frame of nodes
@@ -219,7 +219,7 @@ degree(NFDI_network_directed,
 
 plot(NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<in>)",  #<<<<<<<< adding a title
-     frame  = TRUE,                    # FALSE -> making a frame 
+     frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
      vertex.color       = "#ffcc66",   # color of nodes
      vertex.frame.color = "#ffcc66",   # color of the frame of nodes
@@ -243,7 +243,7 @@ degree(NFDI_network_directed,
 
 plot(NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<out>)",  #<<<<<<<< adding a title
-     frame  = TRUE,                    # FALSE -> making a frame 
+     frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
      vertex.color       = "#ffcc66",   # color of nodes
      vertex.frame.color = "#ffcc66",   # color of the frame of nodes
@@ -267,7 +267,7 @@ degree(NFDI_network_directed_filter,
 
 plot(NFDI_network_directed_filter,           #<<<<<<<< loading data frame
      main   = "NFDI-Netzwerk (<filtered>)",  #<<<<<<<< adding a title
-     frame  = TRUE,                    # FALSE -> making a frame 
+     frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
      vertex.color       = "#ffcc66",   # color of nodes
      vertex.frame.color = "#ffcc66",   # color of the frame of nodes
@@ -329,7 +329,7 @@ set.seed(1234)
 
 plot(NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<Konferenzsystematik>)",  #<<<<<<<< adding a title
-     frame  = TRUE,                    # FALSE -> making a frame 
+     frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
      vertex.color       = NFDI_color_groups,   #<<<<<<<<<<  color of nodes
      vertex.frame.color = NFDI_color_groups,   #<<<<<<<<<< color of the frame of nodes
@@ -368,7 +368,7 @@ NFDI_network_directed_cluster <- cluster_optimal(NFDI_network_directed)
 plot(NFDI_network_directed_cluster,    #<<<<<<<<<<< clustered network data
      NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<Konferenzsystematik>)",  # adding a title
-     frame  = TRUE,                    # FALSE -> making a frame 
+     frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
      #vertex.color       = NFDI_color_groups,   #<<<<<<<<<<  color of nodes
      #vertex.frame.color = NFDI_color_groups,   #<<<<<<<<<< color of the frame of nodes
@@ -407,7 +407,7 @@ set.seed(1234)
 plot(NFDI_network_directed_cluster,    # clustered network data
      NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<Konferenzsystematik>)",  # adding a title
-     frame  = TRUE,                    # FALSE -> making a frame 
+     frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
      #vertex.color       = NFDI_color_groups,   #  color of nodes
      #vertex.frame.color = NFDI_color_groups,   # color of the frame of nodes

@@ -14300,10 +14300,10 @@ Mit <code>library('igraph')</code> laden wir das Paket.</p>
 </div>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="s">&#39;igraph&#39;</span><span class="p">)</span>
@@ -14312,6 +14312,37 @@ Mit <code>library('igraph')</code> laden wir das Paket.</p>
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>
+Attaching package: ‘igraph’
+
+The following objects are masked from ‘package:stats’:
+
+    decompose, spectrum
+
+The following object is masked from ‘package:base’:
+
+    union
+
+</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -14337,7 +14368,7 @@ Es gibt drei Parameter:</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[27]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="n">NFDI_edges</span> <span class="o">&lt;-</span> <span class="nf">read.table</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span>
@@ -14497,7 +14528,7 @@ Es geht uns jetzt nur darum, dass zwei Konsortien verknüpft sind.</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[28]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="n">NFDI_network</span> <span class="o">&lt;-</span> <span class="nf">graph_from_data_frame</span><span class="p">(</span><span class="n">NFDI_edges</span><span class="p">,</span>
@@ -14528,7 +14559,7 @@ Für einen Titel können wir noch den Parameter <code>main</code> bestimmen und 
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[29]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
@@ -17799,7 +17830,7 @@ Mit dem Layout <code>graphopt</code><sup class="footnote-ref" id="fnref-4"><a hr
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[30]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
@@ -21417,81 +21448,21 @@ EHYAAEEIOwCAIIQdAEAQwg4AIAhhBwAQhLADAAhC2AEABCHsAACCEHYAAEEIOwCAIIQdAEAQ
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Das Netzwerk ist jetzt schon besser strukturiert und die Abstände der Knoten sind harmonischer.</p>
 <p>Wer möchte, der kann weitere Layout-Einstellungen<sup class="footnote-ref" id="fnref-4"><a href="#fn-4">1</a></sup> ausprobieren:</p>
-<table>
-<thead><tr>
-<th>Method name</th>
-<th>Short name</th>
-<th>Algorithm description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>layout_circle</td>
-<td>circle,circular</td>
-<td>Deterministic layout that places the vertices on a circle</td>
-</tr>
-<tr>
-<td>layout_drl</td>
-<td>drl</td>
-<td>The Distributed Recursive Layout algorithm for large graphs</td>
-</tr>
-<tr>
-<td>layout_fruchterman_reingold</td>
-<td>fr</td>
-<td>Fruchterman-Reingold force-directed algorithm</td>
-</tr>
-<tr>
-<td>layout_fruchterman_reingold_3d</td>
-<td>fr3d, fr_3d</td>
-<td>Fruchterman-Reingold force-directed algorithm in three dimensions</td>
-</tr>
-<tr>
-<td>layout_grid_fruchterman_reingold</td>
-<td>grid_fr</td>
-<td>Fruchterman-Reingold force-directed algorithm with grid heuristics for large graphs</td>
-</tr>
-<tr>
-<td>layout_kamada_kawai</td>
-<td>kk</td>
-<td>Kamada-Kawai force-directed algorithm</td>
-</tr>
-<tr>
-<td>layout_kamada_kawai_3d</td>
-<td>kk3d, kk_3d</td>
-<td>Kamada-Kawai force-directed algorithm in three dimensions</td>
-</tr>
-<tr>
-<td>layout_lgl</td>
-<td>large, lgl,large_graph</td>
-<td>The Large Graph Layout algorithm for large graphs</td>
-</tr>
-<tr>
-<td>layout_random</td>
-<td>random</td>
-<td>Places the vertices completely randomly</td>
-</tr>
-<tr>
-<td>layout_random_3d</td>
-<td>random_3d</td>
-<td>Places the vertices completely randomly in 3D</td>
-</tr>
-<tr>
-<td>layout_reingold_tilford</td>
-<td>rt, tree</td>
-<td>Reingold-Tilford tree layout, useful for (almost) tree-like graphs</td>
-</tr>
-<tr>
-<td>layout_reingold_tilford_circular</td>
-<td>rt_circular tree</td>
-<td>Reingold-Tilford tree layout with a polar coordinate post-transformation, useful for (almost) tree-like graphs</td>
-</tr>
-<tr>
-<td>layout_sphere</td>
-<td>sphere,spherical,circular_3d</td>
-<td>Deterministic layout that places the vertices evenly on the surface of a sphere</td>
-</tr>
-</tbody>
-</table>
+<ul>
+<li><code>layout_circle</code> (<code>circle,circular</code>): Deterministic layout that places the vertices on a circle</li>
+<li><code>layout_drl</code> (<code>drl</code>): The Distributed Recursive Layout algorithm for large graphs</li>
+<li><code>layout_fruchterman_reingold</code> (<code>fr</code>): Fruchterman-Reingold force-directed algorithm</li>
+<li><code>layout_fruchterman_reingold_3d</code> (<code>fr3d, fr_3d</code>): Fruchterman-Reingold force-directed algorithm in three dimensions</li>
+<li><code>layout_grid_fruchterman_reingold</code> (<code>grid_fr</code>): Fruchterman-Reingold force-directed algorithm with grid heuristics for large graphs</li>
+<li><code>layout_kamada_kawai</code> (<code>kk</code>): Kamada-Kawai force-directed algorithm</li>
+<li><code>layout_kamada_kawai_3d</code> (<code>kk3d, kk_3d</code>): Kamada-Kawai force-directed algorithm in three dimensions</li>
+<li><code>layout_lgl</code> (<code>large, lgl, large_graph</code>): The Large Graph Layout algorithm for large graphs</li>
+<li><code>layout_random</code> (<code>random</code>): Places the vertices completely randomly</li>
+<li><code>layout_random_3d</code> (<code>random_3d</code>): Places the vertices completely randomly in 3D</li>
+<li><code>layout_reingold_tilford</code> (<code>rt, tree</code>): Reingold-Tilford tree layout, useful for (almost) tree-like graphs</li>
+<li><code>layout_reingold_tilford_circular</code> (<code>rt_circular, tree</code>): Reingold-Tilford tree layout with a polar coordinate post-transformation, useful for (almost) tree-like graphs</li>
+<li><code>layout_sphere</code> (<code>sphere,spherical,circular_3d</code>): Deterministic layout that places the vertices evenly on the surface of a sphere</li>
+</ul>
 <div class="footnotes">
 <hr>
 <ol><li id="fn-4"><p><a href="https://igraph.org/python/doc/tutorial/tutorial.html#layout-algorithms">https://igraph.org/python/doc/tutorial/tutorial.html#layout-algorithms</a><a href="#fnref-4" class="footnote">&#8617;</a></p></li>
@@ -21526,7 +21497,7 @@ Neben der Farbe können wir auch den Grad der "Krümmung" bestimmen, die mit <co
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[31]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
@@ -24536,7 +24507,7 @@ Die Knotengröße verbirgt sich hinter dem Parameter <code>vertex.size</code> un
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[32]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
@@ -27666,7 +27637,7 @@ was wir mit <code>directed = TRUE</code> einstellen.</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[33]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="n">NFDI_network_directed</span> <span class="o">&lt;-</span> <span class="nf">graph_from_data_frame</span><span class="p">(</span><span class="n">NFDI_edges</span><span class="p">,</span>
@@ -27693,7 +27664,7 @@ Daher wählen wir für <code>edge.curved</code> den Wert <code>0</code>.</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[34]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
@@ -30740,7 +30711,7 @@ Je öfter ein Konsortium als Kooperationspartner genannt wird, desto größer wi
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[35]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
@@ -34023,7 +33994,7 @@ uK/AAAAAAElFTkSuQmCC"
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[36]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
@@ -37291,7 +37262,7 @@ die wir weiter nutzen können.</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[37]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
@@ -39013,7 +38984,7 @@ Für die Vorträge wurden fünf Panels aufgemacht:</p>
 <li>Ingenieurwissenschaften</li>
 <li>Chemie/Physik</li>
 </ol>
-<p>Die antragsstellenden Konsortien wurden auf diese fünf Gruppen eingeteilt:<sup class="footnote-ref" id="fnref-7"><a href="#fn-7">1</a></sup></p>
+<p>Die antragsstellenden Konsortien wurden auf diese fünf Gruppen eingeteilt:<sup class="footnote-ref" id="fnref-7b"><a href="#fn-7b">1</a></sup></p>
 <p><img src="img/nfdi-konferenzsystematik.png" alt="Konferenzsystematik"></p>
 <p>Auffällig ist, dass nach der DFG-Fachsystematik die Naturwissenschaften auf die Lebenswissenschaften, Ingenieurwissenschaften und Chemie/Physik aufgeteilt worden sind, wie man im folgenden Sankey (Flussdiagramm) sehen kann.</p>
 <p><img src="img/dfg-nfdi-sankey.png" alt="Sankey"></p>
@@ -39022,7 +38993,7 @@ Diese Einteilung der Konsortien auf die Konferenzsystematik laden wir in der nä
 <p>Dieser neue Datensatz wird der Variable <code>NFDI_nodes</code> übergeben; die erste Spalte beinhaltet die Konsortialnamen, die zweite Spalte die Nummer aus der NFDI-<em>Konferenz</em>systematik.</p>
 <div class="footnotes">
 <hr>
-<ol><li id="fn-7"><p><a href="https://www.dfg.de/download/pdf/foerderung/programme/nfdi/nfdi_konferenz_2020/programm_webkonferenz_2020.pdf">https://www.dfg.de/download/pdf/foerderung/programme/nfdi/nfdi_konferenz_2020/programm_webkonferenz_2020.pdf</a><a href="#fnref-7" class="footnote">&#8617;</a></p></li>
+<ol><li id="fn-7b"><p><a href="https://www.dfg.de/download/pdf/foerderung/programme/nfdi/nfdi_konferenz_2020/programm_webkonferenz_2020.pdf">https://www.dfg.de/download/pdf/foerderung/programme/nfdi/nfdi_konferenz_2020/programm_webkonferenz_2020.pdf</a><a href="#fnref-7b" class="footnote">&#8617;</a></p></li>
 </ol>
 </div>
 
@@ -39030,7 +39001,7 @@ Diese Einteilung der Konsortien auf die Konferenzsystematik laden wir in der nä
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[38]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="n">NFDI_nodes</span> <span class="o">&lt;-</span> <span class="nf">read.table</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span>
@@ -39080,7 +39051,7 @@ Diese Einteilung der Konsortien auf die Konferenzsystematik laden wir in der nä
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[39]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="n">NFDI_network_directed</span> <span class="o">&lt;-</span> <span class="nf">graph_from_data_frame</span><span class="p">(</span><span class="n">d</span> <span class="o">=</span> <span class="n">NFDI_edges</span><span class="p">,</span>        <span class="c1"># d = data frame =~ edges</span>
@@ -39152,7 +39123,7 @@ Vereinfacht gesagt und vom Ergebnis her gesehen, bekommt die Nummer der NFDI-Kon
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[40]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="n">NFDI_color_code</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;#f5ac9f&quot;</span><span class="p">,</span> <span class="c1"># Medizin</span>
@@ -39192,7 +39163,7 @@ Mit dem Wert <code>20</code> wählen wir einen ausgefüllten Kreis.</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[41]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
@@ -42364,7 +42335,7 @@ zudem verzichten wir auf die Darstellung des Randes (<code>mark.border = NA</cod
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[42]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
@@ -44003,7 +43974,7 @@ Die Unterscheidung zwischen cis- und trans-disziplinärer Kante wird über die F
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[43]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>

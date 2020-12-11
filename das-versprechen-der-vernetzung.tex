@@ -433,11 +433,25 @@ Mit \texttt{library(\textquotesingle{}igraph\textquotesingle{})} laden
 wir das Paket.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{26}{\boxspacing}
+\prompt{In}{incolor}{1}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{library}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{igraph\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Attaching package: ‘igraph’
+
+The following objects are masked from ‘package:stats’:
+
+    decompose, spectrum
+
+The following object is masked from ‘package:base’:
+
+    union
+
+    \end{Verbatim}
 
     Die Datengrundlage steht bereits in Form einer Auflistung zur
 Verfügung,\footnote{https://gist.github.com/LukasCBossert/27fafa33e9b16c33e1107914e928c472},
@@ -462,7 +476,7 @@ Diese Werte übergeben wir der selbstgewählten Variable
 erfolgt.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{27}{\boxspacing}
+\prompt{In}{incolor}{2}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{NFDI\PYZus{}edges} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.table}\PY{p}{(}\PY{n}{header}\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{,}
                          \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{,\PYZdq{}}\PY{p}{,}
@@ -608,7 +622,7 @@ ist (\texttt{directed=FALSE}), das heißt, dass die Richtung, wie sie bei
 nur darum, dass zwei Konsortien verknüpft sind.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{28}{\boxspacing}
+\prompt{In}{incolor}{3}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{NFDI\PYZus{}network} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{graph\PYZus{}from\PYZus{}data\PYZus{}frame}\PY{p}{(}\PY{n}{NFDI\PYZus{}edges}\PY{p}{,}
                                       \PY{n}{directed}\PY{o}{=}\PY{k+kc}{FALSE}
@@ -631,7 +645,7 @@ den Parameter \texttt{main} bestimmen und ebenso können wir angeben, ob
 wir mit \texttt{frame=TRUE} einen Rahmen um das Netzwerk haben wollen.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{29}{\boxspacing}
+\prompt{In}{incolor}{4}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -669,7 +683,7 @@ Diesen Wert \texttt{layout.graphopt} übergeben wir dem Parameter
 \texttt{layout}.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{30}{\boxspacing}
+\prompt{In}{incolor}{5}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -692,141 +706,52 @@ Knoten sind harmonischer.
 Wer möchte, der kann weitere Layout-Einstellungen\footnote{https://igraph.org/python/doc/tutorial/tutorial.html\#layout-algorithms}
 ausprobieren:
 
-\begin{longtable}[]{@{}lll@{}}
-\toprule
-\begin{minipage}[b]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
-Method name\strut
-\end{minipage} &
-\begin{minipage}[b]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
-Short name\strut
-\end{minipage} &
-\begin{minipage}[b]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
-Algorithm description\strut
-\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
-layout\_circle\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
-circle,circular\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
-Deterministic layout that places the vertices on a circle\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
-layout\_drl\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
-drl\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
-The Distributed Recursive Layout algorithm for large graphs\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
-layout\_fruchterman\_reingold\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
-fr\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
-Fruchterman-Reingold force-directed algorithm\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
-layout\_fruchterman\_reingold\_3d\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
-fr3d, fr\_3d\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
-Fruchterman-Reingold force-directed algorithm in three dimensions\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
-layout\_grid\_fruchterman\_reingold\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
-grid\_fr\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
-Fruchterman-Reingold force-directed algorithm with grid heuristics for
-large graphs\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
-layout\_kamada\_kawai\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
-kk\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
-Kamada-Kawai force-directed algorithm\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
-layout\_kamada\_kawai\_3d\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
-kk3d, kk\_3d\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
-Kamada-Kawai force-directed algorithm in three dimensions\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
-layout\_lgl\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
-large, lgl,large\_graph\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
-The Large Graph Layout algorithm for large graphs\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
-layout\_random\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
-random\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
-Places the vertices completely randomly\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
-layout\_random\_3d\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
-random\_3d\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
-Places the vertices completely randomly in 3D\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
-layout\_reingold\_tilford\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
-rt, tree\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
-Reingold-Tilford tree layout, useful for (almost) tree-like graphs\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
-layout\_reingold\_tilford\_circular\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
-rt\_circular tree\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
-Reingold-Tilford tree layout with a polar coordinate
-post-transformation, useful for (almost) tree-like graphs\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.19}}\raggedright
-layout\_sphere\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.17}}\raggedright
-sphere,spherical,circular\_3d\strut
-\end{minipage} &
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.64}}\raggedright
-Deterministic layout that places the vertices evenly on the surface of a
-sphere\strut
-\end{minipage}\tabularnewline
-\bottomrule
-\end{longtable}
+\begin{itemize}
+\tightlist
+\item
+  \texttt{layout\_circle} (\texttt{circle,circular}): Deterministic
+  layout that places the vertices on a circle
+\item
+  \texttt{layout\_drl} (\texttt{drl}): The Distributed Recursive Layout
+  algorithm for large graphs
+\item
+  \texttt{layout\_fruchterman\_reingold} (\texttt{fr}):
+  Fruchterman-Reingold force-directed algorithm
+\item
+  \texttt{layout\_fruchterman\_reingold\_3d} (\texttt{fr3d,\ fr\_3d}):
+  Fruchterman-Reingold force-directed algorithm in three dimensions
+\item
+  \texttt{layout\_grid\_fruchterman\_reingold} (\texttt{grid\_fr}):
+  Fruchterman-Reingold force-directed algorithm with grid heuristics for
+  large graphs
+\item
+  \texttt{layout\_kamada\_kawai} (\texttt{kk}): Kamada-Kawai
+  force-directed algorithm
+\item
+  \texttt{layout\_kamada\_kawai\_3d} (\texttt{kk3d,\ kk\_3d}):
+  Kamada-Kawai force-directed algorithm in three dimensions
+\item
+  \texttt{layout\_lgl} (\texttt{large,\ lgl,\ large\_graph}): The Large
+  Graph Layout algorithm for large graphs
+\item
+  \texttt{layout\_random} (\texttt{random}): Places the vertices
+  completely randomly
+\item
+  \texttt{layout\_random\_3d} (\texttt{random\_3d}): Places the vertices
+  completely randomly in 3D
+\item
+  \texttt{layout\_reingold\_tilford} (\texttt{rt,\ tree}):
+  Reingold-Tilford tree layout, useful for (almost) tree-like graphs
+\item
+  \texttt{layout\_reingold\_tilford\_circular}
+  (\texttt{rt\_circular,\ tree}): Reingold-Tilford tree layout with a
+  polar coordinate post-transformation, useful for (almost) tree-like
+  graphs
+\item
+  \texttt{layout\_sphere} (\texttt{sphere,spherical,circular\_3d}):
+  Deterministic layout that places the vertices evenly on the surface of
+  a sphere
+\end{itemize}
 
     \hypertarget{farbe-gruxf6uxdfe-kruxfcmmung-knoten-und-kanten}{%
 \subsection{Farbe, Größe, Krümmung (Knoten und
@@ -862,7 +787,7 @@ Wichtig ist auch hier wieder, dass \emph{keine} Anführungszeichen
 gesetzt werden.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{31}{\boxspacing}
+\prompt{In}{incolor}{6}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -907,7 +832,7 @@ verbirgt sich hinter dem Parameter \texttt{vertex.size} und als Wert
 übergeben wir die Funktion \texttt{degree(NFDI\_network)}.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{32}{\boxspacing}
+\prompt{In}{incolor}{7}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -986,7 +911,7 @@ die den Datensatz als gerichteten Graph enthält, was wir mit
 \texttt{directed\ =\ TRUE} einstellen.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{33}{\boxspacing}
+\prompt{In}{incolor}{8}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{NFDI\PYZus{}network\PYZus{}directed} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{graph\PYZus{}from\PYZus{}data\PYZus{}frame}\PY{p}{(}\PY{n}{NFDI\PYZus{}edges}\PY{p}{,}
                                           \PY{n}{directed} \PY{o}{=} \PY{k+kc}{TRUE}
@@ -1008,7 +933,7 @@ Ebenso sollen die Pfeilspitzen kleiner werden, was mit
 ist.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{34}{\boxspacing}
+\prompt{In}{incolor}{9}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -1047,7 +972,7 @@ degree(NFDI_network_directed,
 \end{verbatim}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{35}{\boxspacing}
+\prompt{In}{incolor}{10}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -1116,7 +1041,7 @@ Wir übernehmen den kompletten Zelleninhalt von zuvor und ändern
 lediglich \texttt{in} zu \texttt{out}.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{36}{\boxspacing}
+\prompt{In}{incolor}{11}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -1209,7 +1134,7 @@ jetzt nicht um die separate Anzahl der ein- und ausgehenden
 Verbindungen, sondern um deren Summe geht.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{37}{\boxspacing}
+\prompt{In}{incolor}{12}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -1295,7 +1220,7 @@ fünf Panels aufgemacht:
 \end{enumerate}
 
 Die antragsstellenden Konsortien wurden auf diese fünf Gruppen
-eingeteilt:{[}\^{}7{]}
+eingeteilt:\footnote{https://www.dfg.de/download/pdf/foerderung/programme/nfdi/nfdi\_konferenz\_2020/programm\_webkonferenz\_2020.pdf}
 
 \begin{figure}
 \centering
@@ -1320,11 +1245,10 @@ die Konferenzsystematik laden wir in der nächsten Zelle.
 
 Dieser neue Datensatz wird der Variable \texttt{NFDI\_nodes} übergeben;
 die erste Spalte beinhaltet die Konsortialnamen, die zweite Spalte die
-Nummer aus der NFDI-\emph{Konferenz}systematik. {[}\^{}7{]}:
-https://www.dfg.de/download/pdf/foerderung/programme/nfdi/nfdi\_konferenz\_2020/programm\_webkonferenz\_2020.pdf
+Nummer aus der NFDI-\emph{Konferenz}systematik.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{38}{\boxspacing}
+\prompt{In}{incolor}{13}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{NFDI\PYZus{}nodes} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.table}\PY{p}{(}\PY{n}{header}\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{,}
                          \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{,\PYZdq{}}\PY{p}{,}
@@ -1366,7 +1290,7 @@ dass wir nun differenzieren, was unser Kanten-Data-Frame und was die
 Liste mit den Knoten ist.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{39}{\boxspacing}
+\prompt{In}{incolor}{14}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{NFDI\PYZus{}network\PYZus{}directed} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{graph\PYZus{}from\PYZus{}data\PYZus{}frame}\PY{p}{(}\PY{n}{d} \PY{o}{=} \PY{n}{NFDI\PYZus{}edges}\PY{p}{,}        \PY{c+c1}{\PYZsh{} d = data frame =\PYZti{} edges}
                                                \PY{n}{vertices} \PY{o}{=} \PY{n}{NFDI\PYZus{}nodes}\PY{p}{,} \PY{c+c1}{\PYZsh{}nodes}
@@ -1413,7 +1337,7 @@ NFDI-Konferenzsystematik den Farbwert, der an der entsprechenden Stelle
 in der Liste der Variable \texttt{NFDI\_color\_code} steht.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{40}{\boxspacing}
+\prompt{In}{incolor}{15}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{NFDI\PYZus{}color\PYZus{}code} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}f5ac9f\PYZdq{}}\PY{p}{,} \PY{c+c1}{\PYZsh{} Medizin}
                      \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}e43516\PYZdq{}}\PY{p}{,} \PY{c+c1}{\PYZsh{} Lebenswissenschaften}
@@ -1466,7 +1390,7 @@ relativer Wert und wir können die Schriftgröße bestimmen; ähnlich dazu
 funktioniert \texttt{pt.cex} für die Symbole der Legende.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{41}{\boxspacing}
+\prompt{In}{incolor}{16}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -1558,7 +1482,7 @@ Darstellung des Randes (\texttt{mark.border\ =\ NA}
 Für die Legende müssen wir nichts anpassen.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{42}{\boxspacing}
+\prompt{In}{incolor}{17}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
@@ -1657,7 +1581,7 @@ vector, as returned by \texttt{membership()}.\footnote{https://igraph.org/r/doc/
 \end{quote}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{43}{\boxspacing}
+\prompt{In}{incolor}{18}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{set.seed}\PY{p}{(}\PY{l+m}{1234}\PY{p}{)}
 
