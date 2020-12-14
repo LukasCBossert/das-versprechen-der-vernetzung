@@ -1,5 +1,7 @@
 # Das Versprechen der Vernetzung
 
+> Dorothea Strecker, Lukas C. Bossert, Évariste Demandt
+
 In diesem Repositorium sind Materialien abgelegt, die im Zuge des Workshops "Das Versprechen der Vernetzung" beim NFDI4Ing Community Meeting 2020 genutzt wurden. Im Rahmen des Workshops wurde das Netzwerk (geplanter) NFDI-Konsortien mit der Statistiksoftware R und der Bibliorhek `igraph` visualisiert und analysiert.
 
 ## Folien
@@ -18,3 +20,6 @@ Direkte Exporte aus dem JupyterNotebook werden in folgenden Formaten bereitgeste
 * [Webseite](Notebook/das-versprechen-der-vernetzung.html)
 * [WebSlides](Notebook/das-versprechen-der-vernetzung.slides.html)
 * [LaTeX](Notebook/das-versprechen-der-vernetzung.tex)
+
+
+Dieses Repositorium steht unter der [MIT Lizenz](LICENCE).
