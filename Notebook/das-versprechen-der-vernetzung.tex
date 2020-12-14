@@ -394,15 +394,16 @@ Diese Nennungen sind Ausgangspunkt unseres Netzwerkes\footnote{Siehe
   (https://github.com/dorothearrr/NFDI\_Netzwerk), in dem sie bereits
   eine ähnliche Visualisierung und Analyse vorgenommen hat.}.
 
-Die Visualisierung machen wir in einem JupyterNotebook bzw.
-RNoteBook\footnote{https://rnotebook.io}, sodass keine lokale
-Installation von R notwendig ist. JupyterNotebooks sind so aufgebaut,
-dass man verschiedene Zellen hat, in die man Code schreibt (in unserem
-Fall \texttt{R}-Code). Um die Zelle mit dem Code auszuführen, können wir
-im Menü auf ``\emph{Cell}'' und ``\emph{Run Cells}'' klicken. Oder mit
-dem Cursor in die Zelle klicken und anschließend gleichzeitig
-\emph{SHIFT}" und ``\emph{ENTER}'' drücken. Ihr seht dann das Ergebnis
-des Codes direkt unter der Zelle angezeigt.
+Die Visualisierung machen wir in einem JupyterNotebook bzw. R
+Notebook\footnote{https://rnotebook.io vgl.
+  https://bookdown.org/yihui/rmarkdown/notebook.html}, sodass keine
+lokale Installation von R notwendig ist. JupyterNotebooks sind so
+aufgebaut, dass man verschiedene Zellen hat, in die man Code schreibt
+(in unserem Fall \texttt{R}-Code). Um die Zelle mit dem Code
+auszuführen, können wir im Menü auf ``\emph{Cell}'' und ``\emph{Run
+Cells}'' klicken. Oder mit dem Cursor in die Zelle klicken und
+anschließend gleichzeitig \emph{SHIFT}" und ``\emph{ENTER}'' drücken.
+Ihr seht dann das Ergebnis des Codes direkt unter der Zelle angezeigt.
 
     Bevor wir loslegen, möchten wir noch ein paar Begriffe klären. Ein
 Netzwerk besteht aus zwei Komponenten:
@@ -1239,6 +1240,9 @@ eingeteilt:\footnote{https://www.dfg.de/download/pdf/foerderung/programme/nfdi/n
 \caption{Konferenzsystematik}
 \end{figure}
 
+Im Folgenden kürzen wir die Gruppe 4 ``Informatik, Mathematik und
+Ingenieurwissenschaften'' mit ``Ingenieurwissenschaften'' ab.
+
     Auffällig ist, dass nach der DFG-Fachsystematik die Naturwissenschaften
 auf die Lebenswissenschaften, Ingenieurwissenschaften und Chemie/Physik
 aufgeteilt worden sind, wie man im folgenden Sankey (Flussdiagramm)
@@ -1537,27 +1541,27 @@ Für die Legende müssen wir nichts anpassen.
     { \hspace*{\fill} \\}
     
     Der Algorithmus \texttt{cluster\_optimal} ermittelt drei Gruppen (oder
-auch Silos), die just \emph{exakt} mit den NFDI-Konferenzsystematiken
-übereinstimmen, sodass folgende Gruppen/Silos zustande kommen:
+auch Cluster), die just \emph{exakt} mit den NFDI-Konferenzsystematiken
+übereinstimmen, sodass folgende Gruppen/Cluster zustande kommen:
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
-Silo & NFDI-Konferenzsystematik\tabularnewline
+Cluster & NFDI-Konferenzsystematik\tabularnewline
 \midrule
 \endhead
-(1) & 1+2\tabularnewline
-(2) & 3\tabularnewline
-(3) & 4+5\tabularnewline
+(1) & 1+2 (Medizin und Lebenswissenschaften)\tabularnewline
+(2) & 3 (Geisteswissenschaften)\tabularnewline
+(3) & 4+5 (Ingenieurwissenschaften und Chemie/Physik)\tabularnewline
 \bottomrule
 \end{longtable}
 
-Mit diesem Ergebnis stellt sich die Frage, ob es nun wirklich drei Silos
-gibt und der geforderte transdisziplinäre Austausch und Kooperation
-ausbleibt.\href{https://www.youtube.com/watch?v=YmuUT8HkXxY\&feature=youtu.be\&t=904}{1}
+Mit diesem Ergebnis stellt sich die Frage, ob es nun wirklich drei
+Cluster gibt und der geforderte transdisziplinäre Austausch und
+Kooperation ausbleibt.\footnote{https://www.youtube.com/watch?v=YmuUT8HkXxY\&feature=youtu.be\&t=904}
 
-Es wäre also wichtig zu sehen, ob Kooperationen über die Silo-Grenzen
+Es wäre also wichtig zu sehen, ob Kooperationen über die Cluster-Grenzen
 hinweg erfolgen bzw. konkret gesagt, welche Konsortien kooperieren mit
-welchen Konsortien anderer Silos.
+welchen Konsortien anderer Cluster.
 
     \hypertarget{transdisziplinuxe4re-kooperation}{%
 \subsection{Transdisziplinäre
@@ -1632,7 +1636,7 @@ vector, as returned by \texttt{membership()}.\footnote{https://igraph.org/r/doc/
     \end{center}
     { \hspace*{\fill} \\}
     
-    Es zeigt sich eine rege Interaktion auch zwischen den einzelnen Silos.
+    Es zeigt sich eine rege Interaktion auch zwischen den einzelnen Cluster.
 Nur ein Konsortium hat keine transdisziplinäre Verbindung.
 
     \hypertarget{schluss}{%

@@ -14386,7 +14386,7 @@ div.jp-OutputPrompt {
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h1 id="Netzwerkvisualisierung">Netzwerkvisualisierung<a class="anchor-link" href="#Netzwerkvisualisierung">&#182;</a></h1><p>In diesem JupyterNotebook zeigen wir euch, wie man ein Netzwerk visualisiert und analysiert. Wir machen dies am Beispiel der Konsortien, die sich bei der Nationalen Forschungsdateninfrastrukturinitiative (NFDI) beteiligen bzw. beworben haben.</p>
 <p>Als Datengrundlage nehmen wir die <em>Letters of Intent</em> der jeweiligen Konsortien, in denen Kooperationspartner genannt werden. Diese Nennungen sind Ausgangspunkt unseres Netzwerkes<sup class="footnote-ref" id="fnref-1"><a href="#fn-1">1</a></sup>.</p>
-<p>Die Visualisierung machen wir in einem JupyterNotebook bzw. RNoteBook<sup class="footnote-ref" id="fnref-2"><a href="#fn-2">2</a></sup>, sodass keine lokale Installation von R notwendig ist. 
+<p>Die Visualisierung machen wir in einem JupyterNotebook bzw. R Notebook<sup class="footnote-ref" id="fnref-2"><a href="#fn-2">2</a></sup>, sodass keine lokale Installation von R notwendig ist. 
 JupyterNotebooks sind so aufgebaut, dass man verschiedene Zellen hat, in die man Code schreibt (in unserem Fall <code>R</code>-Code).
 Um die Zelle mit dem Code auszuführen, können wir im Menü auf "<em>Cell</em>" und "<em>Run Cells</em>" klicken.
 Oder mit dem Cursor in die Zelle klicken und anschließend gleichzeitig <em>SHIFT</em>" und "<em>ENTER</em>" drücken.
@@ -14394,7 +14394,7 @@ Ihr seht dann das Ergebnis des Codes direkt unter der Zelle angezeigt.</p>
 <div class="footnotes">
 <hr>
 <ol><li id="fn-1"><p>Siehe dazu auch das Repositorium von Dorothea Strecker (<a href="https://github.com/dorothearrr/NFDI_Netzwerk">https://github.com/dorothearrr/NFDI_Netzwerk</a>), in dem sie bereits eine ähnliche Visualisierung und Analyse vorgenommen hat.<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
-<li id="fn-2"><p><a href="https://rnotebook.io">https://rnotebook.io</a><a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p><a href="https://rnotebook.io">https://rnotebook.io</a> vgl. <a href="https://bookdown.org/yihui/rmarkdown/notebook.html">https://bookdown.org/yihui/rmarkdown/notebook.html</a><a href="#fnref-2" class="footnote">&#8617;</a></p></li>
 </ol>
 </div>
 
@@ -38973,6 +38973,7 @@ Für die Vorträge wurden fünf Panels aufgemacht:</p>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Die antragsstellenden Konsortien wurden auf diese fünf Gruppen eingeteilt:<sup class="footnote-ref" id="fnref-7b"><a href="#fn-7b">1</a></sup></p>
 <p><img src="img/nfdi-konferenzsystematik.png" alt="Konferenzsystematik"></p>
+<p>Im Folgenden kürzen wir die Gruppe 4 "Informatik, Mathematik und Ingenieurwissenschaften" mit "Ingenieurwissenschaften" ab.</p>
 <div class="footnotes">
 <hr>
 <ol><li id="fn-7b"><p><a href="https://www.dfg.de/download/pdf/foerderung/programme/nfdi/nfdi_konferenz_2020/programm_webkonferenz_2020.pdf">https://www.dfg.de/download/pdf/foerderung/programme/nfdi/nfdi_konferenz_2020/programm_webkonferenz_2020.pdf</a><a href="#fnref-7b" class="footnote">&#8617;</a></p></li>
@@ -43917,30 +43918,35 @@ QmCC"
 
 </div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Der Algorithmus <code>cluster_optimal</code> ermittelt drei Gruppen (oder auch Silos), die just <em>exakt</em> mit den NFDI-Konferenzsystematiken übereinstimmen, sodass folgende Gruppen/Silos zustande kommen:</p>
+<p>Der Algorithmus <code>cluster_optimal</code> ermittelt drei Gruppen (oder auch Cluster), die just <em>exakt</em> mit den NFDI-Konferenzsystematiken übereinstimmen, sodass folgende Gruppen/Cluster zustande kommen:</p>
 <table>
 <thead><tr>
-<th>Silo</th>
+<th>Cluster</th>
 <th>NFDI-Konferenzsystematik</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>(1)</td>
-<td>1+2</td>
+<td>1+2  (Medizin und Lebenswissenschaften)</td>
 </tr>
 <tr>
 <td>(2)</td>
-<td>3</td>
+<td>3    (Geisteswissenschaften)</td>
 </tr>
 <tr>
 <td>(3)</td>
-<td>4+5</td>
+<td>4+5  (Ingenieurwissenschaften und Chemie/Physik)</td>
 </tr>
 </tbody>
 </table>
-<p>Mit diesem Ergebnis stellt sich die Frage, ob es nun wirklich drei Silos gibt und der geforderte transdisziplinäre Austausch und Kooperation ausbleibt.<a href="https://www.youtube.com/watch?v=YmuUT8HkXxY&amp;feature=youtu.be&amp;t=904">1</a></p>
-<p>Es wäre also wichtig zu sehen, ob Kooperationen über die Silo-Grenzen hinweg erfolgen bzw. konkret gesagt, welche Konsortien kooperieren mit welchen Konsortien anderer Silos.</p>
+<p>Mit diesem Ergebnis stellt sich die Frage, ob es nun wirklich drei Cluster gibt und der geforderte transdisziplinäre Austausch und Kooperation ausbleibt.<sup class="footnote-ref" id="fnref-14"><a href="#fn-14">1</a></sup></p>
+<p>Es wäre also wichtig zu sehen, ob Kooperationen über die Cluster-Grenzen hinweg erfolgen bzw. konkret gesagt, welche Konsortien kooperieren mit welchen Konsortien anderer Cluster.</p>
+<div class="footnotes">
+<hr>
+<ol><li id="fn-14"><p><a href="https://www.youtube.com/watch?v=YmuUT8HkXxY&amp;feature=youtu.be&amp;t=904">https://www.youtube.com/watch?v=YmuUT8HkXxY&amp;feature=youtu.be&amp;t=904</a><a href="#fnref-14" class="footnote">&#8617;</a></p></li>
+</ol>
+</div>
 
 </div>
 </div></section></section><section><section>
@@ -43952,11 +43958,11 @@ Als Wert setzen wir eine Liste, die aus zwei Einträgen besteht (<code>c(NA,"#bf
 Der erste Eintrag ist <code>NA</code>
 , womit wir die cis-disziplinäre Kanten ansteuern; sie werden also nicht ausgegeben. Der zweite Einträg ist ein HTML-Farbcode, den wir für die trans-disziplinäre Kanten verwenden.
 Die Unterscheidung zwischen cis- und trans-disziplinärer Kante wird über die Funktion <code>crossing</code> vorgenommen.</p>
-<blockquote><p><code>crossing</code> returns a logical vector, with one value for each edge, ordered according to the edge ids. The value is TRUE iff the edge connects two different communities, according to the (best) membership vector, as returned by <code>membership()</code>.<sup class="footnote-ref" id="fnref-14"><a href="#fn-14">1</a></sup></p>
+<blockquote><p><code>crossing</code> returns a logical vector, with one value for each edge, ordered according to the edge ids. The value is TRUE iff the edge connects two different communities, according to the (best) membership vector, as returned by <code>membership()</code>.<sup class="footnote-ref" id="fnref-15"><a href="#fn-15">1</a></sup></p>
 </blockquote>
 <div class="footnotes">
 <hr>
-<ol><li id="fn-14"><p><a href="https://igraph.org/r/doc/communities.html">https://igraph.org/r/doc/communities.html</a><a href="#fnref-14" class="footnote">&#8617;</a></p></li>
+<ol><li id="fn-15"><p><a href="https://igraph.org/r/doc/communities.html">https://igraph.org/r/doc/communities.html</a><a href="#fnref-15" class="footnote">&#8617;</a></p></li>
 </ol>
 </div>
 
@@ -46474,7 +46480,7 @@ ILEDAAAA0BNI7AAAAAD0BBI7AAAAAD2BxA4AAABATyCxAwAAANATSOwAAAAA9AQSOwAAAAA9
 
 </div></section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Es zeigt sich eine rege Interaktion auch zwischen den einzelnen Silos.
+<p>Es zeigt sich eine rege Interaktion auch zwischen den einzelnen Cluster.
 Nur ein Konsortium hat keine transdisziplinäre Verbindung.</p>
 
 </div>
