@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/318517709.svg)](https://zenodo.org/badge/latestdoi/318517709)
+
 # Das Versprechen der Vernetzung
 
 > Dorothea Strecker, Lukas C. Bossert, Évariste Demandt
