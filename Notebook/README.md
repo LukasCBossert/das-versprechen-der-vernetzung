@@ -7,7 +7,7 @@ Zentral ist das [JupyterNotebook](das-versprechen-der-vernetzung.ipynb), welches
 
 Die Markdown-Version wird nach der Konvertierung noch gesäubert, wofür [Markdownlint](https://github.com/DavidAnson/markdownlint) verwendet wird.
 
-Über die [Makefile-Datei](makefile) können die verschiedene Formate generiert werden:
+Über die [Makefile-Datei](makefile) können die verschiedenen Formate generiert werden:
 
 * [PDF (via LuaLaTeX)](das-versprechen-der-vernetzung.pdf)
 * [Markdown](das-versprechen-der-vernetzung.md)
