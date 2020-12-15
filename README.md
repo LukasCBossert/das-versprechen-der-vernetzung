@@ -10,7 +10,7 @@ Die Vortragsfolien zum Workshop sind in der Datei "[NFDI4Ing_Community_Meeting_2
 
 ## JupyerNotebook zur Visualisierung von Netzwerken mit R
 
-Im interaktiven Teil des Workshops haben wir mit JupyterNotebooks gearbeitet. Die dokumentierte Musterlösung ist in verschiedenen Formaten im Ordner "Notebook" abgelegt.
+Im interaktiven Teil des Workshops haben wir mit JupyterNotebooks gearbeitet. Die dokumentierte Musterlösung ist in verschiedenen Formaten im Ordner [*Notebook*](Notebook/) abgelegt.
 Direkte Exporte aus dem JupyterNotebook werden in folgenden Formaten bereitgestellt:
 
 * [JupyterNotebook (R)](Notebook/das-versprechen-der-vernetzung.ipynb)
