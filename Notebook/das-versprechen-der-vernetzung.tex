@@ -439,31 +439,22 @@ wir das Paket.
 \end{Verbatim}
 \end{tcolorbox}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
+    \hypertarget{der-datensatz}{%
+\subsection{Der Datensatz}\label{der-datensatz}}
 
-Attaching package: ‘igraph’
+    Die Datengrundlage ist eine zweispaltige Auflistung der Konsortien. In
+der ersten Spalte (\texttt{from}) steht das Konsortium, dessen
+\emph{Letter of Intent} ausgewertet wird. In der zweiten Spalte
+(\texttt{to}) steht das Konsortium, das als Kooperationspartner genannt
+wird.
 
-The following objects are masked from ‘package:stats’:
-
-    decompose, spectrum
-
-The following object is masked from ‘package:base’:
-
-    union
-
-    \end{Verbatim}
-
-    Die Datengrundlage steht bereits in Form einer Auflistung zur
-Verfügung,\footnote{https://gist.github.com/LukasCBossert/27fafa33e9b16c33e1107914e928c472},
-sodass wir die Daten kopieren und in die nächste Zelle einfügen können.
-
-Fangen wir bei der Funktion \texttt{read.table} an. Es gibt drei
-Parameter:
+Diese Daten werden mittels der Funktion \texttt{read.table} eingelesen.
+Es gibt drei Parameter:
 
 \begin{itemize}
 \tightlist
 \item
-  \texttt{header=TRUE} (es gibt eine Kopfzeile)
+  \texttt{header=TRUE} (es gibt eine Kopfzeile im Datensatz)
 \item
   \texttt{sep=","} (die Trennung der Werte erfolgt durch ein Komma)
 \item
@@ -636,9 +627,8 @@ Diese Informationen übergeben wir der Variablen \texttt{NFDI\_network}.
 \end{Verbatim}
 \end{tcolorbox}
 
-    \hypertarget{erstes-netzwerk-grundeinstellung}{%
-\subsection{Erstes Netzwerk
-(Grundeinstellung)}\label{erstes-netzwerk-grundeinstellung}}
+    \hypertarget{grundeinstellung}{%
+\subsection{Grundeinstellung}\label{grundeinstellung}}
 
 Zunächst werden wir einen Parameter festlegen, damit unser Netzwerk bei
 gleicher Datengrundlage immer gleich aussieht. Dieser Parameter ist
@@ -662,7 +652,7 @@ wir mit \texttt{frame=TRUE} einen Rahmen um das Netzwerk haben wollen.
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_9_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_10_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -700,7 +690,7 @@ Diesen Wert \texttt{layout.graphopt} übergeben wir dem Parameter
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_12_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_13_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -758,7 +748,7 @@ ausprobieren:
 \end{itemize}
 
     \hypertarget{farbe-gruxf6uxdfe-kruxfcmmung-knoten-und-kanten}{%
-\subsection{Farbe, Größe, Krümmung (Knoten und
+\subsubsection{Farbe, Größe, Krümmung (Knoten und
 Kanten)}\label{farbe-gruxf6uxdfe-kruxfcmmung-knoten-und-kanten}}
 
 Nachdem wir die Anordnung der Knoten optimiert haben, wollen wir im
@@ -810,7 +800,7 @@ gesetzt werden.
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_15_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_16_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -892,7 +882,7 @@ verbirgt sich hinter dem Parameter \texttt{vertex.size} und als Wert
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_18_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_19_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -959,7 +949,7 @@ ist.
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_22_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_23_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -1036,7 +1026,7 @@ degree(NFDI_network_directed,
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_25_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_26_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -1107,7 +1097,7 @@ lediglich \texttt{in} zu \texttt{out}.
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_28_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_29_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -1197,7 +1187,7 @@ Verbindungen, sondern um deren Summe geht.
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_32_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_33_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -1311,8 +1301,8 @@ Liste mit den Knoten ist.
 \end{Verbatim}
 \end{tcolorbox}
 
-    \hypertarget{nfdi-farbkodierung}{%
-\subsection{NFDI-Farbkodierung}\label{nfdi-farbkodierung}}
+    \hypertarget{dfgnfdi-farbkodierung}{%
+\subsection{DFG/NFDI-Farbkodierung}\label{dfgnfdi-farbkodierung}}
 
 Damit wir die Knoteneinteilung auf die NFDI-Konferenzsystematik im
 Netzwerk besser erkennen, wählen wir eine Farbcodierung entsprechend der
@@ -1445,7 +1435,7 @@ Werten füllen:
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_44_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_45_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -1535,7 +1525,7 @@ Für die Legende müssen wir nichts anpassen.
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_47_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_48_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -1630,15 +1620,16 @@ vector, as returned by \texttt{membership()}.\footnote{https://igraph.org/r/doc/
 \end{tcolorbox}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_50_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_51_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
     Es zeigt sich eine rege Interaktion auch zwischen den einzelnen Cluster.
 Nur ein Konsortium hat keine transdisziplinäre Verbindung.
 
-    \hypertarget{schluss}{%
-\section{Schluss}\label{schluss}}
+    \hypertarget{sicherung-export-und-ausblick}{%
+\section{Sicherung, Export und
+Ausblick}\label{sicherung-export-und-ausblick}}
 
 Wir haben die Netzwerkvisualisierung und -analyse nur anhand des Pakets
 \texttt{igraph} gemacht. Jetzt gilt es noch das Ergebnis zu sichern,

@@ -36,6 +36,7 @@ script:
 
 md:
 	jupyter nbconvert --to markdown $(NAME).ipynb
+	markdownlint --fix $(NAME).md
 
 
 execute:

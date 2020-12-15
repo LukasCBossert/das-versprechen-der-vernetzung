@@ -5,6 +5,8 @@ welches für den Workshop zur Visualisierung und Analyse eines Netzwerks genutzt
 
 Zentral ist das [JupyterNotebook](das-versprechen-der-vernetzung.ipynb), welches die Programmiersprache R als Kernel hat und Grundlage für den Export in andere Formate ist.
 
+Die Markdown-Version wird nach der Konvertierung noch gesäubert, wofür [Markdownlint](https://github.com/DavidAnson/markdownlint) verwendet wird.
+
 Über die [Makefile-Datei](makefile) können die verschiedene Formate generiert werden:
 
 * [PDF (via LuaLaTeX)](das-versprechen-der-vernetzung.pdf)
