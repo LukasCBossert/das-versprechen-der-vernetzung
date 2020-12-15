@@ -21,5 +21,4 @@ Direkte Exporte aus dem JupyterNotebook werden in folgenden Formaten bereitgeste
 * [WebSlides](Notebook/das-versprechen-der-vernetzung.slides.html)
 * [LaTeX](Notebook/das-versprechen-der-vernetzung.tex)
 
-
 Dieses Repositorium steht unter der [MIT Lizenz](LICENSE).
