@@ -14460,6 +14460,149 @@ NFDI_edges &lt;- read.table(header=TRUE,
                          text="...")</code></pre>
 
 </div>
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="n">NFDI_edges</span> <span class="o">&lt;-</span> <span class="nf">read.table</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span>
+                         <span class="n">sep</span><span class="o">=</span><span class="s">&quot;,&quot;</span><span class="p">,</span>
+                         <span class="n">text</span><span class="o">=</span><span class="s">&quot;</span>
+<span class="s">from,to</span>
+<span class="s">BERD@NFDI,KonsortSWD</span>
+<span class="s">BERD@NFDI,MaRDI</span>
+<span class="s">BERD@NFDI,NFDI4Memory</span>
+<span class="s">BERD@NFDI,Text+</span>
+<span class="s">DAPHNE4NFDI,FAIRmat</span>
+<span class="s">DAPHNE4NFDI,NFDI-MatWerk</span>
+<span class="s">DAPHNE4NFDI,NFDI4Cat</span>
+<span class="s">DAPHNE4NFDI,NFDI4Chem</span>
+<span class="s">DAPHNE4NFDI,NFDI4Health</span>
+<span class="s">DAPHNE4NFDI,NFDI4Ing</span>
+<span class="s">DAPHNE4NFDI,NFDI4Objects</span>
+<span class="s">DAPHNE4NFDI,PUNCH4NFDI</span>
+<span class="s">FAIRmat,DAPHNE4NFDI</span>
+<span class="s">FAIRmat,DataPLANT</span>
+<span class="s">FAIRmat,MaRDI</span>
+<span class="s">FAIRmat,NFDI-MatWerk</span>
+<span class="s">FAIRmat,NFDI4Cat</span>
+<span class="s">FAIRmat,NFDI4Chem</span>
+<span class="s">FAIRmat,NFDI4DataScience</span>
+<span class="s">FAIRmat,NFDI4Ing</span>
+<span class="s">FAIRmat,NFDIxCS</span>
+<span class="s">FAIRmat,PUNCH4NFDI</span>
+<span class="s">MaRDI,BERD@NFDI</span>
+<span class="s">MaRDI,FAIRmat</span>
+<span class="s">MaRDI,NFDI-MatWerk</span>
+<span class="s">MaRDI,NFDI-Neuro</span>
+<span class="s">MaRDI,NFDI4Cat</span>
+<span class="s">MaRDI,NFDI4Chem</span>
+<span class="s">MaRDI,NFDI4Ing</span>
+<span class="s">MaRDI,PUNCH4NFDI</span>
+<span class="s">NFDI-MatWerk,DAPHNE4NFDI</span>
+<span class="s">NFDI-MatWerk,DataPLANT</span>
+<span class="s">NFDI-MatWerk,FAIRmat</span>
+<span class="s">NFDI-MatWerk,MaRDI</span>
+<span class="s">NFDI-MatWerk,NFDI4Chem</span>
+<span class="s">NFDI-MatWerk,NFDI4DataScience</span>
+<span class="s">NFDI-MatWerk,NFDI4Ing</span>
+<span class="s">NFDI-MatWerk,NFDIxCS</span>
+<span class="s">NFDI-Neuro,DataPLANT</span>
+<span class="s">NFDI-Neuro,GHGA</span>
+<span class="s">NFDI-Neuro,NFDI4BioDiversity</span>
+<span class="s">NFDI-Neuro,NFDI4Culture</span>
+<span class="s">NFDI-Neuro,NFDI4Earth</span>
+<span class="s">NFDI-Neuro,NFDI4Health</span>
+<span class="s">NFDI-Neuro,NFDI4Ing</span>
+<span class="s">NFDI-Neuro,NFDI4Microbiota</span>
+<span class="s">NFDI4Agri,DataPLANT</span>
+<span class="s">NFDI4Agri,KonsortSWD</span>
+<span class="s">NFDI4Agri,NFDI4BioDiversity</span>
+<span class="s">NFDI4Agri,NFDI4Earth</span>
+<span class="s">NFDI4Agri,NFDI4Health</span>
+<span class="s">NFDI4Agri,NFDI4Immuno</span>
+<span class="s">NFDI4Agri,NFDI4Microbiota</span>
+<span class="s">NFDI4DataScience,KonsortSWD</span>
+<span class="s">NFDI4DataScience,MaRDI</span>
+<span class="s">NFDI4DataScience,NFDI-MatWerk</span>
+<span class="s">NFDI4DataScience,NFDI4BioDiversity</span>
+<span class="s">NFDI4DataScience,NFDI4Cat</span>
+<span class="s">NFDI4DataScience,NFDI4Chem</span>
+<span class="s">NFDI4DataScience,NFDI4Culture</span>
+<span class="s">NFDI4DataScience,NFDI4Health</span>
+<span class="s">NFDI4DataScience,NFDI4Ing</span>
+<span class="s">NFDI4DataScience,NFDI4Microbiota</span>
+<span class="s">NFDI4DataScience,NFDIxCS</span>
+<span class="s">NFDI4Earth,DataPLANT</span>
+<span class="s">NFDI4Earth,GHGA</span>
+<span class="s">NFDI4Earth,KonsortSWD</span>
+<span class="s">NFDI4Earth,NFDI4Agri</span>
+<span class="s">NFDI4Earth,NFDI4BioDiversity</span>
+<span class="s">NFDI4Earth,NFDI4Cat</span>
+<span class="s">NFDI4Earth,NFDI4Chem</span>
+<span class="s">NFDI4Earth,NFDI4Culture</span>
+<span class="s">NFDI4Earth,NFDI4Health</span>
+<span class="s">NFDI4Earth,NFDI4Ing</span>
+<span class="s">NFDI4Earth,NFDI4Objects</span>
+<span class="s">NFDI4Immuno,GHGA</span>
+<span class="s">NFDI4Immuno,NFDI4Agri</span>
+<span class="s">NFDI4Immuno,NFDI4Health</span>
+<span class="s">NFDI4Immuno,NFDI4Microbiota</span>
+<span class="s">NFDI4Memory,BERD@NFDI</span>
+<span class="s">NFDI4Memory,KonsortSWD</span>
+<span class="s">NFDI4Memory,MaRDI</span>
+<span class="s">NFDI4Memory,NFDI4Culture</span>
+<span class="s">NFDI4Memory,NFDI4Objects</span>
+<span class="s">NFDI4Memory,Text+</span>
+<span class="s">NFDI4Microbiota,DataPLANT</span>
+<span class="s">NFDI4Microbiota,GHGA</span>
+<span class="s">NFDI4Microbiota,NFDI4Agri</span>
+<span class="s">NFDI4Microbiota,NFDI4BioDiversity</span>
+<span class="s">NFDI4Microbiota,NFDI4Chem</span>
+<span class="s">NFDI4Microbiota,NFDI4DataScience</span>
+<span class="s">NFDI4Microbiota,NFDI4Health</span>
+<span class="s">NFDI4Microbiota,NFDI4Immuno</span>
+<span class="s">NFDI4Microbiota,NFDI4Ing</span>
+<span class="s">NFDI4Objects,KonsortSWD</span>
+<span class="s">NFDI4Objects,NFDI4Agri</span>
+<span class="s">NFDI4Objects,NFDI4BioDiversity</span>
+<span class="s">NFDI4Objects,NFDI4Culture</span>
+<span class="s">NFDI4Objects,NFDI4Earth</span>
+<span class="s">NFDI4Objects,NFDI4Memory</span>
+<span class="s">NFDI4Objects,Text+</span>
+<span class="s">NFDI4SD,NFDI4Culture</span>
+<span class="s">NFDI4SD,NFDI4DataScience</span>
+<span class="s">NFDI4SD,NFDI4Memory</span>
+<span class="s">NFDI4SD,NFDI4Objects</span>
+<span class="s">NFDIxCS,FAIRmat</span>
+<span class="s">NFDIxCS,MaRDI</span>
+<span class="s">NFDIxCS,NFDI4Chem</span>
+<span class="s">NFDIxCS,NFDI4DataScience</span>
+<span class="s">NFDIxCS,NFDI4Earth</span>
+<span class="s">NFDIxCS,NFDI4Ing</span>
+<span class="s">PUNCH4NFDI,DAPHNE4NFDI</span>
+<span class="s">PUNCH4NFDI,FAIRmat</span>
+<span class="s">PUNCH4NFDI,GHGA</span>
+<span class="s">PUNCH4NFDI,MaRDI</span>
+<span class="s">PUNCH4NFDI,NFDI4Earth</span>
+<span class="s">PUNCH4NFDI,NFDI4Ing</span>
+<span class="s">PUNCH4NFDI,NFDIxCS</span>
+<span class="s">Text+,KonsortSWD</span>
+<span class="s">Text+,NFDI4BioDiversity</span>
+<span class="s">Text+,NFDI4Culture</span>
+<span class="s">Text+,NFDI4Earth</span>
+<span class="s">Text+,NFDI4Ing</span>
+<span class="s">Text+,NFDI4Memory</span>
+<span class="s">Text+,NFDI4Objects</span>
+<span class="s">&quot;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Damit wir aus diesem Datensatz ein Netzwerk erstellen können,
