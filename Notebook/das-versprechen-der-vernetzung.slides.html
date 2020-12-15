@@ -14423,7 +14423,7 @@ Mit <code>library('igraph')</code> laden wir das Paket.</p>
 </div>
 
 </div>
-</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 
@@ -14437,53 +14437,27 @@ Mit <code>library('igraph')</code> laden wir das Paket.</p>
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>
-Attaching package: ‘igraph’
-
-The following objects are masked from ‘package:stats’:
-
-    decompose, spectrum
-
-The following object is masked from ‘package:base’:
-
-    union
-
-</pre>
 </div>
+<div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Der-Datensatz">Der Datensatz<a class="anchor-link" href="#Der-Datensatz">&#182;</a></h2>
 </div>
-
-</div>
-
-</div>
-
 </div></div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Die Datengrundlage steht bereits in Form einer Auflistung zur Verfügung,<sup class="footnote-ref" id="fnref-1b"><a href="#fn-1b">1</a></sup>, sodass wir 
-die Daten kopieren und in die nächste Zelle einfügen können.</p>
-<p>Fangen wir bei der Funktion <code>read.table</code> an.
+<p>Die Datengrundlage ist eine zweispaltige Auflistung der Konsortien.
+In der ersten Spalte (<code>from</code>) steht das Konsortium, dessen <em>Letter of Intent</em> ausgewertet wird. In der zweiten Spalte (<code>to</code>) steht das Konsortium, das als Kooperationspartner genannt wird.</p>
+<p>Diese Daten werden mittels der Funktion <code>read.table</code> eingelesen.
 Es gibt drei Parameter:</p>
 <ul>
-<li><code>header=TRUE</code> (es gibt eine Kopfzeile)</li>
+<li><code>header=TRUE</code> (es gibt eine Kopfzeile im Datensatz)</li>
 <li><code>sep=","</code> (die Trennung der Werte erfolgt durch ein Komma)</li>
 <li><code>text=""</code> (die Werte selbst stehen zwischen den Anführungszeichen)</li>
 </ul>
 <p>Diese Werte übergeben wir der selbstgewählten Variable <code>NFDI_edges</code> , was mit dem nach links weisenden Pfeilsymbol erfolgt.</p>
 
-<pre><code>NFDI_edges &lt;- read.table(header=TRUE,
+<pre><code>{R}
+NFDI_edges &lt;- read.table(header=TRUE,
                          sep=",",
                          text="...")</code></pre>
-<div class="footnotes">
-<hr>
-<ol><li id="fn-1b"><p><a href="https://gist.github.com/LukasCBossert/27fafa33e9b16c33e1107914e928c472">https://gist.github.com/LukasCBossert/27fafa33e9b16c33e1107914e928c472</a><a href="#fnref-1b" class="footnote">&#8617;</a></p></li>
-</ol>
-</div>
 
 </div>
 </div></section></section><section><section>
@@ -14521,7 +14495,7 @@ Es geht uns jetzt nur darum, dass zwei Konsortien verknüpft sind.</p>
 
 </div></div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Erstes-Netzwerk-(Grundeinstellung)">Erstes Netzwerk (Grundeinstellung)<a class="anchor-link" href="#Erstes-Netzwerk-(Grundeinstellung)">&#182;</a></h2><p>Zunächst werden wir einen Parameter festlegen, damit unser Netzwerk bei gleicher Datengrundlage immer gleich aussieht. Dieser Parameter ist <code>seed</code>.
+<h2 id="Grundeinstellung">Grundeinstellung<a class="anchor-link" href="#Grundeinstellung">&#182;</a></h2><p>Zunächst werden wir einen Parameter festlegen, damit unser Netzwerk bei gleicher Datengrundlage immer gleich aussieht. Dieser Parameter ist <code>seed</code>.
 Wir wählen eine beliebige Zahl, die groß sein darf.</p>
 <p>Anschließend kommen wir zum eigentlichen Plot.
 Dafür rufen wir die Funktion <code>plot</code> auf und übergeben ihr die Variable unseres Netzwerkgraphen <code>NFDI_network</code>.
@@ -21426,7 +21400,7 @@ EHYAAEEIOwCAIIQdAEAQwg4AIAhhBwAQhLADAAhC2AEABCHsAACCEHYAAEEIOwCAIIQdAEAQ
 </div>
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Farbe,-Gr&#246;&#223;e,-Kr&#252;mmung-(Knoten-und-Kanten)">Farbe, Gr&#246;&#223;e, Kr&#252;mmung (Knoten und Kanten)<a class="anchor-link" href="#Farbe,-Gr&#246;&#223;e,-Kr&#252;mmung-(Knoten-und-Kanten)">&#182;</a></h2><p>Nachdem wir die Anordnung der Knoten optimiert haben, wollen wir im nächsten Schritt die Darstellung der Knoten und Kanten angehen.</p>
+<h3 id="Farbe,-Gr&#246;&#223;e,-Kr&#252;mmung-(Knoten-und-Kanten)">Farbe, Gr&#246;&#223;e, Kr&#252;mmung (Knoten und Kanten)<a class="anchor-link" href="#Farbe,-Gr&#246;&#223;e,-Kr&#252;mmung-(Knoten-und-Kanten)">&#182;</a></h3><p>Nachdem wir die Anordnung der Knoten optimiert haben, wollen wir im nächsten Schritt die Darstellung der Knoten und Kanten angehen.</p>
 <p>Es lassen sich verschiedene Parameter nach eigenen Wünschen anpassen.</p>
 <p>Zunächst möchten wir die Farbe der Knoten angehen.
 Der Parameter lautet <code>vertex.color</code> und wir können einen HTML-Farbwert angeben (bspw. <code>#ffcc66</code>).<sup class="footnote-ref" id="fnref-5"><a href="#fn-5">1</a></sup>
@@ -30649,7 +30623,8 @@ gCIIOwAAAEUQdgAAAIog7AAAABRB2AEAACiCsAMAAFAEYQcAAKAIwg4AAEAR/w/FRr3bJR+A
 Je öfter ein Konsortium als Kooperationspartner genannt wird, desto größer wird dessen Knoten.</p>
 <p>Wir können dafür die Funktion <code>degree</code> modifizieren, indem wir <code>mode = "in"</code> ergänzen<sup class="footnote-ref" id="fnref-8"><a href="#fn-8">1</a></sup>.</p>
 
-<pre><code>degree(NFDI_network_directed,
+<pre><code>{R}
+degree(NFDI_network_directed,
        mode = "in")</code></pre>
 <div class="footnotes">
 <hr>
@@ -39057,7 +39032,7 @@ Diese Einteilung der Konsortien auf die Konferenzsystematik laden wir in der nä
 
 </div></div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="NFDI-Farbkodierung">NFDI-Farbkodierung<a class="anchor-link" href="#NFDI-Farbkodierung">&#182;</a></h2><p>Damit wir die Knoteneinteilung auf die NFDI-Konferenzsystematik im Netzwerk besser erkennen, wählen wir eine Farbcodierung entsprechend der DFG-Fachsystematik (ggf. leichte Anpassung).</p>
+<h2 id="DFG/NFDI-Farbkodierung">DFG/NFDI-Farbkodierung<a class="anchor-link" href="#DFG/NFDI-Farbkodierung">&#182;</a></h2><p>Damit wir die Knoteneinteilung auf die NFDI-Konferenzsystematik im Netzwerk besser erkennen, wählen wir eine Farbcodierung entsprechend der DFG-Fachsystematik (ggf. leichte Anpassung).</p>
 <p>Es gelten folgende Werte</p>
 <table>
 <thead><tr>
@@ -46217,7 +46192,7 @@ Nur ein Konsortium hat keine transdisziplinäre Verbindung.</p>
 </div>
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Schluss">Schluss<a class="anchor-link" href="#Schluss">&#182;</a></h1><p>Wir haben die Netzwerkvisualisierung und -analyse nur anhand des Pakets <code>igraph</code> gemacht.
+<h1 id="Sicherung,-Export-und-Ausblick">Sicherung, Export und Ausblick<a class="anchor-link" href="#Sicherung,-Export-und-Ausblick">&#182;</a></h1><p>Wir haben die Netzwerkvisualisierung und -analyse nur anhand des Pakets <code>igraph</code> gemacht.
 Jetzt gilt es noch das Ergebnis zu sichern, bspw. unter "<em>File</em>" --&gt; "<em>Save and Checkpoint</em>".
 Ihr könnt ebenso das JupyterNotebook herunterladen, es stehen verschiedene Formate bereit.</p>
 <p>Wenn ihr das Netzwerk mit dem RNoteBook erstellt habt, könnt ihr es über die URL jederzeit wieder aufrufen und ihr könnt weitere Modifikationen im Netzwerk vornehmen.</p>

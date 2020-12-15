@@ -8,7 +8,7 @@ LATEX_OPTS="\newcommand*\InfoTeX{Die automatisierte Konvertierung des R Notebook
 
 
 all:
-	time $(MAKE) {html,pdf,script,md,slides}
+	time $(MAKE) {html,script,slides,pdf,md}
 
 html:
 	jupyter nbconvert --to html --no-prompt $(NAME).ipynb
@@ -29,14 +29,13 @@ tex:
 slides:
 	jupyter nbconvert --to slides --no-prompt --SlidesExporter.reveal_scroll=True  $(NAME).ipynb
 
-# --no-input
-
 script:
 	jupyter nbconvert --to script $(NAME).ipynb
 
 md:
 	jupyter nbconvert --to markdown $(NAME).ipynb
 	markdownlint --fix $(NAME).md
+
 
 
 execute:
