@@ -2,7 +2,7 @@
 
 > Dorothea Strecker, Lukas C. Bossert, Évariste Demandt
 
-In diesem Repositorium sind Materialien abgelegt, die im Zuge des Workshops "Das Versprechen der Vernetzung" beim NFDI4Ing Community Meeting 2020 genutzt wurden. Im Rahmen des Workshops wurde das Netzwerk (geplanter) NFDI-Konsortien mit der Statistiksoftware R und der Bibliorhek `igraph` visualisiert und analysiert.
+In diesem Repositorium sind Materialien abgelegt, die im Zuge des Workshops "Das Versprechen der Vernetzung" beim NFDI4Ing Community Meeting 2020 am 30.11.2020 genutzt wurden. Im Rahmen des Workshops wurde das Netzwerk (geplanter) NFDI-Konsortien mit der Statistiksoftware R und der Bibliorhek `igraph` visualisiert und analysiert.
 
 ## Folien
 
