@@ -363,7 +363,7 @@ plot(NFDI_network_directed_cluster,    #<<<<<<<<<<< clustered network data
      frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
      #vertex.color       = NFDI_color_groups,   #<<<<<<<<<<  color of nodes
-     #vertex.frame.color = NFDI_color_groups,   #<<<<<<<<<< color of the frame of nodes
+     vertex.frame.color = NFDI_color_groups,   #<<<<<<<<<< color of the frame of nodes
      vertex.label.cex   = 0.5,         # size of the description of the labels
      vertex.label.color = "black",     # color of the description 
                                        # color: https://www.w3schools.com/colors/colors_picker.asp 
@@ -401,8 +401,7 @@ plot(NFDI_network_directed_cluster,    # clustered network data
      main   = "NFDI-Netzwerk (<Konferenzsystematik>)",  # adding a title
      frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
-     #vertex.color       = NFDI_color_groups,   #  color of nodes
-     #vertex.frame.color = NFDI_color_groups,   # color of the frame of nodes
+     vertex.frame.color = NFDI_color_groups,   # color of the frame of nodes
      vertex.label.cex   = 0.5,         # size of the description of the labels
      vertex.label.color = "black",     # color of the description 
                                        # color: https://www.w3schools.com/colors/colors_picker.asp 

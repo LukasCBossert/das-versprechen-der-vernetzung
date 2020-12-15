@@ -1476,11 +1476,10 @@ speisen es in die neue Variable
 den bisherigen Datensatz. Wir verzichten jetzt auf die Darstellung der
 Kanten, was wir mit \texttt{edge.color\ =\ NA} erreichen.
 
-Die Einfärberung der Knoten erfolgt nicht mehr über die Parameter
-\texttt{vertex.color} und \texttt{vertex.frame.color}, sodass wir diese
-Zeilen auskommentieren oder löschen können. Dafür gibt es einen neuen
-Parameter und wir können \texttt{col} den Wert
-\texttt{NFDI\_color\_groups} übergeben.\footnote{https://igraph.org/r/doc/communities.html}
+Die Einfärberung der Knoten erfolgt nicht mehr über den Parameter
+\texttt{vertex.color}, sodass wir diese Zeilen auskommentieren oder
+löschen können. Dafür gibt es einen neuen Parameter und wir können
+\texttt{col} den Wert \texttt{NFDI\_color\_groups} übergeben.\footnote{https://igraph.org/r/doc/communities.html}
 
 Die Einfassung der Gruppen möchten wir grau hervorheben, was wir mit
 \texttt{mark.col\ =\ "grey"} erreichen, zudem verzichten wir auf die
@@ -1502,7 +1501,7 @@ Für die Legende müssen wir nichts anpassen.
      \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} making a frame }
      \PY{n}{layout} \PY{o}{=} \PY{n}{layout.graphopt}\PY{p}{,}         \PY{c+c1}{\PYZsh{} better layout options}
      \PY{c+c1}{\PYZsh{}vertex.color       = NFDI\PYZus{}color\PYZus{}groups,   \PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}  color of nodes}
-     \PY{c+c1}{\PYZsh{}vertex.frame.color = NFDI\PYZus{}color\PYZus{}groups,   \PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} color of the frame of nodes}
+     \PY{n}{vertex.frame.color} \PY{o}{=} \PY{n}{NFDI\PYZus{}color\PYZus{}groups}\PY{p}{,}   \PY{c+c1}{\PYZsh{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{}\PYZlt{} color of the frame of nodes}
      \PY{n}{vertex.label.cex}   \PY{o}{=} \PY{l+m}{0.5}\PY{p}{,}         \PY{c+c1}{\PYZsh{} size of the description of the labels}
      \PY{n}{vertex.label.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,}     \PY{c+c1}{\PYZsh{} color of the description }
                                        \PY{c+c1}{\PYZsh{} color: https://www.w3schools.com/colors/colors\PYZus{}picker.asp }
@@ -1596,8 +1595,7 @@ vector, as returned by \texttt{membership()}.\footnote{https://igraph.org/r/doc/
      \PY{n}{main}   \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{NFDI\PYZhy{}Netzwerk (\PYZlt{}Konferenzsystematik\PYZgt{})\PYZdq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{} adding a title}
      \PY{n}{frame}  \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}                    \PY{c+c1}{\PYZsh{} making a frame }
      \PY{n}{layout} \PY{o}{=} \PY{n}{layout.graphopt}\PY{p}{,}         \PY{c+c1}{\PYZsh{} better layout options}
-     \PY{c+c1}{\PYZsh{}vertex.color       = NFDI\PYZus{}color\PYZus{}groups,   \PYZsh{}  color of nodes}
-     \PY{c+c1}{\PYZsh{}vertex.frame.color = NFDI\PYZus{}color\PYZus{}groups,   \PYZsh{} color of the frame of nodes}
+     \PY{n}{vertex.frame.color} \PY{o}{=} \PY{n}{NFDI\PYZus{}color\PYZus{}groups}\PY{p}{,}   \PY{c+c1}{\PYZsh{} color of the frame of nodes}
      \PY{n}{vertex.label.cex}   \PY{o}{=} \PY{l+m}{0.5}\PY{p}{,}         \PY{c+c1}{\PYZsh{} size of the description of the labels}
      \PY{n}{vertex.label.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,}     \PY{c+c1}{\PYZsh{} color of the description }
                                        \PY{c+c1}{\PYZsh{} color: https://www.w3schools.com/colors/colors\PYZus{}picker.asp }

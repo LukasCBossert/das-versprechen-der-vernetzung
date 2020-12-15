@@ -4,15 +4,16 @@ In diesem JupyterNotebook zeigen wir euch, wie man ein Netzwerk visualisiert und
 
 Als Datengrundlage nehmen wir die *Letters of Intent* der jeweiligen Konsortien, in denen Kooperationspartner genannt werden. Diese Nennungen sind Ausgangspunkt unseres Netzwerkes[^1].
 
-Die Visualisierung machen wir in einem JupyterNotebook bzw. R Notebook[^2], sodass keine lokale Installation von R notwendig ist.
+
+Die Visualisierung machen wir in einem JupyterNotebook bzw. R Notebook[^2], sodass keine lokale Installation von R notwendig ist. 
 JupyterNotebooks sind so aufgebaut, dass man verschiedene Zellen hat, in die man Code schreibt (in unserem Fall `R`-Code).
 Um die Zelle mit dem Code auszuführen, können wir im Menü auf "*Cell*" und "*Run Cells*" klicken.
 Oder mit dem Cursor in die Zelle klicken und anschließend gleichzeitig *SHIFT*" und "*ENTER*" drücken.
 Ihr seht dann das Ergebnis des Codes direkt unter der Zelle angezeigt.
 
-[^1]: Siehe dazu auch das Repositorium von Dorothea Strecker (<https://github.com/dorothearrr/NFDI_Netzwerk>), in dem sie bereits eine ähnliche Visualisierung und Analyse vorgenommen hat.
+[^1]: Siehe dazu auch das Repositorium von Dorothea Strecker (https://github.com/dorothearrr/NFDI_Netzwerk), in dem sie bereits eine ähnliche Visualisierung und Analyse vorgenommen hat.
 
-[^2]: <https://rnotebook.io> vgl. <https://bookdown.org/yihui/rmarkdown/notebook.html>
+[^2]: https://rnotebook.io vgl. https://bookdown.org/yihui/rmarkdown/notebook.html
 
 Bevor wir loslegen, möchten wir noch ein paar Begriffe klären.
 Ein Netzwerk besteht aus zwei Komponenten:
@@ -20,24 +21,39 @@ Ein Netzwerk besteht aus zwei Komponenten:
 * Knoten (Kreis)
 * Kanten (Balken)
 
-Knoten (*nodes* oder *vertices*) werden als Kreise dargestellt und repräsentieren Konsortien. Kanten (*edges*) werden als mehr oder minder gebogene Balken dargestellt und gehen von den Knoten aus. Sie zeigen eine Verbindung zwischen zwei Knoten an.
+Knoten (*nodes* oder *vertices*) werden als Kreise dargestellt und repräsentieren Konsortien. Kanten (*edges*) werden als mehr oder minder gebogene Balken dargestellt und gehen von den Knoten aus. Sie zeigen eine Verbindung zwischen zwei Knoten an. 
 
 ![Komponenten eines Netzwerks. Erstellt von ÉD.](img/Einheitskreis_Gestalt.png)
 
 R ist so aufgebaut, dass verschiedene Bibliotheken für unterschiedliche Funktionen geladen werden können.
 Für die Netzwerkanalyse werden wir auf das Paket `igraph`[^2b] zurückgreifen.
-Mit `library('igraph')` laden wir das Paket.
+Mit `library('igraph')` laden wir das Paket. 
 
 [^2b]: https://igraph.org/r/
+
 
 ```R
 library('igraph')
 ```
 
-Die Datengrundlage steht bereits in Form einer Auflistung zur Verfügung,[^1b], sodass wir
+    
+    Attaching package: ‘igraph’
+    
+    The following objects are masked from ‘package:stats’:
+    
+        decompose, spectrum
+    
+    The following object is masked from ‘package:base’:
+    
+        union
+    
+
+
+Die Datengrundlage steht bereits in Form einer Auflistung zur Verfügung,[^1b], sodass wir 
 die Daten kopieren und in die nächste Zelle einfügen können.
 
-[^1b]: https://gist.github.com/LukasCBossert/27fafa33e9b16c33e1107914e928c472
+
+[^1b]: https://gist.github.com/LukasCBossert/27fafa33e9b16c33e1107914e928c472 
 
 Fangen wir bei der Funktion `read.table` an.
 Es gibt drei Parameter:
@@ -53,6 +69,8 @@ NFDI_edges <- read.table(header=TRUE,
                          sep=",",
                          text="...")
 ```
+                      
+
 
 ```R
 NFDI_edges <- read.table(header=TRUE,
@@ -187,18 +205,20 @@ Text+,NFDI4Objects
 ")
 ```
 
+
 Damit wir aus diesem Datensatz ein Netzwerk erstellen können,
 müssen wir es aufbereiten und einen `igraph graph` erstellen.[^3]
 Das geschieht mit der Funktion `graph_from_data_frame`, der wir unseren Datensatz übergeben.
 
-Zudem geben wir an, dass unser Datensatz bzw. das Netzwerk ungerichtet ist
+Zudem geben wir an, dass unser Datensatz bzw. das Netzwerk ungerichtet ist 
 (`directed=FALSE`), das heißt, dass die Richtung, wie sie bei `from,to` im Datensatz
 angegeben ist, egal ist.
-Es geht uns jetzt nur darum, dass zwei Konsortien verknüpft sind.
+Es geht uns jetzt nur darum, dass zwei Konsortien verknüpft sind. 
 
 Diese Informationen übergeben wir der Variablen `NFDI_network`.
 
 [^3]: https://igraph.org/r/doc/graph_from_data_frame.html
+
 
 ```R
 NFDI_network <- graph_from_data_frame(NFDI_edges,
@@ -215,6 +235,7 @@ Anschließend kommen wir zum eigentlichen Plot.
 Dafür rufen wir die Funktion `plot` auf und übergeben ihr die Variable unseres Netzwerkgraphen `NFDI_network`.
 Für einen Titel können wir noch den Parameter `main` bestimmen und ebenso können wir angeben, ob wir mit `frame=TRUE` einen Rahmen um das Netzwerk haben wollen.
 
+
 ```R
 set.seed(1234)
 
@@ -225,7 +246,11 @@ plot(NFDI_network,                    # loading data frame
 
 ```
 
+
+    
 ![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_9_0.png)
+    
+
 
 Wir sehen das Netzwerk der NFDI-Konsortien ohne weitere explizite Einstellungen.
 
@@ -244,6 +269,7 @@ Diesen Wert `layout.graphopt` übergeben wir dem Parameter `layout`.
 
 [^4]: https://igraph.org/r/doc/layout_with_graphopt.html
 
+
 ```R
 set.seed(1234)
 
@@ -255,11 +281,16 @@ plot(NFDI_network,                     # loading data frame
 
 ```
 
+
+    
 ![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_12_0.png)
+    
+
 
 Das Netzwerk ist jetzt schon besser strukturiert und die Abstände der Knoten sind harmonischer.
 
 Wer möchte, der kann weitere Layout-Einstellungen[^4] ausprobieren:
+
 
 * `layout_circle` (`circle,circular`): Deterministic layout that places the vertices on a circle
 * `layout_drl` (`drl`): The Distributed Recursive Layout algorithm for large graphs
@@ -275,6 +306,10 @@ Wer möchte, der kann weitere Layout-Einstellungen[^4] ausprobieren:
 * `layout_reingold_tilford_circular` (`rt_circular, tree`): Reingold-Tilford tree layout with a polar coordinate post-transformation, useful for (almost) tree-like graphs
 * `layout_sphere` (`sphere,spherical,circular_3d`): Deterministic layout that places the vertices evenly on the surface of a sphere
 
+
+
+
+
 [^4]: https://igraph.org/python/doc/tutorial/tutorial.html#layout-algorithms
 
 ## Farbe, Größe, Krümmung (Knoten und Kanten)
@@ -287,9 +322,9 @@ Zunächst möchten wir die Farbe der Knoten angehen.
 Der Parameter lautet `vertex.color` und wir können einen HTML-Farbwert angeben (bspw. `#ffcc66`).[^5]
 Für die Umrandung der Knoten wählen wir den gleichen Farbcode. Der Parameter lautet `vertex.frame.color`.
 
-Die Beschriftung der Knoten lässt sich ebenfalls modifizieren.
+Die Beschriftung der Knoten lässt sich ebenfalls modifizieren. 
 Die Änderung der Schriftgröße erfolgt über den Parameter `vertex.label.cex`, an den wir den Wert `0.5` übergeben.
-Wichtig ist hier, dass der Wert *nicht* in Anführungszeichen geschrieben wird.
+Wichtig ist hier, dass der Wert *nicht* in Anführungszeichen geschrieben wird. 
 Dies ist eine relative Größe und wir möchten die Label nur halb so groß wie im vorherigen Netzwerk dargestellt haben.
 Auch die Farbe der Beschriftung ist änderbar.
 Ganz analog heißt der Parameter `vertex.label.color`, an den wir den Farbwert auch als String, wie bspw. `"black"`, übergeben können.
@@ -298,7 +333,11 @@ Ein Netzwerk besteht neben den Knoten auch aus Kanten, die zwei Knoten verbinden
 Für die Farbänderung brauchen wir den Parameter `edge.color`, an den wir bspw. `"#808080"` übergeben.
 Neben der Farbe können wir auch den Grad der "Krümmung" bestimmen, die mit `edge.curved` und dem Wert `0.1` eingestellt wird. Wichtig ist auch hier wieder, dass *keine* Anführungszeichen gesetzt werden.
 
+
+
+
 [^5]: https://www.w3schools.com/colors/colors_picker.asp
+
 
 ```R
 set.seed(1234)
@@ -317,7 +356,11 @@ plot(NFDI_network,                     # loading data frame
      )
 ```
 
+
+    
 ![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_15_0.png)
+    
+
 
 ## Knotengröße in Abhängigkeit der Kantenanzahl
 
@@ -331,69 +374,77 @@ dann erhalten wir die Anzahl der Kanten pro Knoten.
 Diese Werte nehmen wir als Größeangabe für die Knoten.
 
 Wir erweitern somit den bisherigen Code um eine Zeile.
-Die Knotengröße verbirgt sich hinter dem Parameter `vertex.size` und als Wert übergeben wir die Funktion
+Die Knotengröße verbirgt sich hinter dem Parameter `vertex.size` und als Wert übergeben wir die Funktion 
 `degree(NFDI_network)`.
 
+
+
 [^6]: https://igraph.org/r/doc/degree.html
+
+
 
 ```R
 degree(NFDI_network)                   #* calculate number of edges
 ```
 
+
 <dl class=dl-horizontal>
- <dt>BERD@NFDI</dt>
-  <dd>6</dd>
- <dt>DAPHNE4NFDI</dt>
-  <dd>11</dd>
- <dt>FAIRmat</dt>
-  <dd>15</dd>
- <dt>MaRDI</dt>
-  <dd>15</dd>
- <dt>NFDI-MatWerk</dt>
-  <dd>12</dd>
- <dt>NFDI-Neuro</dt>
-  <dd>9</dd>
- <dt>NFDI4Agri</dt>
-  <dd>11</dd>
- <dt>NFDI4DataScience</dt>
-  <dd>16</dd>
- <dt>NFDI4Earth</dt>
-  <dd>17</dd>
- <dt>NFDI4Immuno</dt>
-  <dd>6</dd>
- <dt>NFDI4Memory</dt>
-  <dd>10</dd>
- <dt>NFDI4Microbiota</dt>
-  <dd>13</dd>
- <dt>NFDI4Objects</dt>
-  <dd>12</dd>
- <dt>NFDI4SD</dt>
-  <dd>4</dd>
- <dt>NFDIxCS</dt>
-  <dd>10</dd>
- <dt>PUNCH4NFDI</dt>
-  <dd>10</dd>
- <dt>Text+</dt>
-  <dd>10</dd>
- <dt>KonsortSWD</dt>
-  <dd>7</dd>
- <dt>NFDI4Cat</dt>
-  <dd>5</dd>
- <dt>NFDI4Chem</dt>
-  <dd>8</dd>
- <dt>NFDI4Health</dt>
-  <dd>7</dd>
- <dt>NFDI4Ing</dt>
-  <dd>11</dd>
- <dt>DataPLANT</dt>
-  <dd>6</dd>
- <dt>GHGA</dt>
-  <dd>5</dd>
- <dt>NFDI4BioDiversity</dt>
-  <dd>7</dd>
- <dt>NFDI4Culture</dt>
-  <dd>7</dd>
+	<dt>BERD@NFDI</dt>
+		<dd>6</dd>
+	<dt>DAPHNE4NFDI</dt>
+		<dd>11</dd>
+	<dt>FAIRmat</dt>
+		<dd>15</dd>
+	<dt>MaRDI</dt>
+		<dd>15</dd>
+	<dt>NFDI-MatWerk</dt>
+		<dd>12</dd>
+	<dt>NFDI-Neuro</dt>
+		<dd>9</dd>
+	<dt>NFDI4Agri</dt>
+		<dd>11</dd>
+	<dt>NFDI4DataScience</dt>
+		<dd>16</dd>
+	<dt>NFDI4Earth</dt>
+		<dd>17</dd>
+	<dt>NFDI4Immuno</dt>
+		<dd>6</dd>
+	<dt>NFDI4Memory</dt>
+		<dd>10</dd>
+	<dt>NFDI4Microbiota</dt>
+		<dd>13</dd>
+	<dt>NFDI4Objects</dt>
+		<dd>12</dd>
+	<dt>NFDI4SD</dt>
+		<dd>4</dd>
+	<dt>NFDIxCS</dt>
+		<dd>10</dd>
+	<dt>PUNCH4NFDI</dt>
+		<dd>10</dd>
+	<dt>Text+</dt>
+		<dd>10</dd>
+	<dt>KonsortSWD</dt>
+		<dd>7</dd>
+	<dt>NFDI4Cat</dt>
+		<dd>5</dd>
+	<dt>NFDI4Chem</dt>
+		<dd>8</dd>
+	<dt>NFDI4Health</dt>
+		<dd>7</dd>
+	<dt>NFDI4Ing</dt>
+		<dd>11</dd>
+	<dt>DataPLANT</dt>
+		<dd>6</dd>
+	<dt>GHGA</dt>
+		<dd>5</dd>
+	<dt>NFDI4BioDiversity</dt>
+		<dd>7</dd>
+	<dt>NFDI4Culture</dt>
+		<dd>7</dd>
 </dl>
+
+
+
 
 ```R
 set.seed(1234)
@@ -413,22 +464,27 @@ plot(NFDI_network,                     # loading data frame
      )
 ```
 
+
+    
 ![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_18_0.png)
+    
+
 
 ## Knotengröße in Abhängigkeit der Anzahl ein- und ausgehender Kanten
 
 Wir haben jetzt eine zweite Informationsebene in unser Netzwerk eingeführt und können die Knotengröße in Relation zur Kantenanzahl darstellen.
 
-Im nächsten Schritt möchten wir eine weitere Komponente einführen.
+Im nächsten Schritt möchten wir eine weitere Komponente einführen. 
 Bislang war es unerheblich, ob ein Konsortium im Datensatz an erster oder zweiter Stelle genannt wurde, das heißt, es war unerheblich, ob der aktive oder der passive Kooperationspartner ist.
 
-Jetzt möchten wir die Unterscheidung im Netzwerk berücksichtigen.
+Jetzt möchten wir die Unterscheidung im Netzwerk berücksichtigen. 
 Dafür muss unser Graph (Netzwerk) "gerichtet" werden[^7].
 
-Wir führen eine neue Variable (`NFDI_network_directed`) ein, die den Datensatz als gerichteten Graph enthält,
+Wir führen eine neue Variable (`NFDI_network_directed`) ein, die den Datensatz als gerichteten Graph enthält, 
 was wir mit `directed = TRUE` einstellen.
 
 [^7]: https://de.wikipedia.org/wiki/Gerichteter_Graph
+
 
 ```R
 NFDI_network_directed <- graph_from_data_frame(NFDI_edges,
@@ -444,6 +500,7 @@ Im gerichteten Netzwerk erschwert die Krümmung der Kanten die Lesbarkeit.
 Daher wählen wir für `edge.curved` den Wert `0`.
 
 Ebenso sollen die Pfeilspitzen kleiner werden, was mit `edge.arrow.size` und dem relativen Wert `0.5` möglich ist.
+
 
 ```R
 set.seed(1234)
@@ -465,7 +522,11 @@ plot(NFDI_network_directed,            #<<<<<<< loading data frame
 
 ```
 
+
+    
 ![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_22_0.png)
+    
+
 
 Im nächsten Schritt möchten wir die Knotengröße entsprechend der *ein*gehenden Kanten skalieren.
 Je öfter ein Konsortium als Kooperationspartner genannt wird, desto größer wird dessen Knoten.
@@ -477,67 +538,74 @@ degree(NFDI_network_directed,
        mode = "in")
 ```
 
+
 [^8]: https://igraph.org/r/doc/degree.html
+
+
 
 ```R
 degree(NFDI_network_directed,
        mode = "in")
 ```
 
+
 <dl class=dl-horizontal>
- <dt>BERD@NFDI</dt>
-  <dd>2</dd>
- <dt>DAPHNE4NFDI</dt>
-  <dd>3</dd>
- <dt>FAIRmat</dt>
-  <dd>5</dd>
- <dt>MaRDI</dt>
-  <dd>7</dd>
- <dt>NFDI-MatWerk</dt>
-  <dd>4</dd>
- <dt>NFDI-Neuro</dt>
-  <dd>1</dd>
- <dt>NFDI4Agri</dt>
-  <dd>4</dd>
- <dt>NFDI4DataScience</dt>
-  <dd>5</dd>
- <dt>NFDI4Earth</dt>
-  <dd>6</dd>
- <dt>NFDI4Immuno</dt>
-  <dd>2</dd>
- <dt>NFDI4Memory</dt>
-  <dd>4</dd>
- <dt>NFDI4Microbiota</dt>
-  <dd>4</dd>
- <dt>NFDI4Objects</dt>
-  <dd>5</dd>
- <dt>NFDI4SD</dt>
-  <dd>0</dd>
- <dt>NFDIxCS</dt>
-  <dd>4</dd>
- <dt>PUNCH4NFDI</dt>
-  <dd>3</dd>
- <dt>Text+</dt>
-  <dd>3</dd>
- <dt>KonsortSWD</dt>
-  <dd>7</dd>
- <dt>NFDI4Cat</dt>
-  <dd>5</dd>
- <dt>NFDI4Chem</dt>
-  <dd>8</dd>
- <dt>NFDI4Health</dt>
-  <dd>7</dd>
- <dt>NFDI4Ing</dt>
-  <dd>11</dd>
- <dt>DataPLANT</dt>
-  <dd>6</dd>
- <dt>GHGA</dt>
-  <dd>5</dd>
- <dt>NFDI4BioDiversity</dt>
-  <dd>7</dd>
- <dt>NFDI4Culture</dt>
-  <dd>7</dd>
+	<dt>BERD@NFDI</dt>
+		<dd>2</dd>
+	<dt>DAPHNE4NFDI</dt>
+		<dd>3</dd>
+	<dt>FAIRmat</dt>
+		<dd>5</dd>
+	<dt>MaRDI</dt>
+		<dd>7</dd>
+	<dt>NFDI-MatWerk</dt>
+		<dd>4</dd>
+	<dt>NFDI-Neuro</dt>
+		<dd>1</dd>
+	<dt>NFDI4Agri</dt>
+		<dd>4</dd>
+	<dt>NFDI4DataScience</dt>
+		<dd>5</dd>
+	<dt>NFDI4Earth</dt>
+		<dd>6</dd>
+	<dt>NFDI4Immuno</dt>
+		<dd>2</dd>
+	<dt>NFDI4Memory</dt>
+		<dd>4</dd>
+	<dt>NFDI4Microbiota</dt>
+		<dd>4</dd>
+	<dt>NFDI4Objects</dt>
+		<dd>5</dd>
+	<dt>NFDI4SD</dt>
+		<dd>0</dd>
+	<dt>NFDIxCS</dt>
+		<dd>4</dd>
+	<dt>PUNCH4NFDI</dt>
+		<dd>3</dd>
+	<dt>Text+</dt>
+		<dd>3</dd>
+	<dt>KonsortSWD</dt>
+		<dd>7</dd>
+	<dt>NFDI4Cat</dt>
+		<dd>5</dd>
+	<dt>NFDI4Chem</dt>
+		<dd>8</dd>
+	<dt>NFDI4Health</dt>
+		<dd>7</dd>
+	<dt>NFDI4Ing</dt>
+		<dd>11</dd>
+	<dt>DataPLANT</dt>
+		<dd>6</dd>
+	<dt>GHGA</dt>
+		<dd>5</dd>
+	<dt>NFDI4BioDiversity</dt>
+		<dd>7</dd>
+	<dt>NFDI4Culture</dt>
+		<dd>7</dd>
 </dl>
+
+
+
 
 ```R
 set.seed(1234)
@@ -559,71 +627,82 @@ plot(NFDI_network_directed,            # loading data frame
     )
 ```
 
+
+    
 ![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_25_0.png)
+    
+
 
 Ebenfalls können wir nun auch die Größe der Konsortien entsprechend ihrer *aus*gehenden Kanten darstellen.
 
 Wir übernehmen den kompletten Zelleninhalt von zuvor und ändern lediglich `in` zu `out`.
+
+
+
 
 ```R
 degree(NFDI_network_directed,
        mode = "out")
 ```
 
+
 <dl class=dl-horizontal>
- <dt>BERD@NFDI</dt>
-  <dd>4</dd>
- <dt>DAPHNE4NFDI</dt>
-  <dd>8</dd>
- <dt>FAIRmat</dt>
-  <dd>10</dd>
- <dt>MaRDI</dt>
-  <dd>8</dd>
- <dt>NFDI-MatWerk</dt>
-  <dd>8</dd>
- <dt>NFDI-Neuro</dt>
-  <dd>8</dd>
- <dt>NFDI4Agri</dt>
-  <dd>7</dd>
- <dt>NFDI4DataScience</dt>
-  <dd>11</dd>
- <dt>NFDI4Earth</dt>
-  <dd>11</dd>
- <dt>NFDI4Immuno</dt>
-  <dd>4</dd>
- <dt>NFDI4Memory</dt>
-  <dd>6</dd>
- <dt>NFDI4Microbiota</dt>
-  <dd>9</dd>
- <dt>NFDI4Objects</dt>
-  <dd>7</dd>
- <dt>NFDI4SD</dt>
-  <dd>4</dd>
- <dt>NFDIxCS</dt>
-  <dd>6</dd>
- <dt>PUNCH4NFDI</dt>
-  <dd>7</dd>
- <dt>Text+</dt>
-  <dd>7</dd>
- <dt>KonsortSWD</dt>
-  <dd>0</dd>
- <dt>NFDI4Cat</dt>
-  <dd>0</dd>
- <dt>NFDI4Chem</dt>
-  <dd>0</dd>
- <dt>NFDI4Health</dt>
-  <dd>0</dd>
- <dt>NFDI4Ing</dt>
-  <dd>0</dd>
- <dt>DataPLANT</dt>
-  <dd>0</dd>
- <dt>GHGA</dt>
-  <dd>0</dd>
- <dt>NFDI4BioDiversity</dt>
-  <dd>0</dd>
- <dt>NFDI4Culture</dt>
-  <dd>0</dd>
+	<dt>BERD@NFDI</dt>
+		<dd>4</dd>
+	<dt>DAPHNE4NFDI</dt>
+		<dd>8</dd>
+	<dt>FAIRmat</dt>
+		<dd>10</dd>
+	<dt>MaRDI</dt>
+		<dd>8</dd>
+	<dt>NFDI-MatWerk</dt>
+		<dd>8</dd>
+	<dt>NFDI-Neuro</dt>
+		<dd>8</dd>
+	<dt>NFDI4Agri</dt>
+		<dd>7</dd>
+	<dt>NFDI4DataScience</dt>
+		<dd>11</dd>
+	<dt>NFDI4Earth</dt>
+		<dd>11</dd>
+	<dt>NFDI4Immuno</dt>
+		<dd>4</dd>
+	<dt>NFDI4Memory</dt>
+		<dd>6</dd>
+	<dt>NFDI4Microbiota</dt>
+		<dd>9</dd>
+	<dt>NFDI4Objects</dt>
+		<dd>7</dd>
+	<dt>NFDI4SD</dt>
+		<dd>4</dd>
+	<dt>NFDIxCS</dt>
+		<dd>6</dd>
+	<dt>PUNCH4NFDI</dt>
+		<dd>7</dd>
+	<dt>Text+</dt>
+		<dd>7</dd>
+	<dt>KonsortSWD</dt>
+		<dd>0</dd>
+	<dt>NFDI4Cat</dt>
+		<dd>0</dd>
+	<dt>NFDI4Chem</dt>
+		<dd>0</dd>
+	<dt>NFDI4Health</dt>
+		<dd>0</dd>
+	<dt>NFDI4Ing</dt>
+		<dd>0</dd>
+	<dt>DataPLANT</dt>
+		<dd>0</dd>
+	<dt>GHGA</dt>
+		<dd>0</dd>
+	<dt>NFDI4BioDiversity</dt>
+		<dd>0</dd>
+	<dt>NFDI4Culture</dt>
+		<dd>0</dd>
 </dl>
+
+
+
 
 ```R
 set.seed(1234)
@@ -645,9 +724,13 @@ plot(NFDI_network_directed,            # loading data frame
     )
 ```
 
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_28_0.png)
 
-Es fällt auf, dass einige Knoten schrumpfen und in der Tabelle sieht man, dass sie den Wert `0` bei ausgehenden Kanten haben. Das liegt daran, dass dies die Konsortien sind, die in der ersten Förderrunde bereits bewilligt wurden und daher keinen neuen Letters of Intent eingereicht haben. Unser Datensatz berücksichtigt ja nur die Letters of Intent der zweiten Förderrunde.
+    
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_28_0.png)
+    
+
+
+Es fällt auf, dass einige Knoten schrumpfen und in der Tabelle sieht man, dass sie den Wert `0` bei ausgehenden Kanten haben. Das liegt daran, dass dies die Konsortien sind, die in der ersten Förderrunde bereits bewilligt wurden und daher keinen neuen Letters of Intent eingereicht haben. Unser Datensatz berücksichtigt ja nur die Letters of Intent der zweiten Förderrunde. 
 Die Konsortien der ersten Runde können daher nur als "passive" Kooperationspartner genannt werden.
 
 ## Ausschluss der Konsortien aus der ersten Förderrunde
@@ -664,6 +747,9 @@ die wir weiter nutzen können.
 
 Als Darstellungsmodus des Netzwerks wählen wir `total`, da es jetzt nicht um die separate Anzahl der ein- und ausgehenden Verbindungen, sondern um deren Summe geht.
 
+
+
+
 ```R
 NFDI_network_directed_filter <- delete_vertices(NFDI_network_directed, 
             V(NFDI_network_directed)[ degree(NFDI_network_directed, mode = "out") == 0 ])
@@ -672,42 +758,46 @@ degree(NFDI_network_directed_filter,
        mode = "total")
 ```
 
+
 <dl class=dl-horizontal>
- <dt>BERD@NFDI</dt>
-  <dd>5</dd>
- <dt>DAPHNE4NFDI</dt>
-  <dd>7</dd>
- <dt>FAIRmat</dt>
-  <dd>11</dd>
- <dt>MaRDI</dt>
-  <dd>12</dd>
- <dt>NFDI-MatWerk</dt>
-  <dd>9</dd>
- <dt>NFDI-Neuro</dt>
-  <dd>3</dd>
- <dt>NFDI4Agri</dt>
-  <dd>7</dd>
- <dt>NFDI4DataScience</dt>
-  <dd>9</dd>
- <dt>NFDI4Earth</dt>
-  <dd>8</dd>
- <dt>NFDI4Immuno</dt>
-  <dd>4</dd>
- <dt>NFDI4Memory</dt>
-  <dd>8</dd>
- <dt>NFDI4Microbiota</dt>
-  <dd>7</dd>
- <dt>NFDI4Objects</dt>
-  <dd>9</dd>
- <dt>NFDI4SD</dt>
-  <dd>3</dd>
- <dt>NFDIxCS</dt>
-  <dd>8</dd>
- <dt>PUNCH4NFDI</dt>
-  <dd>8</dd>
- <dt>Text+</dt>
-  <dd>6</dd>
+	<dt>BERD@NFDI</dt>
+		<dd>5</dd>
+	<dt>DAPHNE4NFDI</dt>
+		<dd>7</dd>
+	<dt>FAIRmat</dt>
+		<dd>11</dd>
+	<dt>MaRDI</dt>
+		<dd>12</dd>
+	<dt>NFDI-MatWerk</dt>
+		<dd>9</dd>
+	<dt>NFDI-Neuro</dt>
+		<dd>3</dd>
+	<dt>NFDI4Agri</dt>
+		<dd>7</dd>
+	<dt>NFDI4DataScience</dt>
+		<dd>9</dd>
+	<dt>NFDI4Earth</dt>
+		<dd>8</dd>
+	<dt>NFDI4Immuno</dt>
+		<dd>4</dd>
+	<dt>NFDI4Memory</dt>
+		<dd>8</dd>
+	<dt>NFDI4Microbiota</dt>
+		<dd>7</dd>
+	<dt>NFDI4Objects</dt>
+		<dd>9</dd>
+	<dt>NFDI4SD</dt>
+		<dd>3</dd>
+	<dt>NFDIxCS</dt>
+		<dd>8</dd>
+	<dt>PUNCH4NFDI</dt>
+		<dd>8</dd>
+	<dt>Text+</dt>
+		<dd>6</dd>
 </dl>
+
+
+
 
 ```R
 set.seed(1234)
@@ -729,7 +819,11 @@ plot(NFDI_network_directed_filter,           #<<<<<<<< loading data frame
     )
 ```
 
+
+    
 ![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_32_0.png)
+    
+
 
 # Netzwerkanalyse
 
@@ -756,6 +850,7 @@ Im Folgenden kürzen wir die Gruppe 4 "Informatik, Mathematik und Ingenieurwisse
 
 [^7b]: https://www.dfg.de/download/pdf/foerderung/programme/nfdi/nfdi_konferenz_2020/programm_webkonferenz_2020.pdf
 
+
 Auffällig ist, dass nach der DFG-Fachsystematik die Naturwissenschaften auf die Lebenswissenschaften, Ingenieurwissenschaften und Chemie/Physik aufgeteilt worden sind, wie man im folgenden Sankey (Flussdiagramm) sehen kann.
 
 ![Sankey](img/dfg-nfdi-sankey.png)
@@ -764,6 +859,7 @@ Alle Konsortien sind also einem dieser fünf Bereiche zugeteilt und wir wollen d
 Diese Einteilung der Konsortien auf die Konferenzsystematik laden wir in der nächsten Zelle.
 
 Dieser neue Datensatz wird der Variable `NFDI_nodes` übergeben; die erste Spalte beinhaltet die Konsortialnamen, die zweite Spalte die Nummer aus der NFDI-*Konferenz*systematik.
+
 
 ```R
 NFDI_nodes <- read.table(header=TRUE,
@@ -801,6 +897,9 @@ Text+,3
 
 Jetzt müssen wir aus dem Datensatz noch ein Graph-Datensatz erstellen, was wiederum mit `graph_from_data_frame` geschieht. Neu ist, dass wir nun differenzieren, was unser Kanten-Data-Frame und was die Liste mit den Knoten ist.
 
+
+
+
 ```R
 NFDI_network_directed <- graph_from_data_frame(d = NFDI_edges,        # d = data frame =~ edges
                                                vertices = NFDI_nodes, #nodes
@@ -821,10 +920,12 @@ Es gelten folgende Werte
 | (4) | Ingenieurwissenschaften |   `#007aaf`   |
 | (5) | Chemie/Physik           |   `#6ca11d`   |
 
+
 Diese Farbwerte geben wir jetzt der Reihe nach an die Variable `NFDI_color_code` weiter,
-dabei werden die Farbwerte in eine Liste geschrieben.
+dabei werden die Farbwerte in eine Liste geschrieben. 
 Anhand der Funktion `c` werden die Werte in einen Vektor geschrieben,[^11]
 mit dem wir weiterarbeiten können.
+
 
 Jetzt müssen wir noch die Verknüpfung zwischen Farbwert und den Konsortien herstellen.
 Dafür führen wir die Variable `NFDI_color_groups` ein:
@@ -832,7 +933,9 @@ Jeder Wert aus `NFDI_color_code` hat eine Positionsnummer (1-5),
 das nutzen wir, indem wir den Wert der zweiten Spalte des Netzwerkgraphen (`$group`) als Zahl auswerten und so den Farbwert übergeben.
 Vereinfacht gesagt und vom Ergebnis her gesehen, bekommt die Nummer der NFDI-Konferenzsystematik den Farbwert, der an der entsprechenden Stelle in der Liste der Variable `NFDI_color_code` steht.
 
+
 [^11]: https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/c
+
 
 ```R
 NFDI_color_code <- c("#f5ac9f", # Medizin
@@ -859,11 +962,12 @@ Dafür gibt es eine spezielle Funktion `legend`, die wir nun mit Werten füllen:
 dann der Titel (`title = "NFDI-Konferenzsystematik"`),
 jetzt kommt der Inhalt der Legende, was über den Parameter `legend` geregelt wird:
 Hierfür bauen wir uns wiederum eine Liste (`c()`), in der wir die gewünschten Werte eintragen.
-* `col`: Mit `col` wird das Farbschema festgesetzt und wir können direkt auf die NFDI-Farbliste über die Variable `NFDI_color_code` verweisen.
+* `col`: Mit `col` wird das Farbschema festgesetzt und wir können direkt auf die NFDI-Farbliste über die Variable `NFDI_color_code` verweisen. 
 * `pch`: Wir dürfen auf keinen Fall den Parameter `pch` vergessen, da hierüber das Symbol in der Legende definiert wird. Mit dem Wert `20` wählen wir einen ausgefüllten Kreis.
 * `bty`: Mit `bty` und dem Wert `n` für `no` verzichten wir auf einen Rahmen um die Legende.
 * `cex` (also `character expansion`)  ist wieder ein relativer Wert und wir können die Schriftgröße bestimmen;
 ähnlich dazu funktioniert `pt.cex` für die Symbole der Legende.
+
 
 ```R
 set.seed(1234)
@@ -902,9 +1006,13 @@ legend("bottomright",   # x-position
 )
 ```
 
-![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_44_0.png)
 
-## Clustering
+    
+![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_44_0.png)
+    
+
+
+## Clustering 
 
 Die Einfärbung des Netzwerks mit den Farben der NFDI-Konferenzsystematik lässt die Vermutung zu, dass es bestimmte Gruppen gibt, die eine engere Beziehung zueinander haben (ausgehend von den Kooperationsabsichten in den Letters of Intent).
 
@@ -920,16 +1028,17 @@ Die Anwendung ist denkbar einfach: Wir übergeben der Funktion `cluster_optimal`
 In unserer Plotfunktion setzen wir diese neue Variable noch *vor* den bisherigen Datensatz.
 Wir verzichten jetzt auf die Darstellung der Kanten, was wir mit `edge.color = NA` erreichen.
 
-Die Einfärberung der Knoten erfolgt nicht mehr über die Parameter `vertex.color` und `vertex.frame.color`,
-sodass wir diese Zeilen auskommentieren oder löschen können.
+Die Einfärberung der Knoten erfolgt nicht mehr über den Parameter `vertex.color`, sodass wir diese Zeilen auskommentieren oder löschen können. 
 Dafür gibt es einen neuen Parameter und wir können `col` den Wert `NFDI_color_groups` übergeben.[^13]
 
 Die Einfassung der Gruppen möchten wir grau hervorheben, was wir mit `mark.col = "grey"` erreichen,
 zudem verzichten wir auf die Darstellung des Randes (`mark.border = NA` [`Not Available`]).
 
+
 Für die Legende müssen wir nichts anpassen.
 
 [^13]: https://igraph.org/r/doc/communities.html
+
 
 ```R
 set.seed(1234)
@@ -943,7 +1052,7 @@ plot(NFDI_network_directed_cluster,    #<<<<<<<<<<< clustered network data
      frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
      #vertex.color       = NFDI_color_groups,   #<<<<<<<<<<  color of nodes
-     #vertex.frame.color = NFDI_color_groups,   #<<<<<<<<<< color of the frame of nodes
+     vertex.frame.color = NFDI_color_groups,   #<<<<<<<<<< color of the frame of nodes
      vertex.label.cex   = 0.5,         # size of the description of the labels
      vertex.label.color = "black",     # color of the description 
                                        # color: https://www.w3schools.com/colors/colors_picker.asp 
@@ -975,7 +1084,11 @@ legend("bottomright",   # x-position
 )
 ```
 
+
+    
 ![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_47_0.png)
+    
+
 
 Der Algorithmus `cluster_optimal` ermittelt drei Gruppen (oder auch Cluster), die just *exakt* mit den NFDI-Konferenzsystematiken übereinstimmen, sodass folgende Gruppen/Cluster zustande kommen:
 
@@ -985,11 +1098,13 @@ Der Algorithmus `cluster_optimal` ermittelt drei Gruppen (oder auch Cluster), di
 | (2)     | 3    (Geisteswissenschaften)                     |
 | (3)     | 4+5  (Ingenieurwissenschaften und Chemie/Physik) |
 
+
 Mit diesem Ergebnis stellt sich die Frage, ob es nun wirklich drei Cluster gibt und der geforderte transdisziplinäre Austausch und Kooperation ausbleibt.[^14]
 
 Es wäre also wichtig zu sehen, ob Kooperationen über die Cluster-Grenzen hinweg erfolgen bzw. konkret gesagt, welche Konsortien kooperieren mit welchen Konsortien anderer Cluster.
 
 [^14]: https://www.youtube.com/watch?v=YmuUT8HkXxY&feature=youtu.be&t=904
+
 
 ## Transdisziplinäre Kooperation
 
@@ -1006,6 +1121,9 @@ Die Unterscheidung zwischen cis- und trans-disziplinärer Kante wird über die F
 
 [^15]: https://igraph.org/r/doc/communities.html
 
+
+
+
 ```R
 set.seed(1234)
 
@@ -1014,8 +1132,7 @@ plot(NFDI_network_directed_cluster,    # clustered network data
      main   = "NFDI-Netzwerk (<Konferenzsystematik>)",  # adding a title
      frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
-     #vertex.color       = NFDI_color_groups,   #  color of nodes
-     #vertex.frame.color = NFDI_color_groups,   # color of the frame of nodes
+     vertex.frame.color = NFDI_color_groups,   # color of the frame of nodes
      vertex.label.cex   = 0.5,         # size of the description of the labels
      vertex.label.color = "black",     # color of the description 
                                        # color: https://www.w3schools.com/colors/colors_picker.asp 
@@ -1048,7 +1165,11 @@ legend("bottomright",   # x-position
 )
 ```
 
+
+    
 ![png](das-versprechen-der-vernetzung_files/das-versprechen-der-vernetzung_50_0.png)
+    
+
 
 Es zeigt sich eine rege Interaktion auch zwischen den einzelnen Cluster.
 Nur ein Konsortium hat keine transdisziplinäre Verbindung.
@@ -1063,4 +1184,4 @@ Wenn ihr das Netzwerk mit dem RNoteBook erstellt habt, könnt ihr es über die U
 
 Es gibt noch weitere spannende Beschäftigungen mit diesem Netzwerk.
 Zum Beispiel kann man auch ein interaktives Netzwerk erstellen oder das Netzwerk als Kreisdiagramm darstellen.
-Schaut euch dazu die Übersicht auf <https://www.r-graph-gallery.com/network.html> an.
+Schaut euch dazu die Übersicht auf https://www.r-graph-gallery.com/network.html an.
