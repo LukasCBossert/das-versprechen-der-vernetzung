@@ -220,7 +220,7 @@ set.seed(1234)
 
 plot(NFDI_network,                    # loading data frame
      main  = "NFDI-Netzwerk",         # adding a title
-     frame = TRUE                     # making a frame
+     frame = TRUE                     # making a frame 
      )
 
 ```
@@ -306,12 +306,12 @@ set.seed(1234)
 
 plot(NFDI_network,                     # loading data frame
      main   = "NFDI-Netzwerk",         # adding a title
-     frame  = TRUE,                    # making a frame
+     frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
      vertex.color       = "#ffcc66",   #* color of nodes
      vertex.frame.color = "#ffcc66",   #* color of the frame of nodes
      vertex.label.cex   = 0.5,         #* size of the description of the labels
-     vertex.label.color = "black",     #* color of the description
+     vertex.label.color = "black",     #* color of the description 
      edge.color         = "#808080",   #* color of edges
      edge.curved        = 0.1,         #* factor of "curvity"
      )
@@ -400,13 +400,13 @@ set.seed(1234)
 
 plot(NFDI_network,                     # loading data frame
      main   = "NFDI-Netzwerk",         # adding a title
-     frame  = TRUE,                    # making a frame
+     frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
      vertex.color       = "#ffcc66",   # color of nodes
      vertex.frame.color = "#ffcc66",   # color of the frame of nodes
      vertex.label.cex   = 0.5,         # size of the description of the labels
-     vertex.label.color = "black",     # color of the description
-                                       # color: https://www.w3schools.com/colors/colors_picker.asp
+     vertex.label.color = "black",     # color of the description 
+                                       # color: https://www.w3schools.com/colors/colors_picker.asp 
      edge.color         = "#808080",   # color of edges
      edge.curved        = 0.1,         # factor of "curvity"
      vertex.size        = degree(NFDI_network), #* size of nodes depends on amount of edges
@@ -450,13 +450,13 @@ set.seed(1234)
 
 plot(NFDI_network_directed,            #<<<<<<< loading data frame
      main   = "NFDI-Netzwerk",         # adding a title
-     frame  = TRUE,                    # making a frame
+     frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
      vertex.color       = "#ffcc66",   # color of nodes
      vertex.frame.color = "#ffcc66",   # color of the frame of nodes
      vertex.label.cex   = 0.5,         # size of the description of the labels
-     vertex.label.color = "black",     # color of the description
-                                       # color: https://www.w3schools.com/colors/colors_picker.asp
+     vertex.label.color = "black",     # color of the description 
+                                       # color: https://www.w3schools.com/colors/colors_picker.asp 
      edge.color         = "#808080",   # color of edges
      edge.curved        = 0,           #<<<<<<<<< factor of "curvity"
      vertex.size        = degree(NFDI_network_directed), #<<<<<< size of nodes depends on amount of edges
@@ -544,13 +544,13 @@ set.seed(1234)
 
 plot(NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<in>)",  #<<<<<<<< adding a title
-     frame  = TRUE,                    # making a frame
+     frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
      vertex.color       = "#ffcc66",   # color of nodes
      vertex.frame.color = "#ffcc66",   # color of the frame of nodes
      vertex.label.cex   = 0.5,         # size of the description of the labels
-     vertex.label.color = "black",     # color of the description
-                                       # color: https://www.w3schools.com/colors/colors_picker.asp
+     vertex.label.color = "black",     # color of the description 
+                                       # color: https://www.w3schools.com/colors/colors_picker.asp 
      edge.color         = "#808080",   # color of edges
      edge.curved        = 0,           # factor of "curvity"
      vertex.size        = degree(NFDI_network_directed,
@@ -630,13 +630,13 @@ set.seed(1234)
 
 plot(NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<out>)",  #<<<<<<<< adding a title
-     frame  = TRUE,                    # making a frame
+     frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
      vertex.color       = "#ffcc66",   # color of nodes
      vertex.frame.color = "#ffcc66",   # color of the frame of nodes
      vertex.label.cex   = 0.5,         # size of the description of the labels
-     vertex.label.color = "black",     # color of the description
-                                       # color: https://www.w3schools.com/colors/colors_picker.asp
+     vertex.label.color = "black",     # color of the description 
+                                       # color: https://www.w3schools.com/colors/colors_picker.asp 
      edge.color         = "#808080",   # color of edges
      edge.curved        = 0,           # factor of "curvity"
      vertex.size        = degree(NFDI_network_directed,
@@ -665,7 +665,7 @@ die wir weiter nutzen können.
 Als Darstellungsmodus des Netzwerks wählen wir `total`, da es jetzt nicht um die separate Anzahl der ein- und ausgehenden Verbindungen, sondern um deren Summe geht.
 
 ```R
-NFDI_network_directed_filter <- delete_vertices(NFDI_network_directed,
+NFDI_network_directed_filter <- delete_vertices(NFDI_network_directed, 
             V(NFDI_network_directed)[ degree(NFDI_network_directed, mode = "out") == 0 ])
 
 degree(NFDI_network_directed_filter,
@@ -714,13 +714,13 @@ set.seed(1234)
 
 plot(NFDI_network_directed_filter,           #<<<<<<<< loading data frame
      main   = "NFDI-Netzwerk (<filtered>)",  #<<<<<<<< adding a title
-     frame  = TRUE,                    # making a frame
+     frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
      vertex.color       = "#ffcc66",   # color of nodes
      vertex.frame.color = "#ffcc66",   # color of the frame of nodes
      vertex.label.cex   = 0.5,         # size of the description of the labels
-     vertex.label.color = "black",     # color of the description
-                                       # color: https://www.w3schools.com/colors/colors_picker.asp
+     vertex.label.color = "black",     # color of the description 
+                                       # color: https://www.w3schools.com/colors/colors_picker.asp 
      edge.color         = "#808080",   # color of edges
      edge.curved        = 0,           # factor of "curvity"
      vertex.size        = degree(NFDI_network_directed_filter,
@@ -870,13 +870,13 @@ set.seed(1234)
 
 plot(NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<Konferenzsystematik>)",  #<<<<<<<< adding a title
-     frame  = TRUE,                    # making a frame
+     frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
      vertex.color       = NFDI_color_groups,   #<<<<<<<<<<  color of nodes
      vertex.frame.color = NFDI_color_groups,   #<<<<<<<<<< color of the frame of nodes
      vertex.label.cex   = 0.5,         # size of the description of the labels
-     vertex.label.color = "black",     # color of the description
-                                       # color: https://www.w3schools.com/colors/colors_picker.asp
+     vertex.label.color = "black",     # color of the description 
+                                       # color: https://www.w3schools.com/colors/colors_picker.asp 
      edge.color         = "#808080",   # color of edges
      edge.curved        = 0,           # factor of "curvity"
      vertex.size        = degree(NFDI_network_directed,
@@ -939,13 +939,13 @@ NFDI_network_directed_cluster <- cluster_optimal(NFDI_network_directed)
 plot(NFDI_network_directed_cluster,    #<<<<<<<<<<< clustered network data
      NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<Konferenzsystematik>)",  # adding a title
-     frame  = TRUE,                    # making a frame
+     frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
      #vertex.color       = NFDI_color_groups,   #<<<<<<<<<<  color of nodes
      vertex.frame.color = NFDI_color_groups,   #<<<<<<<<<< color of the frame of nodes
      vertex.label.cex   = 0.5,         # size of the description of the labels
-     vertex.label.color = "black",     # color of the description
-                                       # color: https://www.w3schools.com/colors/colors_picker.asp
+     vertex.label.color = "black",     # color of the description 
+                                       # color: https://www.w3schools.com/colors/colors_picker.asp 
      edge.color         = NA,          #<<<<<<<<<<<<<< color of edges
      edge.curved        = 0,           # factor of "curvity"
      vertex.size        = degree(NFDI_network_directed,
@@ -1011,13 +1011,13 @@ set.seed(1234)
 plot(NFDI_network_directed_cluster,    # clustered network data
      NFDI_network_directed,            # loading data frame
      main   = "NFDI-Netzwerk (<Konferenzsystematik>)",  # adding a title
-     frame  = TRUE,                    # making a frame
+     frame  = TRUE,                    # making a frame 
      layout = layout.graphopt,         # better layout options
      vertex.frame.color = NFDI_color_groups,   # color of the frame of nodes
      vertex.label.cex   = 0.5,         # size of the description of the labels
-     vertex.label.color = "black",     # color of the description
-                                       # color: https://www.w3schools.com/colors/colors_picker.asp
-     edge.color = c(NA, "#bf4040")[crossing(NFDI_network_directed_cluster, NFDI_network_directed) + 1],
+     vertex.label.color = "black",     # color of the description 
+                                       # color: https://www.w3schools.com/colors/colors_picker.asp 
+     edge.color = c(NA, "#bf4040")[crossing(NFDI_network_directed_cluster, NFDI_network_directed) + 1], 
                                        #<<<<<<<<<<<<<<<<< show only edges if they go to another group
      edge.curved        = 0,           # factor of "curvity"
      vertex.size        = degree(NFDI_network_directed,
