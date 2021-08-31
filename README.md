@@ -7,7 +7,7 @@ Title: Visualization of networks – analyzing and visualizing connections betwe
 
 Trainer: Dr. Lukas C. Bossert, Dr. Évariste Demandt, Sama Majidian
 
-Abstract: Currently, Germany's National Research Data Infrastructure spans a network of nine funded consortia from the first round and ten from the second round. This workshop stands in the tradition of literate programming and enables you to visually display and analyze the network of consortia in your internet browser via a remote Jupyter Notebook. No prior experience in programming and no locally installed software needed – let's weave and tangle !
+Abstract: Currently, Germany's National Research Data Infrastructure spans a network of nine funded consortia from the first round and ten from the second round. This workshop enables you to visually display and analyze the network of consortia in your internet browser via a remote Jupyter Notebook. The workshop follows the tradition of literate programming. No prior experience in programming and no locally installed software needed – let's weave and tangle !
 
 # NFDI's Promise to Partner
 
