@@ -1,9 +1,10 @@
 [![DOI](https://zenodo.org/badge/318517709.svg)](https://zenodo.org/badge/latestdoi/318517709)
 
+https://gist.github.com/LukasCBossert/36d6034c8ebc2a4d61f011169371bc31
 
-# "4-5 Zeilen je Vortrag, für Workshops ggfs. mehr"
 
-Title: Visualization of networks – analyzing and visualizing connections between (planned) NFDI consortia
+
+# Visualization of networks – analyzing and visualizing connections between (planned) NFDI consortia
 
 Trainer: Dr. Lukas C. Bossert, Dr. Évariste Demandt, Sama Majidian
 
