@@ -1,19 +1,20 @@
-# Notebook -- Script zum Workshop
+# Notebook -- Script for the workshop
 
-In diesem Ordner befinden sich die verschiedenen Versionen des Scripts,
-welches für den Workshop zur Visualisierung und Analyse eines Netzwerks genutzt wurde.
+In this folder you can find the different versions of the script,
+which was used for the workshop to visualize and analyze a network.
 
-Zentral ist das [JupyterNotebook](das-versprechen-der-vernetzung.ipynb), welches die Programmiersprache R als Kernel hat und Grundlage für den Export in andere Formate ist.
+Central is the [JupyterNotebook](the-promise-of-networking.ipynb), which has the programming language R as kernel and is the basis for the export to other formats.
 
-Die Markdown-Version wird nach der Konvertierung noch gesäubert, wofür [Markdownlint](https://github.com/DavidAnson/markdownlint) verwendet wird.
+The Markdown version is still cleaned up after conversion, for which [Markdownlint](https://github.com/DavidAnson/markdownlint) is used.
 
-Über die [Makefile-Datei](makefile) können die verschiedenen Formate generiert werden:
+The [Makefile file](makefile) can be used to generate the various formats:
 
-* [PDF (via LuaLaTeX)](das-versprechen-der-vernetzung.pdf)
-* [Markdown](das-versprechen-der-vernetzung.md)
-* [Rscript](das-versprechen-der-vernetzung.r)
-* [Webseite](das-versprechen-der-vernetzung.html)
-* [WebSlides](das-versprechen-der-vernetzung.slides.html)
-* [LaTeX](das-versprechen-der-vernetzung.tex)
+- [PDF (via LuaLaTeX)](the-promise-of-networking.pdf)
+- [org-mode](the-promise-to-partner.org)
+- [Markdown](the-promise-of-networking.md)
+- [Rscript](the-promise-to-partner.r)
+- [Webpage](the-promise-of-networking.html)
+- [WebSlides](the-promise-to-partner.slides.html)
+- [LaTeX](the-promise-to-partner.tex)
 
-Anmerkungen, Korrekturen und Verbesserungsvorschläge können gerne als [*Pull Request*](https://github.com/LukasCBossert/das-versprechen-der-vernetzung/pulls) hinterlegt oder bei [*Issues*](https://github.com/LukasCBossert/das-versprechen-der-vernetzung/issues) eingetragen werden.
+Comments, corrections, and suggestions for improvement are welcome to be submitted as [_Pull Request_](https://github.com/LukasCBossert/the-promise-to-partner/pulls) or entered at [_Issues_](https://github.com/LukasCBossert/the-promise-to-partner/issues).

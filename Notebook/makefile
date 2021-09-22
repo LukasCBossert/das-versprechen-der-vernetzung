@@ -1,20 +1,19 @@
-NAME = das-versprechen-der-vernetzung
+NAME = the-promise-to-partner
 MAKE = make
 MYPATH = JupyterNotebook
 export TEXINPUTS:=.//:
 
 COMPILER_INFO=$(shell lualatex -v | head -n1 | cut -d ' ' -f3-)
-LATEX_OPTS="\newcommand*\InfoTeX{Die automatisierte Konvertierung des R Notebooks wurde erstellt mit ${COMPILER_INFO}.}\AtBeginDocument{\title{Das Versprechen der Vernetzung}\author{Dorothea Strecker | Lukas C. Bossert | Évariste Demandt}\date{\today\protect\footnote{\InfoTeX}}\setmainfont{Alegreya}\RequirePackage{microtype,etoolbox,bookmark,longtable,booktabs}\definecolor{cellbackground}{HTML}{FFFFFF}\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},fontsize=\footnotesize}}\raggedbottom"
+LATEX_OPTS="\newcommand*\InfoTeX{The automated conversion of the R notebook was created with ${COMPILER_INFO}.}\AtBeginDocument{\title{The Promise to Partner}\author{Lukas C. Bossert | Sama Majidian | Évariste Demandt}\date{\today\protect\footnote{\InfoTeX}}\setmainfont{Alegreya}\RequirePackage{microtype,etoolbox,bookmark,longtable,booktabs}\definecolor{cellbackground}{HTML}{FFFFFF}\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},fontsize=\footnotesize}}\raggedbottom"
 
 
 all:
-	time $(MAKE) {html,script,slides,pdf,md}
+	time $(MAKE) {html,script,slides,pdf,md,org}
 
 html:
 	jupyter nbconvert --to html --no-prompt $(NAME).ipynb
 
 pdf: tex
-	# jupyter nbconvert --to pdf $(NAME).ipynb
 	latexmk \
  -gg \
  -quiet \
@@ -36,7 +35,8 @@ md:
 	jupyter nbconvert --to markdown $(NAME).ipynb
 	markdownlint --fix $(NAME).md
 
-
+org: md
+	pandoc $(NAME).md -o $(NAME).org
 
 execute:
 	jupyter nbconvert --to notebook --execute $(NAME).ipynb
