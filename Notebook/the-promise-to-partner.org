@@ -39,14 +39,14 @@ nodes.
 
 R is built in such a way that different libraries can be loaded for
 different functions. For the network analysis we will use the package
-=igraph=[fn:3]. With =library('igraph')= we load the package.
+=igraph=[fn:3]. With =library(igraph)= we load the package.
 
-With =if (!require("igraph")) install.packages("igraph")= we install the
+With =if (!require(igraph)) install.packages(igraph)= we install the
 package in case it is not available on the current system.
 
 #+begin_src R
-  if (!require("igraph")) install.packages("igraph")
-  library('igraph')
+  if (!require(igraph)) install.packages(igraph)
+  library(igraph)
 #+end_src
 
 ** The Dataset
@@ -67,12 +67,6 @@ three parameters:
 
 We pass these values to the self-selected variable =NFDI_edges= , which
 is done with the arrow symbol pointing to the left.
-
-#+begin_example
-  NFDI_edges <- read.table(header=TRUE,
-                           sep=",",
-                           text="...")
-#+end_example
 
 The data itself comes from the GitHub gist
 [[https://gist.github.com/LukasCBossert/9bd04115db3aa9ed974fdc69d3ff227c][nfdi-collaborations.csv]]
@@ -2007,8 +2001,8 @@ from or to this consortium.
                                    mode = "total"), #<<<<<<<<<<< size of nodes depends on amount of edges
        edge.arrow.size    = .5,          # arrow size,  defaults to 1
            edge.color = with(NFDI_edges,
-                             ifelse(from %in% NFDI_name,"#8b0401",
-                                    ifelse(to == NFDI_name,"#01888B",
+                             ifelse(from %in% NFDI_name,"#808080", # grey
+                                    ifelse(to == NFDI_name,"#000000", # black
                                            NA)))
           )
       nfdi_plot_legend()
@@ -2127,7 +2121,7 @@ chart. Have a look at the overview on
        ([[https://github.com/dorothearrr/NFDI_Netzwerk]]), where she has
        already done a similar visualization and analysis.
 
-[fn:2] [[https://rnotebook.io]]
+[fn:2] [[https://mybinder.org/v2/gh/jupyterlab/jupyterlab-demo/master?urlpath=lab/tree/demo]]
        cf. [[https://bookdown.org/yihui/rmarkdown/notebook.html]]
 
 [fn:3] https://igraph.org/r/

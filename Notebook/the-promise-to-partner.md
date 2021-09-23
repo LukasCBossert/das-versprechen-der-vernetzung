@@ -12,7 +12,7 @@ You will then see the result of the code displayed directly below the cell.
 
 [^1]: See also the repository of Dorothea Strecker (<https://github.com/dorothearrr/NFDI_Netzwerk>), where she has already done a similar visualization and analysis.
 
-[^2]: <https://rnotebook.io> cf. <https://bookdown.org/yihui/rmarkdown/notebook.html>
+[^2]: <https://mybinder.org/v2/gh/jupyterlab/jupyterlab-demo/master?urlpath=lab/tree/demo> cf. <https://bookdown.org/yihui/rmarkdown/notebook.html>
 
 Before we get started, let's clarify a few terms.
 A network consists of two components:
@@ -27,15 +27,15 @@ Nodes (*nodes* or *vertices*) are represented as circles and represent consortia
 
 R is built in such a way that different libraries can be loaded for different functions.
 For the network analysis we will use the package `igraph`[^2b].
-With `library('igraph')` we load the package.
+With `library(igraph)` we load the package.
 
-With `if (!require("igraph")) install.packages("igraph")` we install the package in case it is not available on the current system.
+With `if (!require(igraph)) install.packages(igraph)` we install the package in case it is not available on the current system.
 
 [^2b]: https://igraph.org/r/
 
 ```R
-if (!require("igraph")) install.packages("igraph")
-library('igraph')
+if (!require(igraph)) install.packages(igraph)
+library(igraph)
 ```
 
 ## The Dataset
@@ -51,12 +51,6 @@ There are three parameters:
 * `text=""` (the values themselves are between the quotes)
   
 We pass these values to the self-selected variable `NFDI_edges` , which is done with the arrow symbol pointing to the left.
-
-```{R}
-NFDI_edges <- read.table(header=TRUE,
-                         sep=",",
-                         text="...")
-```
 
 The data itself comes from the GitHub gist [nfdi-collaborations.csv](https://gist.github.com/LukasCBossert/9bd04115db3aa9ed974fdc69d3ff227c)
 
@@ -734,8 +728,8 @@ nfdi_plot_group <- function(NFDI_name) {
                                  mode = "total"), #<<<<<<<<<<< size of nodes depends on amount of edges
      edge.arrow.size    = .5,          # arrow size,  defaults to 1
          edge.color = with(NFDI_edges,
-                           ifelse(from %in% NFDI_name,"#8b0401",
-                                  ifelse(to == NFDI_name,"#01888B",
+                           ifelse(from %in% NFDI_name,"#808080", # grey
+                                  ifelse(to == NFDI_name,"#000000", # black
                                          NA)))
         )
     nfdi_plot_legend()
