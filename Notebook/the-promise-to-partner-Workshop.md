@@ -1,36 +1,16 @@
-# The Promise to Partner
+# Visualization of networks – analyzing and visualizing connections between (planned) NFDI consortia
 
-R is built in such a way that different libraries can be loaded for different functions.
-For the network analysis we will use the package `igraph`[^2b].
-With `library(igraph)` we load the package.
-
-With `install.packages("igraph")` we install the package in case it is not available on the current system.
-
-[^2b]: https://igraph.org/r/
 
 ```R
 #install.packages("igraph")
 library("igraph")
 ```
 
-## The Dataset
+## The Dataset for Edges
+Get the data: [nfdi-collaborations.csv](https://gist.github.com/LukasCBossert/9bd04115db3aa9ed974fdc69d3ff227c)                    
 
-The data basis is a two-column listing of the consortia.
-The first column (`from`) contains the consortium whose *letter of intent* is evaluated. The second column (`to`) contains the consortium which is named as cooperation partner.
-
-This data is read in by means of the function `read.table`.
-There are three parameters:
-
-* `header=TRUE` (there is a header line in the dataset).
-* `sep=","` (the values are separated by a comma)
-* `text=""` (the values themselves are between the quotes)
-  
-We pass these values to the self-selected variable `NFDI_edges` , which is done with the arrow symbol pointing to the left.
-
-The data itself comes from the GitHub gist [nfdi-collaborations.csv](https://gist.github.com/LukasCBossert/9bd04115db3aa9ed974fdc69d3ff227c)
 
 ```R
-# Dataset:
 # https://gist.github.com/LukasCBossert/9bd04115db3aa9ed974fdc69d3ff227c
 NFDI_edges <- read.table(header=TRUE,
                          sep=",",
@@ -148,18 +128,11 @@ Text+,NFDI4Ing
 ")
 ```
 
-So that we can create a network from this dataset,
-we have to prepare it and create a `igraph graph`.[^3]
-This is done with the function `graph_from_data_frame`, to which we pass our dataset.
 
-We also specify that our dataset or network is undirected
-(`directed=FALSE`), that means that the direction as specified by `from,to` in the dataset
-does not matter.
-All we care about now is that two consortia are linked.
+```R
+head(NFDI_edges)
+```
 
-We pass this information to the variable `NFDI_network`.
-
-[^3]: https://igraph.org/r/doc/graph_from_data_frame.html
 
 ```R
 NFDI_network <- graph_from_data_frame(NFDI_edges,
@@ -167,14 +140,24 @@ NFDI_network <- graph_from_data_frame(NFDI_edges,
                                      )
 ```
 
-## Basic setting
 
-First, we will set a parameter so that our network always looks the same when the data is the same. This parameter is `seed`.
-We choose an arbitrary number, which may be large.
+```R
+head(NFDI_network)
+```
 
-After that we come to the actual plot.
-For this we call the function `plot` and pass it the variable of our network graph `NFDI_network`.
-For a title we can still specify the parameter `main` and also we can specify if we want to have a frame around the network with `frame=TRUE`.
+## First plot
+
+
+```R
+plot(NFDI_network) # loading data frame
+```
+
+
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_8_0.png)
+    
+
+
 
 ```R
 set.seed(9876543)
@@ -186,24 +169,14 @@ plot(NFDI_network,                    # loading data frame
 
 ```
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_9_0.png)
 
-We see the network of NFDI consortia without any other explicit settings.
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_9_0.png)
+    
+
 
 ## Layout settings
 
-The next step we want to do is optimize the layout of the network.
-Instead of retyping the code for the plot, we will select the content of the last cell, copy and paste it into the next cell.
-
-We'll expand the code this way and work on the network step by step.
-
-There are different algorithms for the layout of networks.
-Depending on the data set, sometimes one layout, sometimes the other may be more suitable.
-With the layout `graphopt`[^4a] you usually get a good result.
-
-We pass this value `layout.graphopt` to the parameter `layout`.
-
-[^4a]: https://igraph.org/r/doc/layout_with_graphopt.html
 
 ```R
 set.seed(9876543)
@@ -213,16 +186,19 @@ plot(NFDI_network,                     # loading data frame
      frame  = TRUE,                    # making a frame
      layout = layout.graphopt,         #* better layout options
      )
-
 ```
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_12_0.png)
 
-We see the network of NFDI consortia without any other explicit settings.
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_11_0.png)
+    
+
+
+### Layout algorithm
 
 The network is now already better structured and the distances between the nodes are more harmonious.
 
-If you like, you can try out further layout settings [^4b]:
+If you like, you can try out [further layout settings](https://igraph.org/python/doc/tutorial/tutorial.html#layout-algorithms):
 
 * `layout_circle` (`circle,circular`): Deterministic layout that places the vertices on a circle
 * `layout_drl` (`drl`): The Distributed Recursive Layout algorithm for large graphs
@@ -238,30 +214,8 @@ If you like, you can try out further layout settings [^4b]:
 * `layout_reingold_tilford_circular` (`rt_circular, tree`): Reingold-Tilford tree layout with a polar coordinate post-transformation, useful for (almost) tree-like graphs
 * `layout_sphere` (`sphere,spherical,circular_3d`): Deterministic layout that places the vertices evenly on the surface of a sphere
 
-[^4b]: https://igraph.org/python/doc/tutorial/tutorial.html#layout-algorithms
-
 ### Color, Size, Curvature (Nodes and Edges)
 
-After we have optimized the arrangement of the nodes, let's tackle the representation of the nodes and edges in the next step.
-
-Various parameters can be adjusted according to your own wishes.
-
-First we want to tackle the color of the nodes.
-The parameter is `vertex.color` and we can specify an HTML color value (for example `#ffcc66`).[^5]
-For the border of the nodes we choose the same color code. The parameter is `vertex.frame.color`.
-
-The labels of the nodes can also be modified.
-The change of the font size is done by the parameter `vertex.label.cex`, to which we pass the value `0.5`.
-It is important here that the value is *not* written in quotes.
-This is a relative size and we want the labels to be half the size they were in the previous network.
-The color of the label can also be changed.
-Quite analogously, the parameter is called `vertex.label.color`, to which we can also pass the color value as a string, such as `"black"`.
-
-A network consists not only of nodes but also of edges connecting two nodes.
-For the color change we need the parameter `edge.color`, to which we pass for example `"#808080"`.
-Besides the color we can also specify the degree of "curvature", which is set with `edge.curved` and the value `0.1`. Again, it is important that *no* quotes are set.
-
-[^5]: https://www.w3schools.com/colors/colors_picker.asp
 
 ```R
 set.seed(9876543)
@@ -280,30 +234,19 @@ plot(NFDI_network,                     # loading data frame
      )
 ```
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_16_0.png)
+
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_14_0.png)
+    
+
 
 ## Node size as a function of the number of edges
 
-In the previous network representations, all nodes are the same size.
-
-Now we want to add another layer of information and output the node size according to the number of its edges.
-
-We can determine the number of edges per node with the function `degree`[^6].
-If we pass this function the dataset of the network (`degree(NFDI_network)`),
-then we get the number of edges per node.
-We take these values as the size specification for the nodes.
-
-We thus extend the previous code by one line.
-The node size is hidden behind the parameter `vertex.size` and as value we pass the function
-`degree(NFDI_network)`.
-
-[^6]: https://igraph.org/r/doc/degree.html
 
 ```R
-#data.frame(
-    degree(NFDI_network) #* calculate number of edges
-#)                  
+degree(NFDI_network) #* calculate number of edges              
 ```
+
 
 <style>
 .dl-inline {width: auto; margin:0; padding: 0}
@@ -312,7 +255,10 @@ The node size is hidden behind the parameter `vertex.size` and as value we pass 
 .dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
 </style><dl class=dl-inline><dt>DataPLANT</dt><dd>7</dd><dt>GHGA</dt><dd>5</dd><dt>KonsortSWD</dt><dd>11</dd><dt>NFDI4BioDiversity</dt><dd>13</dd><dt>NFDI4Cat</dt><dd>10</dd><dt>NFDI4Chem</dt><dd>19</dd><dt>NFDI4Culture</dt><dd>7</dd><dt>NFDI4Health</dt><dd>13</dd><dt>NFDI4Ing</dt><dd>19</dd><dt>BERD@NFDI</dt><dd>5</dd><dt>DAPHNE4NFDI</dt><dd>12</dd><dt>FAIRmat</dt><dd>16</dd><dt>MaRDI</dt><dd>14</dd><dt>NFDI-MatWerk</dt><dd>12</dd><dt>NFDI4DataScience</dt><dd>13</dd><dt>NFDI4Earth</dt><dd>15</dd><dt>NFDI4Microbiota</dt><dd>8</dd><dt>PUNCH4NFDI</dt><dd>10</dd><dt>Text+</dt><dd>9</dd></dl>
 
+
+
 ## Modify the network design
+
 
 ```R
 set.seed(9876543)
@@ -332,22 +278,14 @@ plot(NFDI_network,                     # loading data frame
      )
 ```
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_20_0.png)
 
-## Show incoming and outgoing edges
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_18_0.png)
+    
 
-We have now introduced a second layer of information into our network and can display the node size in relation to the number of edges.
 
-In the next step, we would like to introduce another component.
-Until now, it was irrelevant whether a consortium was named first or second in the dataset, i.e., it was irrelevant whether it was the active or the passive collaborator.
+## Show incoming and outgoing edges with directed graphs
 
-Now we would like to consider the distinction in the network.
-To do this, our graph (network) must be "directed"[^7].
-
-We introduce a new variable (`NFDI_network_directed`), which contains the dataset as a directed graph,
-which we set with `directed = TRUE`.
-
-[^7]: https://en.wikipedia.org/wiki/Directed_graph
 
 ```R
 NFDI_network_directed <- graph_from_data_frame(NFDI_edges,
@@ -355,14 +293,6 @@ NFDI_network_directed <- graph_from_data_frame(NFDI_edges,
                                               )
 ```
 
-We transfer the remaining plot data from the previous cell.
-It is now crucial that we pass the new variable with the directed graph to the plot function.
-In addition, we also pass the new variable to the `degree` function.
-
-In the directed network, the curvature of the edges makes it difficult to read.
-Therefore we choose the value `0` for `edge.curved`.
-
-Likewise, the arrowheads should become smaller, which is possible with `edge.arrow.size` and the relative value `0.5`.
 
 ```R
 set.seed(9876543)
@@ -384,49 +314,18 @@ plot(NFDI_network_directed,            #<<<<<<< loading data frame
 
 ```
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_24_0.png)
 
-# Network analysis
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_21_0.png)
+    
 
-After the previous rounds of network visualization, let's go one step further and analyze the network structure.
 
-## NFDI conference systematics
+## The Dataset for Nodes
+Get the data: [nfdi-consortia.csv](https://gist.github.com/LukasCBossert/ce56ebd0059b4879c7d11c1090118c25)                    
 
-As a first step, let's color the nodes or consortia in the colors of the NFDI conference systematics.
 
-How does the NFDI conference systematics come about?
-Five panels have been set up for the presentations:
-
-1. Medicine
-2. Life Sciences
-3. Humanities
-4. Engineering Sciences
-5. Chemistry/Physics
-
-The applicant consortia were divided among these five groups:[^7b]
-
-![NFDI conference systematics](https://i.ibb.co/vsvf2bg/nfdi-konferenzsystematik.png)
-<!--![NFDI conference systematics](img/nfdi-konferenzsystematik.png)-->
-
-In the following, we abbreviate Group 4 "Computer Science, Mathematics and Engineering" as "Engineering".
-
-[^7b]: https://www.dfg.de/download/pdf/foerderung/programme/nfdi/nfdi_konferenz_2020/programm_webkonferenz_2020.pdf
-
-It is noticeable that according to the DFG subject classification system, the natural sciences have been divided between the life sciences, engineering sciences and chemistry/physics, as can be seen in the following Sankey (flow chart).
-
-![Sankey diagram showing the change in subject affiliation between DFG subject classification and NFDI conference classification.](https://i.ibb.co/cyCZ8W6/dfg-nfdi-sankey.png)
-<!--![Sankey diagram showing the change in subject affiliation between DFG subject classification and NFDI conference classification.](img/dfg-nfdi-sankey.png)-->
-
-So all consortia have been assigned to one of these five areas and we now want to show this in the network.
-We load this classification of the consortia on the conference system in the next cell.
-
-This new record is passed to the variable 'NFDI_nodes'; the first column contains the consortium names, the second column the number from the NFDI-*conference*systematics.
-The third column contains the round in which the consortium was approved: `1`= 2019, `2`= 2020.
-
-The data can be read from the public GitHub gist [nfdi-consortia.csv](https://gist.github.com/LukasCBossert/ce56ebd0059b4879c7d11c1090118c25).
 
 ```R
-# Dataset
 # https://gist.github.com/LukasCBossert/ce56ebd0059b4879c7d11c1090118c25
 NFDI_nodes <- read.table(header=TRUE,
                          sep=",",
@@ -454,7 +353,30 @@ Text+,3,2
 ")
 ```
 
-Now we still have to create a graph dataset from the dataset, which is again done with `graph_from_data_frame`. What is new is that we now differentiate what is our edge data frame and what is the list with the nodes.
+
+```R
+head(NFDI_nodes) # check if data is loaded correctly
+```
+
+
+<table class="dataframe">
+<caption>A data.frame: 6 × 3</caption>
+<thead>
+	<tr><th></th><th scope=col>name</th><th scope=col>group</th><th scope=col>round</th></tr>
+	<tr><th></th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>1</th><td>DataPLANT        </td><td>2</td><td>1</td></tr>
+	<tr><th scope=row>2</th><td>GHGA             </td><td>1</td><td>1</td></tr>
+	<tr><th scope=row>3</th><td>KonsortSWD       </td><td>3</td><td>1</td></tr>
+	<tr><th scope=row>4</th><td>NFDI4BioDiversity</td><td>2</td><td>1</td></tr>
+	<tr><th scope=row>5</th><td>NFDI4Cat         </td><td>5</td><td>1</td></tr>
+	<tr><th scope=row>6</th><td>NFDI4Chem        </td><td>5</td><td>1</td></tr>
+</tbody>
+</table>
+
+
+
 
 ```R
 NFDI_network_directed <- graph_from_data_frame(d = NFDI_edges,        # d = data frame =~ edges
@@ -462,32 +384,47 @@ NFDI_network_directed <- graph_from_data_frame(d = NFDI_edges,        # d = data
                                                directed = TRUE)       #directed
 ```
 
-## DFG/NFDI color coding
+## Color nodes according to funding year
 
-In order to better recognize the node classification on the NFDI conference systematics in the network, we choose a color coding according to the DFG subject systematics (slight adjustment if necessary).
 
-The following values apply
+```R
+NFDI_color_year <- c("lightgreen", # 2019 (1)
+                     "lightblue"  # 2020 (2)
+                    )
+NFDI_color_groups <- NFDI_color_year[
+    as.numeric(as.factor(
+        V(NFDI_network_directed)$round))] # <<<< based on the round
+```
 
-| No. | Designation          | HTML color code |
-|-----|----------------------|-----------------|
-| (1) | Medicine             | `#f5ac9f`       |
-| (2) | Life Sciences        | `#e43516`       |
-| (3) | Humanities           | `#f9b900`       |
-| (4) | Engineering Sciences | `#007aaf`       |
-| (5) | Chemistry/Physics    | `#6ca11d`       |
 
-We now pass these color values in sequence to the variable 'NFDI_color_code',
-thereby the color values are written into a list.
-Using the function `c` the values are written into a vector,[^11]
-with which we can continue.
+```R
+set.seed(9876543)
 
-Now we have to establish the link between the color value and the consortia.
-For this we introduce the variable `NFDI_color_groups`:
-Each value from `NFDI_color_code` has a position number (1-5),
-we use this by evaluating the value of the second column of the network graph (`$group`) as a number and thus passing the color value.
-Simplified and from the result, the NFDI conference system number gets the color value that is in the corresponding position in the list of the variable `NFDI_color_code`.
+plot(NFDI_network_directed,            # loading data frame
+     main   = "NFDI-Network (<Funding year>)",  #<<<<<<<< adding a title
+     frame  = TRUE,                    # making a frame 
+     layout = layout.graphopt,         # better layout options
+     vertex.color       = NFDI_color_groups,   #<<<<<<<<<< color of nodes
+     vertex.frame.color = NFDI_color_groups,   #<<<<<<<<<< color of the frame of nodes
+     vertex.label.cex   = 0.5,         # size of the description of the labels
+     vertex.label.color = "black",     # color of the description 
+                                       # color: https://www.w3schools.com/colors/colors_picker.asp 
+     edge.color         = "#808080",   # color of edges
+     edge.curved        = 0,           # factor of "curvity"
+     vertex.size        = degree(NFDI_network_directed,
+                                 mode = "total"), #<<<<<<<<<<< size of nodes depends on amount of edges
+     edge.arrow.size    = .5,          # arrow size,  defaults to 1
+    )
+```
 
-[^11]: https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/c
+
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_28_0.png)
+    
+
+
+## Color nodes according to discipline
+
 
 ```R
 NFDI_color_code <- c("#f5ac9f", # Medicine
@@ -501,14 +438,6 @@ NFDI_color_groups <- NFDI_color_code[
         V(NFDI_network_directed)$group))]
 ```
 
-## Network with colored nodes
-
-We can again take the code from the previous cell and adapt it.
-
-It is crucial that we specify the variable `NFDI_color_groups` as value for `vertex.color` and `vertex.frame.color`.
-We also want to consider and display the entire network with all edges (`mode = "total"`).
-
-What is missing now is a legend so that we can also see what is behind the color coding.
 
 ```R
 set.seed(9876543)
@@ -530,19 +459,14 @@ plot(NFDI_network_directed,            # loading data frame
     )
 ```
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_35_0.png)
 
-Ok, we want to add a legend now and since we want to define it only once we make it as a function, which we now fill with values:
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_31_0.png)
+    
 
-* First the positioning of the legend, which we want to have `bottomright`,
-then the title (`title = "NFDI conference systematics"`),
-now comes the content of the legend, which is controlled by the `legend` parameter:
-For this we again build a list (`c()`), in which we enter the desired values.
-* `col`: With `col` we set the color scheme and we can directly refer to the NFDI color list via the variable `NFDI_color_code`.
-* `pch`: We must not forget the `pch` parameter, because it is used to define the symbol in the legend. With the value `20` we select a filled circle.
-* `bty`: With `bty` and the value `n` for `no` we do without a frame around the legend.
-* `cex` (so `character expansion`) is again a relative value and we can specify the font size;
-similarly, `pt.cex` works for the legend symbols.
+
+## Legend
+
 
 ```R
 nfdi_plot_legend <- function(){
@@ -565,7 +489,6 @@ nfdi_plot_legend <- function(){
 }
 ```
 
-Now we add the legend to the plot.
 
 ```R
 set.seed(9876543)
@@ -585,14 +508,17 @@ plot(NFDI_network_directed,            # loading data frame
                                  mode = "total"), #<<<<<<<<<<< size of nodes depends on amount of edges
      edge.arrow.size    = .5,          # arrow size,  defaults to 1
     )
-nfdi_plot_legend()
+nfdi_plot_legend() # <<<< add the legend to the plot
 ```
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_39_0.png)
+
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_34_0.png)
+    
+
 
 ## Additional stuff
 
-Let us concentrate on only one consortium and display the connection from or to this consortium.
 
 ```R
 nfdi_plot_group <- function(NFDI_name) {
@@ -623,26 +549,38 @@ nfdi_plot_group <- function(NFDI_name) {
       
           }
     
-    ### ! important! Create a folder called "img" first.
-pdf(paste0("img/network_group_",NFDI_name,".pdf"))   # save image as PDF
-nfdi_local_network(NFDI_name) # display image for saving
-dev.off()                      # close image stream
+    ####################################################
+    ### ! important! 
+    ### If you want to export the plots,
+    ### you need to create a folder called "img" first.
+    ####################################################
+ # pdf(paste0("img/network_group_",NFDI_name,".pdf"))   # save image as PDF
+ # nfdi_local_network(NFDI_name) # display image for saving
+ # dev.off()                      # close image stream
  nfdi_local_network(NFDI_name)  # display image in JupyterNotebook
 }
 nfdi_plot_group("NFDI4Ing")
 ```
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_41_0.png)
 
-Here is another consortium and its connections.
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_36_0.png)
+    
+
+
 
 ```R
 nfdi_plot_group("NFDI4Microbiota")
 ```
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_43_0.png)
+
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_37_0.png)
+    
+
 
 I love loops....
+
 
 ```R
 for (name in NFDI_nodes$name){
@@ -650,43 +588,119 @@ for (name in NFDI_nodes$name){
 }
 ```
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_45_0.png)
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_45_1.png)
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_39_0.png)
+    
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_45_2.png)
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_45_3.png)
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_45_4.png)
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_39_1.png)
+    
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_45_5.png)
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_45_6.png)
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_45_7.png)
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_39_2.png)
+    
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_45_8.png)
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_45_9.png)
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_45_10.png)
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_39_3.png)
+    
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_45_11.png)
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_45_12.png)
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_45_13.png)
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_39_4.png)
+    
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_45_14.png)
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_45_15.png)
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_45_16.png)
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_39_5.png)
+    
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_45_17.png)
 
-![png](the-promise-to-partner-Workshop_files/the-promise-to-partner-Workshop_45_18.png)
+
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_39_6.png)
+    
+
+
+
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_39_7.png)
+    
+
+
+
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_39_8.png)
+    
+
+
+
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_39_9.png)
+    
+
+
+
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_39_10.png)
+    
+
+
+
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_39_11.png)
+    
+
+
+
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_39_12.png)
+    
+
+
+
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_39_13.png)
+    
+
+
+
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_39_14.png)
+    
+
+
+
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_39_15.png)
+    
+
+
+
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_39_16.png)
+    
+
+
+
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_39_17.png)
+    
+
+
+
+    
+![png](the-promise-to-partner-workshop_files/the-promise-to-partner-workshop_39_18.png)
+    
+
 
 # Backup, export and outlook
 
@@ -698,7 +712,8 @@ If you have created the network with the RNoteBook, you can call it up again at 
 
 There are other exciting occupations with this network.
 For example, you can also create an interactive network or display the network as a pie chart.
-Have a look at the overview on <https://www.r-graph-gallery.com/network.html>.
+Have a look at the overview on https://www.r-graph-gallery.com/network.html.
+
 
 ```R
 

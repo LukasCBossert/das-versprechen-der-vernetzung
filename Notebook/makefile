@@ -1,4 +1,5 @@
 NAME = the-promise-to-partner
+WORKSHOP = $(NAME)-workshop
 MAKE = make
 MYPATH = JupyterNotebook
 export TEXINPUTS:=.//:
@@ -13,6 +14,7 @@ PANDOC_OPTIONS += --template bin/eisvogel.latex
 
 all:
 	time $(MAKE) {html,script,slides,pdf,md,org}
+	time $(MAKE) md NAME=$(NAME)-workshop
 
 html:
 	jupyter nbconvert --to html --no-prompt $(NAME).ipynb
@@ -40,7 +42,7 @@ script:
 
 md:
 	jupyter nbconvert --to markdown $(NAME).ipynb
-	markdownlint --fix $(NAME).md
+#	markdownlint --fix $(NAME).md
 
 org: md
 	pandoc $(NAME).md -o $(NAME).org
