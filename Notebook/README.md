@@ -1,4 +1,4 @@
-# Notebook -- Script for the workshop
+# Notebook -- Script for the workshop and beyond
 
 In this folder you can find the different versions of the script,
 which was used for the workshop to visualize and analyze a network.
