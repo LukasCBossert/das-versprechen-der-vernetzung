@@ -16,13 +16,14 @@ In the interactive part of the workshop we worked with JupyterNotebooks.
 The documented sample solution is stored in various formats in the folder [_Notebook_](Notebook/).
 Direct exports from JupyterNotebook are provided in the following formats:
 
-- [JupyterNotebook (R)](Notebook/das-versprechen-der-vernetzung.ipynb)
-- [PDF (via LuaLaTeX)](Notebook/das-versprechen-der-vernetzung.pdf)
-- [Markdown](Notebook/das-versprechen-der-vernetzung.md)
-- [Rscript](Notebook/das-versprechen-der-vernetzung.r)
-- [Webseite](Notebook/das-versprechen-der-vernetzung.html)
-- [WebSlides](Notebook/das-versprechen-der-vernetzung.slides.html)
-- [LaTeX](Notebook/das-versprechen-der-vernetzung.tex)
+- [JupyterNotebook (R)](notebook/the-promise-to-partner.ipnyb)
+- [PDF (via LuaLaTeX)](notebook/the-promise-to-partner.pdf)
+- [org-mode](notebook/the-promise-to-partner.org)
+- [Markdown](notebook/the-promise-of-networking.md)
+- [Rscript](notebook/the-promise-to-partner.r)
+- [Webpage](notebook/the-promise-of-networking.html)
+- [WebSlides](notebook/the-promise-to-partner.slides.html)
+- [LaTeX](notebook/the-promise-to-partner.tex)
 
 ## License (MIT)
 

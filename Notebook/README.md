@@ -9,7 +9,7 @@ Central is the [JupyterNotebook](the-promise-of-networking.ipynb), which has the
 
 The [Makefile file](makefile) can be used to generate the various formats:
 
-- [PDF (via LuaLaTeX)](the-promise-of-networking.pdf)
+- [PDF (via LuaLaTeX)](the-promise-to-partner.pdf)
 - [org-mode](the-promise-to-partner.org)
 - [Markdown](the-promise-of-networking.md)
 - [Rscript](the-promise-to-partner.r)
@@ -18,3 +18,8 @@ The [Makefile file](makefile) can be used to generate the various formats:
 - [LaTeX](the-promise-to-partner.tex)
 
 Comments, corrections, and suggestions for improvement are welcome to be submitted as [_Pull Request_](https://github.com/LukasCBossert/the-promise-to-partner/pulls) or entered at [_Issues_](https://github.com/LukasCBossert/the-promise-to-partner/issues).
+
+Furthermore you find the solution snippets we used for the Hands-On-Workshop itself:
+
+- [JupyterNotebook](the-promise-to-partner-workshop.ipynb)
+- [Markdown](the-promise-to-partner-workshop.md)
