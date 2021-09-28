@@ -1,6 +1,4 @@
-[![DOI](https://zenodo.org/badge/318517709.svg)](https://zenodo.org/badge/latestdoi/318517709)
-
-(for the data regarding the first workshop see: [![DOI](https://zenodo.org/badge/4322757.svg)](https://zenodo.org/record/4322757))
+(for the data regarding the first workshop see [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4322757.svg)](https://doi.org/10.5281/zenodo.4322757))
 
 # Visualization of networks – analyzing and visualizing connections between (planned) NFDI consortia
 
