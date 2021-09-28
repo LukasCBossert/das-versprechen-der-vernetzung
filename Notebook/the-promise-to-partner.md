@@ -6,8 +6,9 @@ In this JupyterNotebook we show you how to visualize and analyze a network. We d
 As a data basis, we take the *Letters of Intent* of the respective consortia, in which cooperation partners are named. These mentions are the starting point of our network[^1].
 
 
-We do the visualization in a JupyterNotebook or R Notebook[^2], so no local installation of R is necessary. 
+We do the visualization in a JupyterNotebook or R Notebook/JupyterLab[^2], so no local installation of R is necessary. 
 JupyterNotebooks are built in such a way that you have different cells in which you write code (in our case `R` code).
+
 To run the cell with the code, we can click on "*Cell*" and "*Run Cells*" in the menu.
 Or click with the cursor in the cell and then press *SHIFT*" and "*ENTER*" at the same time.
 You will then see the result of the code displayed directly below the cell.
@@ -15,6 +16,8 @@ You will then see the result of the code displayed directly below the cell.
 [^1]: See also the repository of Dorothea Strecker (https://github.com/dorothearrr/NFDI_Netzwerk), where she has already done a similar visualization and analysis.
 
 [^2]: https://mybinder.org/v2/gh/jupyterlab/jupyterlab-demo/master?urlpath=lab/tree/demo cf. https://bookdown.org/yihui/rmarkdown/notebook.html
+
+## Preliminary Comments
 
 Before we get started, let's clarify a few terms.
 A network consists of two components:
@@ -30,19 +33,40 @@ Nodes (*nodes* or *vertices*) are represented as circles and represent consortia
 
 
 
+## Technical Preparations
+
 R is built in such a way that different libraries can be loaded for different functions.
 For the network analysis we will use the package `igraph`[^2b].
-With `library(igraph)` we load the package. 
+With `library("igraph")` we load the package. Have a great introduction into network analysis with R at 
+https://kateto.net/network-visualization.
 
-With `if (!require(igraph)) install.packages(igraph)` we install the package in case it is not available on the current system.
+With `if (!require("igraph")) install.packages("igraph")` we install the package in case it is not available on the current system.
 
 [^2b]: https://igraph.org/r/
 
 
 ```R
-if (!require(igraph)) install.packages(igraph)
-library(igraph)
+if (!require("igraph")) install.packages("igraph")
+library("igraph")
 ```
+
+    Loading required package: igraph
+    
+    
+    Attaching package: ‘igraph’
+    
+    
+    The following objects are masked from ‘package:stats’:
+    
+        decompose, spectrum
+    
+    
+    The following object is masked from ‘package:base’:
+    
+        union
+    
+    
+
 
 ## The Dataset
 
@@ -314,27 +338,17 @@ We see the network of NFDI consortia without any other explicit settings.
 
 The network is now already better structured and the distances between the nodes are more harmonious.
 
-If you like, you can try out further layout settings [^4b]:
+If you like, you can try out [further layout settings](https://igraph.org/python/doc/tutorial/tutorial.html#layout-algorithms):
 
-* `layout_circle` (`circle,circular`): Deterministic layout that places the vertices on a circle
-* `layout_drl` (`drl`): The Distributed Recursive Layout algorithm for large graphs
-* `layout_fruchterman_reingold` (`fr`): Fruchterman-Reingold force-directed algorithm
-* `layout_fruchterman_reingold_3d` (`fr3d, fr_3d`): Fruchterman-Reingold force-directed algorithm in three dimensions
-* `layout_grid_fruchterman_reingold` (`grid_fr`): Fruchterman-Reingold force-directed algorithm with grid heuristics for large graphs
-* `layout_kamada_kawai` (`kk`): Kamada-Kawai force-directed algorithm
-* `layout_kamada_kawai_3d` (`kk3d, kk_3d`): Kamada-Kawai force-directed algorithm in three dimensions
-* `layout_lgl` (`large, lgl, large_graph`): The Large Graph Layout algorithm for large graphs
-* `layout_random` (`random`): Places the vertices completely randomly
-* `layout_random_3d` (`random_3d`): Places the vertices completely randomly in 3D
-* `layout_reingold_tilford` (`rt, tree`): Reingold-Tilford tree layout, useful for (almost) tree-like graphs
-* `layout_reingold_tilford_circular` (`rt_circular, tree`): Reingold-Tilford tree layout with a polar coordinate post-transformation, useful for (almost) tree-like graphs
-* `layout_sphere` (`sphere,spherical,circular_3d`): Deterministic layout that places the vertices evenly on the surface of a sphere
+* `layout.circle` (`circle,circular`): Deterministic layout that places the vertices on a circle
+* `layout.drl` (`drl`): The Distributed Recursive Layout algorithm for large graphs
+* `layout.fruchterman.reingold` (`fr`): Fruchterman-Reingold force-directed algorithm
+* `layout.kamada.kawai` (`kk`): Kamada-Kawai force-directed algorithm
+* `layout.lgl` (`large, lgl, large_graph`): The Large Graph Layout algorithm for large graphs
+* `layout.random` (`random`): Places the vertices completely randomly
+* `layout.reingold.tilford` (`rt, tree`): Reingold-Tilford tree layout, useful for (almost) tree-like graphs
+* `layout.sphere` (`sphere,spherical,circular_3d`): Deterministic layout that places the vertices evenly on the surface of a sphere
 
-
-
-
-
-[^4b]: https://igraph.org/python/doc/tutorial/tutorial.html#layout-algorithms
 
 ### Color, Size, Curvature (Nodes and Edges)
 
@@ -554,7 +568,7 @@ degree(NFDI_network_directed,
 .dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
 .dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
 .dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
-</style><dl class=dl-inline><dt>DataPLANT</dt><dd>5</dd><dt>GHGA</dt><dd>4</dd><dt>KonsortSWD</dt><dd>6</dd><dt>NFDI4BioDiversity</dt><dd>8</dd><dt>NFDI4Cat</dt><dd>6</dd><dt>NFDI4Chem</dt><dd>12</dd><dt>NFDI4Culture</dt><dd>4</dd><dt>NFDI4Health</dt><dd>8</dd><dt>NFDI4Ing</dt><dd>12</dd><dt>BERD@NFDI</dt><dd>2</dd><dt>DAPHNE4NFDI</dt><dd>5</dd><dt>FAIRmat</dt><dd>7</dd><dt>MaRDI</dt><dd>7</dd><dt>NFDI-MatWerk</dt><dd>5</dd><dt>DataScience</dt><dd>3</dd><dt>NFDI4Earth</dt><dd>6</dd><dt>NFDI4Microbiota</dt><dd>1</dd><dt>PUNCH</dt><dd>4</dd><dt>Text+</dt><dd>4</dd></dl>
+</style><dl class=dl-inline><dt>DataPLANT</dt><dd>5</dd><dt>GHGA</dt><dd>4</dd><dt>KonsortSWD</dt><dd>6</dd><dt>NFDI4BioDiversity</dt><dd>8</dd><dt>NFDI4Cat</dt><dd>6</dd><dt>NFDI4Chem</dt><dd>12</dd><dt>NFDI4Culture</dt><dd>4</dd><dt>NFDI4Health</dt><dd>8</dd><dt>NFDI4Ing</dt><dd>12</dd><dt>BERD@NFDI</dt><dd>2</dd><dt>DAPHNE4NFDI</dt><dd>5</dd><dt>FAIRmat</dt><dd>7</dd><dt>MaRDI</dt><dd>7</dd><dt>NFDI-MatWerk</dt><dd>5</dd><dt>NFDI4DataScience</dt><dd>3</dd><dt>NFDI4Earth</dt><dd>6</dd><dt>NFDI4Microbiota</dt><dd>1</dd><dt>PUNCH4NFDI</dt><dd>4</dd><dt>Text+</dt><dd>4</dd></dl>
 
 
 
@@ -605,7 +619,7 @@ We take the complete cell content from before and only change `in` to `out`.
 .dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
 .dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
 .dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
-</style><dl class=dl-inline><dt>DataPLANT</dt><dd>2</dd><dt>GHGA</dt><dd>1</dd><dt>KonsortSWD</dt><dd>5</dd><dt>NFDI4BioDiversity</dt><dd>5</dd><dt>NFDI4Cat</dt><dd>4</dd><dt>NFDI4Chem</dt><dd>7</dd><dt>NFDI4Culture</dt><dd>3</dd><dt>NFDI4Health</dt><dd>5</dd><dt>NFDI4Ing</dt><dd>7</dd><dt>BERD@NFDI</dt><dd>3</dd><dt>DAPHNE4NFDI</dt><dd>7</dd><dt>FAIRmat</dt><dd>9</dd><dt>MaRDI</dt><dd>7</dd><dt>NFDI-MatWerk</dt><dd>7</dd><dt>DataScience</dt><dd>10</dd><dt>NFDI4Earth</dt><dd>9</dd><dt>NFDI4Microbiota</dt><dd>7</dd><dt>PUNCH</dt><dd>6</dd><dt>Text+</dt><dd>5</dd></dl>
+</style><dl class=dl-inline><dt>DataPLANT</dt><dd>2</dd><dt>GHGA</dt><dd>1</dd><dt>KonsortSWD</dt><dd>5</dd><dt>NFDI4BioDiversity</dt><dd>5</dd><dt>NFDI4Cat</dt><dd>4</dd><dt>NFDI4Chem</dt><dd>7</dd><dt>NFDI4Culture</dt><dd>3</dd><dt>NFDI4Health</dt><dd>5</dd><dt>NFDI4Ing</dt><dd>7</dd><dt>BERD@NFDI</dt><dd>3</dd><dt>DAPHNE4NFDI</dt><dd>7</dd><dt>FAIRmat</dt><dd>9</dd><dt>MaRDI</dt><dd>7</dd><dt>NFDI-MatWerk</dt><dd>7</dd><dt>NFDI4DataScience</dt><dd>10</dd><dt>NFDI4Earth</dt><dd>9</dd><dt>NFDI4Microbiota</dt><dd>7</dd><dt>PUNCH4NFDI</dt><dd>6</dd><dt>Text+</dt><dd>5</dd></dl>
 
 
 

@@ -12,14 +12,20 @@ As a data basis, we take the /Letters of Intent/ of the respective
 consortia, in which cooperation partners are named. These mentions are
 the starting point of our network[fn:1].
 
-We do the visualization in a JupyterNotebook or R Notebook[fn:2], so no
-local installation of R is necessary. JupyterNotebooks are built in such
-a way that you have different cells in which you write code (in our case
-=R= code). To run the cell with the code, we can click on "/Cell/" and
-"/Run Cells/" in the menu. Or click with the cursor in the cell and then
-press /SHIFT/” and "/ENTER/" at the same time. You will then see the
-result of the code displayed directly below the cell.
+We do the visualization in a JupyterNotebook or R
+Notebook/JupyterLab[fn:2], so no local installation of R is necessary.
+JupyterNotebooks are built in such a way that you have different cells
+in which you write code (in our case =R= code).
 
+To run the cell with the code, we can click on "/Cell/" and "/Run
+Cells/" in the menu. Or click with the cursor in the cell and then press
+/SHIFT/” and "/ENTER/" at the same time. You will then see the result of
+the code displayed directly below the cell.
+
+** Preliminary Comments
+   :PROPERTIES:
+   :CUSTOM_ID: preliminary-comments
+   :END:
 Before we get started, let's clarify a few terms. A network consists of
 two components:
 
@@ -38,17 +44,40 @@ nodes.
 #+caption: Components of a network. Created by ÉD.
 [[file:img/Einheitskreis-Gestalt.png]]
 
+** Technical Preparations
+   :PROPERTIES:
+   :CUSTOM_ID: technical-preparations
+   :END:
 R is built in such a way that different libraries can be loaded for
 different functions. For the network analysis we will use the package
-=igraph=[fn:3]. With =library(igraph)= we load the package.
+=igraph=[fn:3]. With =library("igraph")= we load the package. Have a
+great introduction into network analysis with R at
+https://kateto.net/network-visualization.
 
-With =if (!require(igraph)) install.packages(igraph)= we install the
+With =if (!require("igraph")) install.packages("igraph")= we install the
 package in case it is not available on the current system.
 
 #+begin_src R
-  if (!require(igraph)) install.packages(igraph)
-  library(igraph)
+  if (!require("igraph")) install.packages("igraph")
+  library("igraph")
 #+end_src
+
+#+begin_example
+  Loading required package: igraph
+
+
+  Attaching package: ‘igraph’
+
+
+  The following objects are masked from ‘package:stats’:
+
+      decompose, spectrum
+
+
+  The following object is masked from ‘package:base’:
+
+      union
+#+end_example
 
 ** The Dataset
    :PROPERTIES:
@@ -634,32 +663,23 @@ settings.
 The network is now already better structured and the distances between
 the nodes are more harmonious.
 
-If you like, you can try out further layout settings [fn:6]:
+If you like, you can try out
+[[https://igraph.org/python/doc/tutorial/tutorial.html#layout-algorithms][further
+layout settings]]:
 
-- =layout_circle= (=circle,circular=): Deterministic layout that places
+- =layout.circle= (=circle,circular=): Deterministic layout that places
   the vertices on a circle
-- =layout_drl= (=drl=): The Distributed Recursive Layout algorithm for
+- =layout.drl= (=drl=): The Distributed Recursive Layout algorithm for
   large graphs
-- =layout_fruchterman_reingold= (=fr=): Fruchterman-Reingold
+- =layout.fruchterman.reingold= (=fr=): Fruchterman-Reingold
   force-directed algorithm
-- =layout_fruchterman_reingold_3d= (=fr3d, fr_3d=): Fruchterman-Reingold
-  force-directed algorithm in three dimensions
-- =layout_grid_fruchterman_reingold= (=grid_fr=): Fruchterman-Reingold
-  force-directed algorithm with grid heuristics for large graphs
-- =layout_kamada_kawai= (=kk=): Kamada-Kawai force-directed algorithm
-- =layout_kamada_kawai_3d= (=kk3d, kk_3d=): Kamada-Kawai force-directed
-  algorithm in three dimensions
-- =layout_lgl= (=large, lgl, large_graph=): The Large Graph Layout
+- =layout.kamada.kawai= (=kk=): Kamada-Kawai force-directed algorithm
+- =layout.lgl= (=large, lgl, large_graph=): The Large Graph Layout
   algorithm for large graphs
-- =layout_random= (=random=): Places the vertices completely randomly
-- =layout_random_3d= (=random_3d=): Places the vertices completely
-  randomly in 3D
-- =layout_reingold_tilford= (=rt, tree=): Reingold-Tilford tree layout,
+- =layout.random= (=random=): Places the vertices completely randomly
+- =layout.reingold.tilford= (=rt, tree=): Reingold-Tilford tree layout,
   useful for (almost) tree-like graphs
-- =layout_reingold_tilford_circular= (=rt_circular, tree=):
-  Reingold-Tilford tree layout with a polar coordinate
-  post-transformation, useful for (almost) tree-like graphs
-- =layout_sphere= (=sphere,spherical,circular_3d=): Deterministic layout
+- =layout.sphere= (=sphere,spherical,circular_3d=): Deterministic layout
   that places the vertices evenly on the surface of a sphere
 
 *** Color, Size, Curvature (Nodes and Edges)
@@ -673,7 +693,7 @@ Various parameters can be adjusted according to your own wishes.
 
 First we want to tackle the color of the nodes. The parameter is
 =vertex.color= and we can specify an HTML color value (for example
-=#ffcc66=).[fn:7] For the border of the nodes we choose the same color
+=#ffcc66=).[fn:6] For the border of the nodes we choose the same color
 code. The parameter is =vertex.frame.color=.
 
 The labels of the nodes can also be modified. The change of the font
@@ -721,7 +741,7 @@ Now we want to add another layer of information and output the node size
 according to the number of its edges.
 
 We can determine the number of edges per node with the function
-=degree=[fn:8]. If we pass this function the dataset of the network
+=degree=[fn:7]. If we pass this function the dataset of the network
 (=degree(NFDI_network)=), then we get the number of edges per node. We
 take these values as the size specification for the nodes.
 
@@ -1166,7 +1186,7 @@ the dataset, i.e., it was irrelevant whether it was the active or the
 passive collaborator.
 
 Now we would like to consider the distinction in the network. To do
-this, our graph (network) must be "directed"[fn:9].
+this, our graph (network) must be "directed"[fn:8].
 
 We introduce a new variable (=NFDI_network_directed=), which contains
 the dataset as a directed graph, which we set with =directed = TRUE=.
@@ -1237,7 +1257,7 @@ In the next step, we want to scale the node size according to the
 the larger its node will be.
 
 We can modify the function =degree= for this by adding
-=mode = "in"=[fn:10].
+=mode = "in"=[fn:9].
 
 #+begin_example
   degree(NFDI_network_directed,
@@ -1548,7 +1568,7 @@ NFDI-MatWerk
   <dt>
 #+end_html
 
-DataScience
+NFDI4DataScience
 
 #+begin_html
   </dt>
@@ -1608,7 +1628,7 @@ NFDI4Microbiota
   <dt>
 #+end_html
 
-PUNCH
+PUNCH4NFDI
 
 #+begin_html
   </dt>
@@ -1981,7 +2001,7 @@ NFDI-MatWerk
   <dt>
 #+end_html
 
-DataScience
+NFDI4DataScience
 
 #+begin_html
   </dt>
@@ -2041,7 +2061,7 @@ NFDI4Microbiota
   <dt>
 #+end_html
 
-PUNCH
+PUNCH4NFDI
 
 #+begin_html
   </dt>
@@ -2135,7 +2155,7 @@ been set up for the presentations:
 4. Engineering Sciences
 5. Chemistry/Physics
 
-The applicant consortia were divided among these five groups:[fn:11]
+The applicant consortia were divided among these five groups:[fn:10]
 
 #+begin_html
   <!--![NFDI conference systematics](https://i.ibb.co/vsvf2bg/nfdi-konferenzsystematik.png)-->
@@ -2274,7 +2294,7 @@ The following values apply
 
 We now pass these color values in sequence to the variable
 'NFDI_color_code', thereby the color values are written into a list.
-Using the function =c= the values are written into a vector,[fn:12] with
+Using the function =c= the values are written into a vector,[fn:11] with
 which we can continue.
 
 Now we have to establish the link between the color value and the
@@ -2561,16 +2581,14 @@ https://www.r-graph-gallery.com/network.html.
 
 [fn:5] https://igraph.org/r/doc/layout_with_graphopt.html
 
-[fn:6] https://igraph.org/python/doc/tutorial/tutorial.html#layout-algorithms
+[fn:6] https://www.w3schools.com/colors/colors_picker.asp
 
-[fn:7] https://www.w3schools.com/colors/colors_picker.asp
+[fn:7] https://igraph.org/r/doc/degree.html
 
-[fn:8] https://igraph.org/r/doc/degree.html
+[fn:8] https://en.wikipedia.org/wiki/Directed_graph
 
-[fn:9] https://en.wikipedia.org/wiki/Directed_graph
+[fn:9] https://igraph.org/r/doc/degree.html
 
-[fn:10] https://igraph.org/r/doc/degree.html
+[fn:10] https://www.dfg.de/download/pdf/foerderung/programme/nfdi/nfdi_konferenz_2020/programm_webkonferenz_2020.pdf
 
-[fn:11] https://www.dfg.de/download/pdf/foerderung/programme/nfdi/nfdi_konferenz_2020/programm_webkonferenz_2020.pdf
-
-[fn:12] https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/c
+[fn:11] https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/c

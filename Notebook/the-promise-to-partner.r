@@ -1,5 +1,5 @@
-if (!require(igraph)) install.packages(igraph)
-library(igraph)
+if (!require("igraph")) install.packages("igraph")
+library("igraph")
 
 # https://gist.github.com/LukasCBossert/9bd04115db3aa9ed974fdc69d3ff227c
 NFDI_edges <- read.table(header=TRUE,

@@ -134,6 +134,25 @@ head(NFDI_edges)
 ```
 
 
+<table class="dataframe">
+<caption>A data.frame: 6 × 2</caption>
+<thead>
+	<tr><th></th><th scope=col>from</th><th scope=col>to</th></tr>
+	<tr><th></th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;fct&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>1</th><td>DataPLANT </td><td>NFDI4BioDiversity</td></tr>
+	<tr><th scope=row>2</th><td>DataPLANT </td><td>NFDI4Chem        </td></tr>
+	<tr><th scope=row>3</th><td>GHGA      </td><td>NFDI4Health      </td></tr>
+	<tr><th scope=row>4</th><td>KonsortSWD</td><td>BERD@NFDI        </td></tr>
+	<tr><th scope=row>5</th><td>KonsortSWD</td><td>NFDI4BioDiversity</td></tr>
+	<tr><th scope=row>6</th><td>KonsortSWD</td><td>NFDI4Earth       </td></tr>
+</tbody>
+</table>
+
+
+
+
 ```R
 NFDI_network <- graph_from_data_frame(NFDI_edges,
                                       directed = FALSE
@@ -144,6 +163,21 @@ NFDI_network <- graph_from_data_frame(NFDI_edges,
 ```R
 head(NFDI_network)
 ```
+
+       [[ suppressing 19 column names ‘DataPLANT’, ‘GHGA’, ‘KonsortSWD’ ... ]]
+    
+
+
+
+    6 x 19 sparse Matrix of class "dgCMatrix"
+                                                           
+    DataPLANT         . . . 2 . 1 . . . . . 1 . 1 . 1 1 . .
+    GHGA              . . . . . . . 2 . . . . . . . 1 1 1 .
+    KonsortSWD        . . . 2 . . . 2 . 2 . . . . 1 2 . . 2
+    NFDI4BioDiversity 2 . 2 . . 2 . 2 . . . . . . 1 2 1 . 1
+    NFDI4Cat          . . . . . 2 . . 1 . 2 2 1 . 1 1 . . .
+    NFDI4Chem         1 . . 2 2 . . 2 2 . 2 2 1 1 1 1 1 1 .
+
 
 ## First plot
 
@@ -200,19 +234,14 @@ The network is now already better structured and the distances between the nodes
 
 If you like, you can try out [further layout settings](https://igraph.org/python/doc/tutorial/tutorial.html#layout-algorithms):
 
-* `layout_circle` (`circle,circular`): Deterministic layout that places the vertices on a circle
-* `layout_drl` (`drl`): The Distributed Recursive Layout algorithm for large graphs
-* `layout_fruchterman_reingold` (`fr`): Fruchterman-Reingold force-directed algorithm
-* `layout_fruchterman_reingold_3d` (`fr3d, fr_3d`): Fruchterman-Reingold force-directed algorithm in three dimensions
-* `layout_grid_fruchterman_reingold` (`grid_fr`): Fruchterman-Reingold force-directed algorithm with grid heuristics for large graphs
-* `layout_kamada_kawai` (`kk`): Kamada-Kawai force-directed algorithm
-* `layout_kamada_kawai_3d` (`kk3d, kk_3d`): Kamada-Kawai force-directed algorithm in three dimensions
-* `layout_lgl` (`large, lgl, large_graph`): The Large Graph Layout algorithm for large graphs
-* `layout_random` (`random`): Places the vertices completely randomly
-* `layout_random_3d` (`random_3d`): Places the vertices completely randomly in 3D
-* `layout_reingold_tilford` (`rt, tree`): Reingold-Tilford tree layout, useful for (almost) tree-like graphs
-* `layout_reingold_tilford_circular` (`rt_circular, tree`): Reingold-Tilford tree layout with a polar coordinate post-transformation, useful for (almost) tree-like graphs
-* `layout_sphere` (`sphere,spherical,circular_3d`): Deterministic layout that places the vertices evenly on the surface of a sphere
+* `layout.circle` (`circle,circular`): Deterministic layout that places the vertices on a circle
+* `layout.drl` (`drl`): The Distributed Recursive Layout algorithm for large graphs
+* `layout.fruchterman.reingold` (`fr`): Fruchterman-Reingold force-directed algorithm
+* `layout.kamada.kawai` (`kk`): Kamada-Kawai force-directed algorithm
+* `layout.lgl` (`large, lgl, large_graph`): The Large Graph Layout algorithm for large graphs
+* `layout.random` (`random`): Places the vertices completely randomly
+* `layout.reingold.tilford` (`rt, tree`): Reingold-Tilford tree layout, useful for (almost) tree-like graphs
+* `layout.sphere` (`sphere,spherical,circular_3d`): Deterministic layout that places the vertices evenly on the surface of a sphere
 
 ### Color, Size, Curvature (Nodes and Edges)
 

@@ -5,7 +5,7 @@ which was used for the workshop to visualize and analyze a network.
 
 Central is the [JupyterNotebook](the-promise-of-networking.ipynb), which has the programming language R as kernel and is the basis for the export to other formats.
 
-The Markdown version is still cleaned up after conversion, for which [Markdownlint](https://github.com/DavidAnson/markdownlint) is used.
+<!-- The Markdown version is still cleaned up after conversion, for which [Markdownlint](https://github.com/DavidAnson/markdownlint) is used. -->
 
 The [Makefile file](makefile) can be used to generate the various formats:
 
