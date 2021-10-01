@@ -1,5 +1,11 @@
 (for the data regarding the first workshop see [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4322757.svg)](https://doi.org/10.5281/zenodo.4322757))
 
+This repository contains materials used during the workshop 
+"Visualization of networks – analyzing and visualizing connections between (planned) NFDI consortia" 
+at the NFDI4Ing Community Meeting 2021 on September 28. 
+During the workshop, the network of (planned) NFDI consortia was visualized and analyzed using the statistical software R and the library `igraph`.
+
+
 # Visualization of networks – analyzing and visualizing connections between (planned) NFDI consortia
 
 Dr. Lukas C. Bossert, Dr. Évariste Demandt, Sama Majidian
