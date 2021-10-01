@@ -1,14 +1,13 @@
 (for the data regarding the first workshop see [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4322757.svg)](https://doi.org/10.5281/zenodo.4322757))
 
-This repository contains materials used during the workshop 
-"Visualization of networks – analyzing and visualizing connections between (planned) NFDI consortia" 
-at the NFDI4Ing Community Meeting 2021 on September 28. 
-During the workshop, the network of (planned) NFDI consortia was visualized and analyzed using the statistical software R and the library `igraph`.
-
-
 # Visualization of networks – analyzing and visualizing connections between (planned) NFDI consortia
 
-Dr. Lukas C. Bossert, Dr. Évariste Demandt, Sama Majidian
+Dorothea Strecker, Sama Majidian, Lukas C. Bossert, Évariste Demandt
+
+This repository contains materials used during the workshop 
+"Visualization of networks – analyzing and visualizing connections between (planned) NFDI consortia" 
+at the NFDI4Ing Community Meeting (NFDI4Ing Konferenz) 2021 on September 28. 
+During the workshop, the network of (planned) NFDI consortia was visualized and analyzed using the statistical software R and the library `igraph`.
 
 Abstract: Currently, Germany's National Research Data Infrastructure spans a network of nine funded consortia from the first round and ten from the second round. This workshop enables you to visually display and analyze the network of consortia in your internet browser via a remote Jupyter Notebook. The workshop follows the tradition of literate programming. No prior experience in programming and no locally installed software needed – let's weave and tangle !
 
