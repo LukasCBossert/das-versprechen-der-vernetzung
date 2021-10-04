@@ -21,7 +21,7 @@ In the interactive part of the workshop we worked with JupyterNotebooks.
 The documented sample solution is stored in various formats in the folder [_Notebook_](Notebook/).
 Direct exports from JupyterNotebook are provided in the following formats:
 
-- [JupyterNotebook (R)](Notebook/the-promise-to-partner.ipnyb)
+- [JupyterNotebook (R)](Notebook/the-promise-to-partner.ipynb)
 - [PDF (via LuaLaTeX)](Notebook/the-promise-to-partner.pdf)
 - [org-mode](Notebook/the-promise-to-partner.org)
 - [Markdown](Notebook/the-promise-to-partner.md)
