@@ -20,5 +20,5 @@ Comments, corrections, and suggestions for improvement are welcome to be submitt
 
 Furthermore you find the solution snippets we used for the Hands-On-Workshop itself:
 
-- [JupyterNotebook](the-promise-to-partner-workshop.ipynb)
-- [Markdown](the-promise-to-partner-workshop.md)
+- [JupyterNotebook](the-promise-to-partner-Workshop.ipynb)
+- [Markdown](the-promise-to-partner-Workshop.md)
