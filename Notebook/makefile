@@ -1,4 +1,4 @@
-NAME = the-promise-to-partner
+NAME ?= the-promise-to-partner
 WORKSHOP = $(NAME)-workshop
 MAKE = make
 MYPATH = JupyterNotebook

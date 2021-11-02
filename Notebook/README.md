@@ -16,9 +16,21 @@ The [Makefile file](makefile) can be used to generate the various formats:
 - [Webpage](the-promise-to-partner.html)
 - [WebSlides](the-promise-to-partner.slides.html)
 
-Comments, corrections, and suggestions for improvement are welcome to be submitted as [_Pull Request_](https://github.com/LukasCBossert/das-versprechen-der-vernetzung/pulls) or entered at [_Issues_](https://github.com/LukasCBossert/das-versprechen-der-vernetzung/issues).
+Comments, corrections, and suggestions for improvement are welcome
+to be submitted as [_Pull Request_](https://github.com/LukasCBossert/das-versprechen-der-vernetzung/pulls)
+or entered at [_Issues_](https://github.com/LukasCBossert/das-versprechen-der-vernetzung/issues).
 
 Furthermore you find the solution snippets we used for the Hands-On-Workshop itself:
 
 - [JupyterNotebook](the-promise-to-partner-Workshop.ipynb)
 - [Markdown](the-promise-to-partner-Workshop.md)
+
+Thanks to community contribution the JupyterNotebook we used for the workshop is
+now available with a Python-Kernel.
+
+- [PDF (via LuaLaTeX)](the-promise-to-partner-Workshop_python.pdf)
+- [org-mode](the-promise-to-partner-Workshop_python.org)
+- [Markdown](the-promise-to-partner-Workshop_python.md)
+- [Python script](the-promise-to-partner-Workshop_python.py)
+- [Webpage](the-promise-to-partner-Workshop_python.html)
+- [WebSlides](the-promise-to-partner-Workshop_python.slides.html)
